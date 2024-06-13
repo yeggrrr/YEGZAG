@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		683211792C1B0E7F00EE24A6 /* PointButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211782C1B0E7F00EE24A6 /* PointButton.swift */; };
 		6832117C2C1B11EA00EE24A6 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832117B2C1B11EA00EE24A6 /* ProfileSettingViewController.swift */; };
+		6832117E2C1B16CB00EE24A6 /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832117D2C1B16CB00EE24A6 /* ProfileSettingView.swift */; };
+		683211802C1B1FB500EE24A6 /* NoticeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832117F2C1B1FB500EE24A6 /* NoticeLabel.swift */; };
+		683211832C1B20E600EE24A6 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211822C1B20E600EE24A6 /* UITextField+.swift */; };
 		68F162862C1AF7490059FA66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162852C1AF7490059FA66 /* AppDelegate.swift */; };
 		68F162882C1AF7490059FA66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162872C1AF7490059FA66 /* SceneDelegate.swift */; };
 		68F1628A2C1AF7490059FA66 /* OnBoardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162892C1AF7490059FA66 /* OnBoardingController.swift */; };
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		683211782C1B0E7F00EE24A6 /* PointButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointButton.swift; sourceTree = "<group>"; };
 		6832117B2C1B11EA00EE24A6 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
+		6832117D2C1B16CB00EE24A6 /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
+		6832117F2C1B1FB500EE24A6 /* NoticeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeLabel.swift; sourceTree = "<group>"; };
+		683211822C1B20E600EE24A6 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		68F162822C1AF7490059FA66 /* YEGZAG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YEGZAG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68F162852C1AF7490059FA66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68F162872C1AF7490059FA66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				683211782C1B0E7F00EE24A6 /* PointButton.swift */,
+				6832117F2C1B1FB500EE24A6 /* NoticeLabel.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -78,9 +85,18 @@
 		6832117A2C1B11C300EE24A6 /* ProfileSettingVC */ = {
 			isa = PBXGroup;
 			children = (
+				6832117D2C1B16CB00EE24A6 /* ProfileSettingView.swift */,
 				6832117B2C1B11EA00EE24A6 /* ProfileSettingViewController.swift */,
 			);
 			path = ProfileSettingVC;
+			sourceTree = "<group>";
+		};
+		683211812C1B20D400EE24A6 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				683211822C1B20E600EE24A6 /* UITextField+.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		68F162792C1AF7490059FA66 = {
@@ -107,6 +123,7 @@
 				68F162872C1AF7490059FA66 /* SceneDelegate.swift */,
 				68F1628E2C1AF74B0059FA66 /* Assets.xcassets */,
 				683211762C1B0E1A00EE24A6 /* LaunchScreen */,
+				683211812C1B20D400EE24A6 /* Extension */,
 				683211752C1B0DBB00EE24A6 /* CustomView */,
 				683211772C1B0E2900EE24A6 /* OnBoardingVC */,
 				6832117A2C1B11C300EE24A6 /* ProfileSettingVC */,
@@ -201,9 +218,12 @@
 			files = (
 				68F1628A2C1AF7490059FA66 /* OnBoardingController.swift in Sources */,
 				68F162862C1AF7490059FA66 /* AppDelegate.swift in Sources */,
+				6832117E2C1B16CB00EE24A6 /* ProfileSettingView.swift in Sources */,
 				68F1629C2C1AF7C00059FA66 /* APIKey.swift in Sources */,
 				68F162882C1AF7490059FA66 /* SceneDelegate.swift in Sources */,
 				683211792C1B0E7F00EE24A6 /* PointButton.swift in Sources */,
+				683211832C1B20E600EE24A6 /* UITextField+.swift in Sources */,
+				683211802C1B1FB500EE24A6 /* NoticeLabel.swift in Sources */,
 				6832117C2C1B11EA00EE24A6 /* ProfileSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

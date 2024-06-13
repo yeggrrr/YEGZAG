@@ -32,6 +32,7 @@ class OnBoardingController: UIViewController {
         logoLabel.snp.makeConstraints {
             $0.top.equalTo(safeArea).offset(110)
             $0.horizontalEdges.equalTo(safeArea).inset(20)
+            $0.height.equalTo(40)
         }
         
         startScreenImageView.snp.makeConstraints {
@@ -49,6 +50,10 @@ class OnBoardingController: UIViewController {
     func configureUI() {
         // view
         view.backgroundColor = .white
+        
+        // navigation
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
         
         logoLabel.text = "YEGZAG"
         logoLabel.textColor = .systemPink
