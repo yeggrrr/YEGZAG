@@ -91,7 +91,7 @@ class ImageSettingView: UIView {
         
         profileBorderView.layer.borderWidth = 3
         profileBorderView.layer.borderColor = UIColor.systemPink.cgColor
-        profileBorderView.alpha = 100
+        profileBorderView.layer.opacity = 1
         
         profileImageView.contentMode = .scaleAspectFill
         
