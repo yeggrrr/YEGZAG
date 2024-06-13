@@ -15,6 +15,10 @@
 		68F162922C1AF74B0059FA66 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 68F162912C1AF74B0059FA66 /* Base */; };
 		68F1629A2C1AF7A00059FA66 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 68F162992C1AF7A00059FA66 /* .gitignore */; };
 		68F1629C2C1AF7C00059FA66 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F1629B2C1AF7C00059FA66 /* APIKey.swift */; };
+		68F1629F2C1AFBB40059FA66 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 68F1629E2C1AFBB40059FA66 /* IQKeyboardManagerSwift */; };
+		68F162A22C1AFC060059FA66 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 68F162A12C1AFC060059FA66 /* Kingfisher */; };
+		68F162A52C1AFC270059FA66 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 68F162A42C1AFC270059FA66 /* Alamofire */; };
+		68F162A82C1AFC350059FA66 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 68F162A72C1AFC350059FA66 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +39,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68F162A52C1AFC270059FA66 /* Alamofire in Frameworks */,
+				68F162A82C1AFC350059FA66 /* SnapKit in Frameworks */,
+				68F162A22C1AFC060059FA66 /* Kingfisher in Frameworks */,
+				68F1629F2C1AFBB40059FA66 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +97,12 @@
 			dependencies = (
 			);
 			name = YEGZAG;
+			packageProductDependencies = (
+				68F1629E2C1AFBB40059FA66 /* IQKeyboardManagerSwift */,
+				68F162A12C1AFC060059FA66 /* Kingfisher */,
+				68F162A42C1AFC270059FA66 /* Alamofire */,
+				68F162A72C1AFC350059FA66 /* SnapKit */,
+			);
 			productName = YEGZAG;
 			productReference = 68F162822C1AF7490059FA66 /* YEGZAG.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +131,12 @@
 				Base,
 			);
 			mainGroup = 68F162792C1AF7490059FA66;
+			packageReferences = (
+				68F1629D2C1AFBB40059FA66 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				68F162A02C1AFC060059FA66 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				68F162A32C1AFC270059FA66 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				68F162A62C1AFC350059FA66 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 68F162832C1AF7490059FA66 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -377,6 +397,64 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		68F1629D2C1AFBB40059FA66 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.3;
+			};
+		};
+		68F162A02C1AFC060059FA66 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+		68F162A32C1AFC270059FA66 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		68F162A62C1AFC350059FA66 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		68F1629E2C1AFBB40059FA66 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68F1629D2C1AFBB40059FA66 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		68F162A12C1AFC060059FA66 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68F162A02C1AFC060059FA66 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		68F162A42C1AFC270059FA66 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68F162A32C1AFC270059FA66 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		68F162A72C1AFC350059FA66 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68F162A62C1AFC350059FA66 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 68F1627A2C1AF7490059FA66 /* Project object */;
 }
