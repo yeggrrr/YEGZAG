@@ -3,7 +3,6 @@
 //  YEGZAG
 //
 //  Created by YJ on 6/13/24.
-//
 
 import UIKit
 
@@ -14,6 +13,7 @@ class PointButton: UIButton {
         
         setTitle(title, for: .normal)
         setTitleColor(.white, for: .normal)
+        titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
         backgroundColor = .systemPink
         layer.cornerRadius = 20
     }
