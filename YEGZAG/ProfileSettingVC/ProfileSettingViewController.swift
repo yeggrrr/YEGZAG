@@ -1,5 +1,5 @@
 //
-//  ProfileSettingViewController.swift
+//  NicknameSettingViewController.swift
 //  YEGZAG
 //
 //  Created by YJ on 6/13/24.
@@ -8,8 +8,8 @@
 import UIKit
 import SnapKit
 
-class ProfileSettingViewController: UIViewController {
-    let profileSettingView = ProfileSettingView()
+class NicknameSettingViewController: UIViewController {
+    let nicknameSettingView = NicknameSettingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +23,13 @@ class ProfileSettingViewController: UIViewController {
         // navigation
         navigationItem.title = "프로필 설정"
         // profileSettingView
-        view.addSubview(profileSettingView)
+        view.addSubview(nicknameSettingView)
         
         let safeArea = view.safeAreaLayoutGuide
-        profileSettingView.snp.makeConstraints {
+        nicknameSettingView.snp.makeConstraints {
             $0.edges.equalTo(safeArea)
         }
-        profileSettingView.backgroundColor = .white
+        
+        nicknameSettingView.backgroundColor = .white
     }
 }

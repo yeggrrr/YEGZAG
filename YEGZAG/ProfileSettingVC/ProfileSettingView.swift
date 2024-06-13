@@ -1,5 +1,5 @@
 //
-//  ProfileSettingView.swift
+//  NicknameSettingView.swift
 //  YEGZAG
 //
 //  Created by YJ on 6/13/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileSettingView: UIView {
+class NicknameSettingView: UIView {
     let profileView = UIView()
     let profileImageView = UIImageView()
     let profileBorderView = UIView()

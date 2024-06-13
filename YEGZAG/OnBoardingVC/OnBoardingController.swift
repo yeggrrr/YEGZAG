@@ -67,7 +67,7 @@ class OnBoardingController: UIViewController {
     }
     
     @objc func startButtonClicked() {
-        navigationController?.pushViewController(ProfileSettingViewController(), animated: true)
+        navigationController?.pushViewController(NicknameSettingViewController(), animated: true)
     }
 }
 
