@@ -114,7 +114,7 @@ class ProfileSettingView: UIView {
         profileBorderView.layer.borderColor = UIColor.systemPink.cgColor
         profileBorderView.alpha = 100
         
-        profileImageView.image = UIImage(named: "profile_8")
+        profileImageView.image = UIImage(named: UIImage.random())
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.layer.cornerRadius = 50
         
