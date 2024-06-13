@@ -57,6 +57,12 @@ class OnBoardingController: UIViewController {
         
         startScreenImageView.image = UIImage(named: "launch")
         startScreenImageView.contentMode = .scaleAspectFill
+        
+        startButton.addTarget(self, action: #selector(startButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc func startButtonClicked() {
+        navigationController?.pushViewController(ProfileSettingViewController(), animated: true)
     }
 }
 
