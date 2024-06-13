@@ -13,6 +13,8 @@
 		68F1628D2C1AF7490059FA66 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 68F1628C2C1AF7490059FA66 /* Base */; };
 		68F1628F2C1AF74B0059FA66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68F1628E2C1AF74B0059FA66 /* Assets.xcassets */; };
 		68F162922C1AF74B0059FA66 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 68F162912C1AF74B0059FA66 /* Base */; };
+		68F1629A2C1AF7A00059FA66 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 68F162992C1AF7A00059FA66 /* .gitignore */; };
+		68F1629C2C1AF7C00059FA66 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F1629B2C1AF7C00059FA66 /* APIKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		68F1628E2C1AF74B0059FA66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68F162912C1AF74B0059FA66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68F162932C1AF74B0059FA66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		68F162992C1AF7A00059FA66 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		68F1629B2C1AF7C00059FA66 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +44,7 @@
 		68F162792C1AF7490059FA66 = {
 			isa = PBXGroup;
 			children = (
+				68F162992C1AF7A00059FA66 /* .gitignore */,
 				68F162842C1AF7490059FA66 /* YEGZAG */,
 				68F162832C1AF7490059FA66 /* Products */,
 			);
@@ -63,6 +68,7 @@
 				68F1628E2C1AF74B0059FA66 /* Assets.xcassets */,
 				68F162902C1AF74B0059FA66 /* LaunchScreen.storyboard */,
 				68F162932C1AF74B0059FA66 /* Info.plist */,
+				68F1629B2C1AF7C00059FA66 /* APIKey.swift */,
 			);
 			path = YEGZAG;
 			sourceTree = "<group>";
@@ -125,6 +131,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68F1629A2C1AF7A00059FA66 /* .gitignore in Resources */,
 				68F1628F2C1AF74B0059FA66 /* Assets.xcassets in Resources */,
 				68F162922C1AF74B0059FA66 /* Base in Resources */,
 				68F1628D2C1AF7490059FA66 /* Base in Resources */,
@@ -140,6 +147,7 @@
 			files = (
 				68F1628A2C1AF7490059FA66 /* ViewController.swift in Sources */,
 				68F162862C1AF7490059FA66 /* AppDelegate.swift in Sources */,
+				68F1629C2C1AF7C00059FA66 /* APIKey.swift in Sources */,
 				68F162882C1AF7490059FA66 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,9 +304,9 @@
 				INFOPLIST_FILE = YEGZAG/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,9 +314,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = YJ.YEGZAG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -323,9 +335,9 @@
 				INFOPLIST_FILE = YEGZAG/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -333,9 +345,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = YJ.YEGZAG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
