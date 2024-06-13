@@ -18,8 +18,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YEGZAG" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkC-gs-Rua">
-                                <rect key="frame" x="112" y="169" width="169" height="48"/>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="40"/>
+                                <rect key="frame" x="194.33333333333334" y="169" width="4.6666666666666572" height="48"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="1"/>
                                 <color key="textColor" systemColor="systemPinkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
