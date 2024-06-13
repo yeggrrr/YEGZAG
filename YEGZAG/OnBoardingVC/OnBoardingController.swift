@@ -30,14 +30,14 @@ class OnBoardingController: UIViewController {
     func configureLayout() {
         let safeArea = view.safeAreaLayoutGuide
         logoLabel.snp.makeConstraints {
-            $0.top.equalTo(safeArea).offset(110)
             $0.horizontalEdges.equalTo(safeArea).inset(20)
             $0.height.equalTo(40)
         }
         
         startScreenImageView.snp.makeConstraints {
+            $0.centerX.equalTo(safeArea.snp.centerX)
             $0.top.equalTo(logoLabel.snp.bottom).offset(90)
-            $0.center.equalTo(safeArea)
+            $0.bottom.equalTo(startButton.snp.top).offset(-150)
         }
         
         startButton.snp.makeConstraints {

@@ -18,16 +18,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YEGZAG" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkC-gs-Rua">
-                                <rect key="frame" x="20" y="169" width="353" height="48"/>
+                                <rect key="frame" x="20" y="184.66666666666666" width="353" height="60"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="50"/>
                                 <color key="textColor" systemColor="systemPinkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="e2E-6E-u8B">
-                                <rect key="frame" x="21.666666666666657" y="307" width="350" height="263.33333333333326"/>
+                                <rect key="frame" x="21.666666666666657" y="324.66666666666674" width="350" height="263.33333333333326"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="김예진" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pBU-vh-6gS">
-                                <rect key="frame" x="20" y="610.33333333333337" width="353" height="30"/>
+                                <rect key="frame" x="20" y="628" width="353" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="lEC-Qf-WKU"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -36,15 +39,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="kkC-gs-Rua" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="110" id="1lg-Qy-eFu"/>
+                            <constraint firstItem="e2E-6E-u8B" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="5DX-6l-zaZ"/>
                             <constraint firstItem="pBU-vh-6gS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="80o-KQ-wkJ"/>
-                            <constraint firstItem="e2E-6E-u8B" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="LMT-o0-uvg"/>
                             <constraint firstItem="kkC-gs-Rua" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="MCX-D1-beV"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pBU-vh-6gS" secondAttribute="bottom" constant="177.66666666666663" id="Nne-T0-J2c"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pBU-vh-6gS" secondAttribute="trailing" constant="20" id="S5y-7o-VOu"/>
-                            <constraint firstItem="e2E-6E-u8B" firstAttribute="top" secondItem="kkC-gs-Rua" secondAttribute="bottom" constant="90" id="eYx-PG-NUP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pBU-vh-6gS" secondAttribute="bottom" constant="140" id="VY3-rK-NAT"/>
+                            <constraint firstItem="e2E-6E-u8B" firstAttribute="top" secondItem="kkC-gs-Rua" secondAttribute="bottom" constant="80" id="eYx-PG-NUP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kkC-gs-Rua" secondAttribute="trailing" constant="20" id="gQW-ey-16c"/>
-                            <constraint firstItem="e2E-6E-u8B" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="gn3-sg-lMG"/>
                             <constraint firstItem="pBU-vh-6gS" firstAttribute="top" secondItem="e2E-6E-u8B" secondAttribute="bottom" constant="40" id="y4h-2S-gty"/>
                         </constraints>
                     </view>
