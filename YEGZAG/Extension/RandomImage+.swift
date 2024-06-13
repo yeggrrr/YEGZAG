@@ -1,5 +1,5 @@
 //
-//  RandomImage.swift
+//  RandomImage+.swift
 //  YEGZAG
 //
 //  Created by YJ on 6/13/24.

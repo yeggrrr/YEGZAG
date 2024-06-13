@@ -15,6 +15,7 @@ class NicknameSettingViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        profileTabGesture()
     }
     
     func configureUI() {
@@ -22,6 +23,8 @@ class NicknameSettingViewController: UIViewController {
         view.backgroundColor = .white
         // navigation
         navigationItem.title = "프로필 설정"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
         // profileSettingView
         view.addSubview(nicknameSettingView)
         
@@ -31,5 +34,15 @@ class NicknameSettingViewController: UIViewController {
         }
         
         nicknameSettingView.backgroundColor = .white
+    }
+    
+    func profileTabGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
+        nicknameSettingView.profileTabGestureView.addGestureRecognizer(tapGesture)
+        nicknameSettingView.profileTabGestureView.isUserInteractionEnabled = true
+    }
+    
+    @objc func profileImageTapped() {
+        navigationController?.pushViewController(ImageSettingViewController(), animated: true)
     }
 }

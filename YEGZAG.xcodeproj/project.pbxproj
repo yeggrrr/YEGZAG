@@ -12,7 +12,8 @@
 		6832117E2C1B16CB00EE24A6 /* NicknameSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832117D2C1B16CB00EE24A6 /* NicknameSettingView.swift */; };
 		683211802C1B1FB500EE24A6 /* NoticeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832117F2C1B1FB500EE24A6 /* NoticeLabel.swift */; };
 		683211832C1B20E600EE24A6 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211822C1B20E600EE24A6 /* UITextField+.swift */; };
-		683211852C1B281300EE24A6 /* RandomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211842C1B281300EE24A6 /* RandomImage.swift */; };
+		683211852C1B281300EE24A6 /* RandomImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211842C1B281300EE24A6 /* RandomImage+.swift */; };
+		683211872C1B2AF700EE24A6 /* ImageSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211862C1B2AF700EE24A6 /* ImageSettingViewController.swift */; };
 		68F162862C1AF7490059FA66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162852C1AF7490059FA66 /* AppDelegate.swift */; };
 		68F162882C1AF7490059FA66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162872C1AF7490059FA66 /* SceneDelegate.swift */; };
 		68F1628A2C1AF7490059FA66 /* OnBoardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162892C1AF7490059FA66 /* OnBoardingController.swift */; };
@@ -32,7 +33,8 @@
 		6832117D2C1B16CB00EE24A6 /* NicknameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingView.swift; sourceTree = "<group>"; };
 		6832117F2C1B1FB500EE24A6 /* NoticeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeLabel.swift; sourceTree = "<group>"; };
 		683211822C1B20E600EE24A6 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
-		683211842C1B281300EE24A6 /* RandomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomImage.swift; sourceTree = "<group>"; };
+		683211842C1B281300EE24A6 /* RandomImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RandomImage+.swift"; sourceTree = "<group>"; };
+		683211862C1B2AF700EE24A6 /* ImageSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSettingViewController.swift; sourceTree = "<group>"; };
 		68F162822C1AF7490059FA66 /* YEGZAG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YEGZAG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68F162852C1AF7490059FA66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68F162872C1AF7490059FA66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,8 +89,8 @@
 		6832117A2C1B11C300EE24A6 /* ProfileSettingVC */ = {
 			isa = PBXGroup;
 			children = (
-				6832117D2C1B16CB00EE24A6 /* NicknameSettingView.swift */,
-				6832117B2C1B11EA00EE24A6 /* NicknameSettingViewController.swift */,
+				683211882C1B2B1E00EE24A6 /* NicknameSetting */,
+				683211892C1B2B2D00EE24A6 /* ImageSetting */,
 			);
 			path = ProfileSettingVC;
 			sourceTree = "<group>";
@@ -97,9 +99,26 @@
 			isa = PBXGroup;
 			children = (
 				683211822C1B20E600EE24A6 /* UITextField+.swift */,
-				683211842C1B281300EE24A6 /* RandomImage.swift */,
+				683211842C1B281300EE24A6 /* RandomImage+.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		683211882C1B2B1E00EE24A6 /* NicknameSetting */ = {
+			isa = PBXGroup;
+			children = (
+				6832117D2C1B16CB00EE24A6 /* NicknameSettingView.swift */,
+				6832117B2C1B11EA00EE24A6 /* NicknameSettingViewController.swift */,
+			);
+			path = NicknameSetting;
+			sourceTree = "<group>";
+		};
+		683211892C1B2B2D00EE24A6 /* ImageSetting */ = {
+			isa = PBXGroup;
+			children = (
+				683211862C1B2AF700EE24A6 /* ImageSettingViewController.swift */,
+			);
+			path = ImageSetting;
 			sourceTree = "<group>";
 		};
 		68F162792C1AF7490059FA66 = {
@@ -219,11 +238,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				683211872C1B2AF700EE24A6 /* ImageSettingViewController.swift in Sources */,
 				68F1628A2C1AF7490059FA66 /* OnBoardingController.swift in Sources */,
 				68F162862C1AF7490059FA66 /* AppDelegate.swift in Sources */,
 				6832117E2C1B16CB00EE24A6 /* NicknameSettingView.swift in Sources */,
 				68F1629C2C1AF7C00059FA66 /* APIKey.swift in Sources */,
-				683211852C1B281300EE24A6 /* RandomImage.swift in Sources */,
+				683211852C1B281300EE24A6 /* RandomImage+.swift in Sources */,
 				68F162882C1AF7490059FA66 /* SceneDelegate.swift in Sources */,
 				683211792C1B0E7F00EE24A6 /* PointButton.swift in Sources */,
 				683211832C1B20E600EE24A6 /* UITextField+.swift in Sources */,

@@ -21,6 +21,8 @@ class NicknameSettingView: UIView {
     
     let completeButton = PointButton(title: "완료")
     
+    let profileTabGestureView = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -44,6 +46,7 @@ class NicknameSettingView: UIView {
         
         addSubview(camerView)
         camerView.addSubview(cameraImageView)
+        addSubview(profileTabGestureView)
         
         addSubview(nicknameTextField)
         addSubview(dividerView)
@@ -79,6 +82,10 @@ class NicknameSettingView: UIView {
         cameraImageView.snp.makeConstraints {
             $0.center.equalTo(camerView.snp.center)
             $0.width.height.equalTo(22)
+        }
+        
+        profileTabGestureView.snp.makeConstraints {
+            $0.edges.equalTo(profileBorderView)
         }
         
         nicknameTextField.snp.makeConstraints {
@@ -128,5 +135,8 @@ class NicknameSettingView: UIView {
         nicknameTextField.setProfileSettingTextField(placeholderText: "닉네임을 입력해주세요 :)")
         
         dividerView.backgroundColor = .systemGray4
+        
+        profileTabGestureView.backgroundColor = .clear
+        profileTabGestureView.layer.cornerRadius = 65
     }
 }
