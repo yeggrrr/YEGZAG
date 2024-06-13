@@ -1,5 +1,5 @@
 //
-//  NicknameSettingView.swift
+//  ImageSettingView.swift
 //  YEGZAG
 //
 //  Created by YJ on 6/13/24.
@@ -8,20 +8,14 @@
 import UIKit
 import SnapKit
 
-class NicknameSettingView: UIView {
+class ImageSettingView: UIView {
     let profileView = UIView()
     let profileImageView = UIImageView()
     let profileBorderView = UIView()
     let camerView = UIView()
     let cameraImageView = UIImageView()
     
-    let nicknameTextField = UITextField()
-    let dividerView = UIView()
-    let noticeLabel = NoticeLabel(txt: "닉네임에 @는 입력할 수 없어요", txtColor: .systemPink)
-    
-    let completeButton = PointButton(title: "완료")
-    
-    let profileTabGestureView = UIView()
+    let selectImageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collecionViewLayout())
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,16 +44,10 @@ class NicknameSettingView: UIView {
         addSubview(profileView)
         profileView.addSubview(profileBorderView)
         profileBorderView.addSubview(profileImageView)
-        
         addSubview(camerView)
         camerView.addSubview(cameraImageView)
-        addSubview(profileTabGestureView)
         
-        addSubview(nicknameTextField)
-        addSubview(dividerView)
-        addSubview(noticeLabel)
-        
-        addSubview(completeButton)
+        addSubview(selectImageCollectionView)
     }
     
     func configureLayout() {
@@ -91,32 +79,10 @@ class NicknameSettingView: UIView {
             $0.width.height.equalTo(22)
         }
         
-        profileTabGestureView.snp.makeConstraints {
-            $0.edges.equalTo(profileBorderView)
-        }
-        
-        nicknameTextField.snp.makeConstraints {
-            $0.top.equalTo(profileView.snp.bottom).offset(20)
-            $0.horizontalEdges.equalTo(safeArea).inset(10)
-            $0.height.equalTo(50)
-        }
-        
-        dividerView.snp.makeConstraints {
-            $0.top.equalTo(nicknameTextField.snp.bottom)
-            $0.horizontalEdges.equalTo(safeArea).inset(10)
-            $0.height.equalTo(1)
-        }
-        
-        noticeLabel.snp.makeConstraints {
-            $0.top.equalTo(dividerView.snp.bottom).offset(5)
-            $0.horizontalEdges.equalTo(safeArea).inset(20)
-            $0.height.equalTo(30)
-        }
-        
-        completeButton.snp.makeConstraints {
-            $0.top.equalTo(noticeLabel.snp.bottom).offset(10)
-            $0.horizontalEdges.equalTo(safeArea).inset(10)
-            $0.height.equalTo(50)
+        selectImageCollectionView.snp.makeConstraints {
+            $0.top.equalTo(profileView.snp.bottom).offset(30)
+            $0.horizontalEdges.equalTo(safeArea).inset(15)
+            $0.height.equalTo(300)
         }
     }
     
@@ -125,6 +91,7 @@ class NicknameSettingView: UIView {
         
         profileBorderView.layer.borderWidth = 3
         profileBorderView.layer.borderColor = UIColor.systemPink.cgColor
+        profileBorderView.alpha = 100
         
         profileImageView.contentMode = .scaleAspectFill
         
@@ -135,11 +102,20 @@ class NicknameSettingView: UIView {
         cameraImageView.tintColor = .white
         cameraImageView.layer.cornerRadius = 11
         
-        nicknameTextField.setProfileSettingTextField(placeholderText: "닉네임을 입력해주세요 :)")
-        
-        dividerView.backgroundColor = .systemGray4
-        
-        profileTabGestureView.backgroundColor = .clear
-        profileTabGestureView.layer.cornerRadius = 65
+        selectImageCollectionView.backgroundColor = .white
+        selectImageCollectionView.isScrollEnabled = false
+    }
+    
+    static func collecionViewLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        let sectionSpacing: CGFloat = 1
+        let cellSpacing: CGFloat = 1
+        let width = UIScreen.main.bounds.width - (sectionSpacing * 2) - (cellSpacing * 2) - 30
+        layout.itemSize = CGSize(width: width / 4, height: width / 4)
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = cellSpacing
+        layout.minimumInteritemSpacing = cellSpacing
+        layout.sectionInset = UIEdgeInsets(top: sectionSpacing, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
+        return layout
     }
 }
