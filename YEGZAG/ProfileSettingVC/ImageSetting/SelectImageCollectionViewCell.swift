@@ -51,6 +51,18 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
         
         profileImageView.image = UIImage(named: "profile_0")
         profileImageView.contentMode = .scaleAspectFill
-        
+    }
+    
+    func configureImage(imageName: String?) {
+        if let userProfileImageName = DataStorage.userProfileImageName,
+           imageName == userProfileImageName {
+            contentView.layer.opacity = 1
+            profileBorderView.layer.borderColor = UIColor.systemPink.cgColor
+            profileBorderView.layer.borderWidth = 3
+        } else {
+            contentView.layer.opacity = 0.5
+            profileBorderView.layer.borderColor = UIColor.black.cgColor
+            profileBorderView.layer.borderWidth = 1
+        }
     }
 }

@@ -8,5 +8,6 @@
 import Foundation
 
 struct DataStorage {
+    static var userProfileImageName: String?
     static let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
 }

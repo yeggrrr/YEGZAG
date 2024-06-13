@@ -10,7 +10,6 @@ import SnapKit
 
 class NicknameSettingViewController: UIViewController {
     let nicknameSettingView = NicknameSettingView()
-    var profileImageName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +17,11 @@ class NicknameSettingViewController: UIViewController {
         makeRandomProfileImageName()
         configureUI()
         profileTabGesture()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureUI()
     }
     
     func configureUI() {
@@ -37,7 +41,7 @@ class NicknameSettingViewController: UIViewController {
         
         nicknameSettingView.backgroundColor = .white
         
-        if let profileImageName = profileImageName {
+        if let profileImageName = DataStorage.userProfileImageName {
             nicknameSettingView.profileImageView.image = UIImage(named: profileImageName)
         } else {
             nicknameSettingView.profileImageView.image = UIImage(resource: .profile0)
@@ -45,7 +49,7 @@ class NicknameSettingViewController: UIViewController {
     }
     
     func makeRandomProfileImageName() {
-        profileImageName = DataStorage.profileImageNameList.randomElement()
+        DataStorage.userProfileImageName = DataStorage.profileImageNameList.randomElement()
     }
     
     
@@ -57,7 +61,6 @@ class NicknameSettingViewController: UIViewController {
     
     @objc func profileImageTapped() {
         let vc = ImageSettingViewController()
-        vc.currentProfileImageName = profileImageName
         navigationController?.pushViewController(vc, animated: true)
     }
 }
