@@ -57,17 +57,18 @@ class NicknameSettingViewController: UIViewController {
     
     func nicknameCondition() {
         guard let text  = nicknameSettingView.nicknameTextField.text else { return }
-        let stringToInt = Int(text)
-        if text.isEmpty {
-            nicknameSettingView.noticeLabel.text = ""
-        } else if text.count < 2 || text.count > 10 {
-            nicknameSettingView.noticeLabel.text = "2글자 이상 10글자 미만으로 설정해주세요"
-        } else if text.contains("@") || text.contains("#") || text.contains("$") || text.contains("%") {
-            nicknameSettingView.noticeLabel.text = "닉네임에 @, #, $, %는 포함할 수 없어요"
-        } else if stringToInt != nil {
-            nicknameSettingView.noticeLabel.text = "닉네임에 숫자는 포함할 수 없어요"
-        } else {
-            nicknameSettingView.noticeLabel.text = ""
+        for char in text {
+            if text.isEmpty {
+                nicknameSettingView.noticeLabel.text = ""
+            } else if text.count < 2 || text.count > 10 {
+                nicknameSettingView.noticeLabel.text = "2글자 이상 10글자 미만으로 설정해주세요"
+            } else if text.contains("@") || text.contains("#") || text.contains("$") || text.contains("%") {
+                nicknameSettingView.noticeLabel.text = "닉네임에 @, #, $, %는 포함할 수 없어요"
+            } else if Int(String(char)) != nil {
+                nicknameSettingView.noticeLabel.text = "닉네임에 숫자는 포함할 수 없어요"
+            } else {
+                nicknameSettingView.noticeLabel.text = "사용할 수 있는 닉네임이에요"
+            }
         }
     }
     
