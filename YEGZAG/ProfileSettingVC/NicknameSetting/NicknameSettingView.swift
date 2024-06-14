@@ -136,7 +136,7 @@ class NicknameSettingView: UIView {
         cameraImageView.tintColor = .white
         cameraImageView.layer.cornerRadius = 11
         
-        nicknameTextField.setProfileSettingTextField(placeholderText: "닉네임을 입력해주세요 :)")
+        nicknameTextField.setTextField(placeholderText: "닉네임을 입력해주세요 :)")
         
         noticeLabel.text = ""
         noticeLabel.textColor = .systemPink

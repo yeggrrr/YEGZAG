@@ -8,7 +8,7 @@
 import UIKit
 
 extension UITextField {
-    func setProfileSettingTextField(placeholderText: String) {
+    func setTextField(placeholderText: String) {
         placeholder = placeholderText
         borderStyle = .none
         textAlignment = .left

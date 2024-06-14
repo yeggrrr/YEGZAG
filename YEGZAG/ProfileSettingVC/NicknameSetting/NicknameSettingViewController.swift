@@ -33,7 +33,7 @@ class NicknameSettingViewController: UIViewController {
         navigationItem.backBarButtonItem?.tintColor = .black
         // textField
         nicknameSettingView.nicknameTextField.delegate = self
-        
+
         // profileSettingView
         view.addSubview(nicknameSettingView)
         
@@ -49,6 +49,10 @@ class NicknameSettingViewController: UIViewController {
         } else {
             nicknameSettingView.profileImageView.image = UIImage(resource: .profile0)
         }
+        
+        // completButton
+        nicknameSettingView.completeButton.isEnabled = false
+        nicknameSettingView.completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
     }
     
     func makeRandomProfileImageName() {
@@ -68,6 +72,7 @@ class NicknameSettingViewController: UIViewController {
                 nicknameSettingView.noticeLabel.text = "닉네임에 숫자는 포함할 수 없어요"
             } else {
                 nicknameSettingView.noticeLabel.text = "사용할 수 있는 닉네임이에요"
+                nicknameSettingView.completeButton.isEnabled = true
             }
         }
     }
@@ -81,6 +86,16 @@ class NicknameSettingViewController: UIViewController {
     @objc func profileImageTapped() {
         let vc = ImageSettingViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func completeButtonClicked() {
+        DataStorage.userName = nicknameSettingView.nicknameTextField.text
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+
+        let vc = YEGZAGTabBarController()
+        sceneDelegate?.window?.rootViewController = vc
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
 }
 
