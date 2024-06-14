@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
         configureHierarchy()
         configureLayout()
         configureUI()
+        congfigureSearchBar()
         configureTableView()
         // searchListView.isHidden = true
     }
@@ -43,6 +44,10 @@ class MainViewController: UIViewController {
         searchListTableView.dataSource = self
         searchListTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.id)
         searchListTableView.separatorStyle = .none
+    }
+    
+    func congfigureSearchBar() {
+        searchBar.delegate = self
     }
     
     func configureHierarchy() {
@@ -125,12 +130,23 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return DataStorage.searchItemList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.id, for: indexPath) as? SearchTableViewCell else { return UITableViewCell() }
+        let itemList = DataStorage.searchItemList
         cell.selectionStyle = .none
+        cell.itemLabel.text = itemList.reversed()[indexPath.row]
         return cell
+    }
+}
+
+extension MainViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print(#function)
+        guard let text = searchBar.text else { return }
+        DataStorage.searchItemList.append(text)
+        searchListTableView.reloadData()
     }
 }
