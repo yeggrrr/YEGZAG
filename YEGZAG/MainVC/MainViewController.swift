@@ -35,6 +35,8 @@ class MainViewController: UIViewController {
         // view
         view.backgroundColor = .white
         // naviation
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem?.tintColor = .black
         guard let userName = DataStorage.userName else { return }
         navigationItem.title = "\(userName)'s YEGZAG"
     }
@@ -165,5 +167,8 @@ extension MainViewController: UISearchBarDelegate {
         DataStorage.searchItemList.append(text)
         searchListTableView.reloadData()
         searchBar.text = ""
+        
+        let searchResultVC = SearchResultViewController()
+        navigationController?.pushViewController(searchResultVC, animated: true)
     }
 }
