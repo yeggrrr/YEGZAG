@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
         configureLayout()
         configureUI()
         configureTableView()
+        // searchListView.isHidden = true
     }
     
     func configureView() {
@@ -109,10 +110,7 @@ class MainViewController: UIViewController {
         noneRecentSearchLabel.textColor = .label
         noneRecentSearchLabel.font = .systemFont(ofSize: 20, weight: .black)
         noneRecentSearchLabel.textAlignment = .center
-        
-        searchListView.backgroundColor = .systemGray6
-        topLabelView.backgroundColor = .systemGray4
-        
+        // searchListUI
         recentSearchLabel.text = "최근 검색"
         recentSearchLabel.font = .systemFont(ofSize: 17, weight: .bold)
         removeAllButton.setTitle("전체 삭제", for: .normal)
@@ -121,6 +119,10 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
