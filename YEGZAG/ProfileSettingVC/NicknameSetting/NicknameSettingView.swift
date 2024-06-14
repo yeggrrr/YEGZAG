@@ -17,7 +17,8 @@ class NicknameSettingView: UIView {
     
     let nicknameTextField = UITextField()
     let dividerView = UIView()
-    let noticeLabel = NoticeLabel(txt: "닉네임에 @는 입력할 수 없어요", txtColor: .systemPink)
+    let noticeLabel = UILabel()
+    // let noticeLabel = NoticeLabel(txt: "닉네임에 @는 입력할 수 없어요", txtColor: .systemPink)
     
     let completeButton = PointButton(title: "완료")
     
@@ -136,6 +137,11 @@ class NicknameSettingView: UIView {
         cameraImageView.layer.cornerRadius = 11
         
         nicknameTextField.setProfileSettingTextField(placeholderText: "닉네임을 입력해주세요 :)")
+        
+        noticeLabel.text = ""
+        noticeLabel.textColor = .systemPink
+        noticeLabel.font = .systemFont(ofSize: 13)
+        noticeLabel.textAlignment = .left
         
         dividerView.backgroundColor = .systemGray4
         
