@@ -42,6 +42,7 @@ class MainViewController: UIViewController {
         searchListTableView.delegate = self
         searchListTableView.dataSource = self
         searchListTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.id)
+        searchListTableView.separatorStyle = .none
     }
     
     func configureHierarchy() {
@@ -129,6 +130,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.id, for: indexPath) as? SearchTableViewCell else { return UITableViewCell() }
+        cell.selectionStyle = .none
         return cell
     }
 }
