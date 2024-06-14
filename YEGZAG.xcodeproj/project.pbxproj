@@ -16,6 +16,9 @@
 		683211912C1B401700EE24A6 /* SelectImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211902C1B401700EE24A6 /* SelectImageCollectionViewCell.swift */; };
 		683211932C1B404400EE24A6 /* ReusableProtocol+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211922C1B404400EE24A6 /* ReusableProtocol+.swift */; };
 		683211952C1B522500EE24A6 /* DataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211942C1B522500EE24A6 /* DataStorage.swift */; };
+		683211992C1C4D4700EE24A6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211982C1C4D4700EE24A6 /* MainViewController.swift */; };
+		6832119C2C1C76E100EE24A6 /* YEGZAGTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832119B2C1C76E100EE24A6 /* YEGZAGTabBarController.swift */; };
+		6832119F2C1C77D900EE24A6 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832119E2C1C77D900EE24A6 /* SettingViewController.swift */; };
 		68F162862C1AF7490059FA66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162852C1AF7490059FA66 /* AppDelegate.swift */; };
 		68F162882C1AF7490059FA66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162872C1AF7490059FA66 /* SceneDelegate.swift */; };
 		68F1628A2C1AF7490059FA66 /* OnBoardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162892C1AF7490059FA66 /* OnBoardingController.swift */; };
@@ -39,6 +42,9 @@
 		683211902C1B401700EE24A6 /* SelectImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		683211922C1B404400EE24A6 /* ReusableProtocol+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReusableProtocol+.swift"; sourceTree = "<group>"; };
 		683211942C1B522500EE24A6 /* DataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorage.swift; sourceTree = "<group>"; };
+		683211982C1C4D4700EE24A6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		6832119B2C1C76E100EE24A6 /* YEGZAGTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YEGZAGTabBarController.swift; sourceTree = "<group>"; };
+		6832119E2C1C77D900EE24A6 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		68F162822C1AF7490059FA66 /* YEGZAG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YEGZAG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68F162852C1AF7490059FA66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68F162872C1AF7490059FA66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +140,30 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		683211972C1C4D1400EE24A6 /* MainVC */ = {
+			isa = PBXGroup;
+			children = (
+				683211982C1C4D4700EE24A6 /* MainViewController.swift */,
+			);
+			path = MainVC;
+			sourceTree = "<group>";
+		};
+		6832119A2C1C76B400EE24A6 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				6832119B2C1C76E100EE24A6 /* YEGZAGTabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		6832119D2C1C77B700EE24A6 /* SettingVC */ = {
+			isa = PBXGroup;
+			children = (
+				6832119E2C1C77D900EE24A6 /* SettingViewController.swift */,
+			);
+			path = SettingVC;
+			sourceTree = "<group>";
+		};
 		68F162792C1AF7490059FA66 = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +193,9 @@
 				683211752C1B0DBB00EE24A6 /* CustomView */,
 				683211772C1B0E2900EE24A6 /* OnBoardingVC */,
 				6832117A2C1B11C300EE24A6 /* ProfileSettingVC */,
+				683211972C1C4D1400EE24A6 /* MainVC */,
+				6832119D2C1C77B700EE24A6 /* SettingVC */,
+				6832119A2C1C76B400EE24A6 /* TabBar */,
 				68F162932C1AF74B0059FA66 /* Info.plist */,
 				68F1629B2C1AF7C00059FA66 /* APIKey.swift */,
 			);
@@ -255,10 +288,13 @@
 				683211872C1B2AF700EE24A6 /* ImageSettingViewController.swift in Sources */,
 				683211912C1B401700EE24A6 /* SelectImageCollectionViewCell.swift in Sources */,
 				6832118B2C1B32E600EE24A6 /* ImageSettingView.swift in Sources */,
+				6832119F2C1C77D900EE24A6 /* SettingViewController.swift in Sources */,
+				6832119C2C1C76E100EE24A6 /* YEGZAGTabBarController.swift in Sources */,
 				68F1628A2C1AF7490059FA66 /* OnBoardingController.swift in Sources */,
 				68F162862C1AF7490059FA66 /* AppDelegate.swift in Sources */,
 				6832117E2C1B16CB00EE24A6 /* NicknameSettingView.swift in Sources */,
 				68F1629C2C1AF7C00059FA66 /* APIKey.swift in Sources */,
+				683211992C1C4D4700EE24A6 /* MainViewController.swift in Sources */,
 				683211932C1B404400EE24A6 /* ReusableProtocol+.swift in Sources */,
 				68F162882C1AF7490059FA66 /* SceneDelegate.swift in Sources */,
 				683211792C1B0E7F00EE24A6 /* PointButton.swift in Sources */,
