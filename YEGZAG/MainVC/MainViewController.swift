@@ -121,6 +121,13 @@ class MainViewController: UIViewController {
         recentSearchLabel.font = .systemFont(ofSize: 17, weight: .bold)
         removeAllButton.setTitle("전체 삭제", for: .normal)
         removeAllButton.setTitleColor(UIColor.systemPink, for: .normal)
+        
+        removeAllButton.addTarget(self, action: #selector(removeAllButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc func removeAllButtonClicked() {
+        DataStorage.searchItemList.removeAll()
+        searchListTableView.reloadData()
     }
 }
 
@@ -136,9 +143,18 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.id, for: indexPath) as? SearchTableViewCell else { return UITableViewCell() }
         let itemList = DataStorage.searchItemList
+        cell.deleteButton.tag = indexPath.row
         cell.selectionStyle = .none
         cell.itemLabel.text = itemList.reversed()[indexPath.row]
+        cell.deleteButton.addTarget(self, action: #selector(deleteButtonClicked(_:)), for: .touchUpInside)
         return cell
+    }
+    
+    @objc func deleteButtonClicked(_ sender: UIButton) {
+        let index = sender.tag
+        print(DataStorage.searchItemList, DataStorage.searchItemList.count - index)
+        DataStorage.searchItemList.remove(at: DataStorage.searchItemList.count - index - 1)
+        searchListTableView.reloadData()
     }
 }
 
@@ -148,5 +164,6 @@ extension MainViewController: UISearchBarDelegate {
         guard let text = searchBar.text else { return }
         DataStorage.searchItemList.append(text)
         searchListTableView.reloadData()
+        searchBar.text = ""
     }
 }
