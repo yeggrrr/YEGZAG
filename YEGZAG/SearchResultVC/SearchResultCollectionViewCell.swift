@@ -16,8 +16,6 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     let itemNameLabel = UILabel()
     let itemPriceLabel = UILabel()
     
-    var index: Int?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -103,8 +101,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         itemPriceLabel.textAlignment = .left
     }
     
-    func configureCell(itemList: [Items]) {
-        guard let index = index else { return }
+    func configureCell(itemList: [Items], index: Int) {
         let itemImage = itemList[index].image
         let itemImageURL = URL(string: itemImage)
     

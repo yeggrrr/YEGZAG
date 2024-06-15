@@ -18,12 +18,11 @@ class SearchResultViewController: UIViewController {
     let lowestPriceButton = FilterButton(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
     
     let resultCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
-    
-    var resultList: [Items] = []
+    var searchText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureView()
         configureHierarchy()
         configureLayout()
@@ -102,6 +101,11 @@ class SearchResultViewController: UIViewController {
         filterButtonStackView.spacing = 10
         filterButtonStackView.alignment = .leading
         filterButtonStackView.distribution = .fillProportionally
+        
+        accuracyButton.addTarget(self, action: #selector(accuracyButtonClicked), for: .touchUpInside)
+        dateButton.addTarget(self, action: #selector(dateButtonClicked), for: .touchUpInside)
+        highestPriceButton.addTarget(self, action: #selector(highestButtonClicked), for: .touchUpInside)
+        lowestPriceButton.addTarget(self, action: #selector(lowestButtonClicked), for: .touchUpInside)
     }
     
     static func CollecionViewLayout() -> UICollectionViewLayout {
@@ -116,17 +120,45 @@ class SearchResultViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
         return layout
     }
+    
+    @objc func accuracyButtonClicked() {
+        sortData(type: .sim)
+    }
+    
+    @objc func dateButtonClicked() {
+        sortData(type: .date)
+    }
+    
+    @objc func highestButtonClicked() {
+        sortData(type: .dsc)
+    }
+    
+    @objc func lowestButtonClicked() {
+        sortData(type: .asc)
+    }
+    
+    func sortData(type: SortType) {
+        guard let searchText = searchText else { return }
+        APICall.shared.searchShopData(query: searchText, sort: type) { shopping in
+            guard let shopping = shopping else { return }
+            DataStorage.shoppingList = shopping
+            self.resultCollecionView.reloadData()
+        }
+    }
 }
 
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return resultList.count
+        guard let items = DataStorage.shoppingList?.items else { return 0 }
+        return items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.id, for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
-        cell.index = indexPath.item
-        cell.configureCell(itemList: resultList)
+        if let items = DataStorage.shoppingList?.items {
+            cell.configureCell(itemList: items, index: indexPath.item)
+        }
+        
         return cell
     }
     

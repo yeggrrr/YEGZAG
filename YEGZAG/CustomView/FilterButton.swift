@@ -8,7 +8,6 @@
 import UIKit
 
 class FilterButton: UIButton {
-    
     init(title: String, bgColor: UIColor, textColor: UIColor) {
         super.init(frame: .zero)
         
