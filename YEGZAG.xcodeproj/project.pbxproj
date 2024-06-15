@@ -24,6 +24,7 @@
 		683211A62C1DBA4A00EE24A6 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211A52C1DBA4A00EE24A6 /* FilterButton.swift */; };
 		683211AA2C1DC28300EE24A6 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211A92C1DC28300EE24A6 /* SearchResultCollectionViewCell.swift */; };
 		686295002C1DDCB800EE296D /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686294FF2C1DDCB800EE296D /* ItemDetailViewController.swift */; };
+		686295032C1DE5C000EE296D /* ShoppingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686295022C1DE5C000EE296D /* ShoppingData.swift */; };
 		68F162862C1AF7490059FA66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162852C1AF7490059FA66 /* AppDelegate.swift */; };
 		68F162882C1AF7490059FA66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162872C1AF7490059FA66 /* SceneDelegate.swift */; };
 		68F1628A2C1AF7490059FA66 /* OnBoardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162892C1AF7490059FA66 /* OnBoardingController.swift */; };
@@ -55,6 +56,7 @@
 		683211A52C1DBA4A00EE24A6 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		683211A92C1DC28300EE24A6 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		686294FF2C1DDCB800EE296D /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
+		686295022C1DE5C000EE296D /* ShoppingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingData.swift; sourceTree = "<group>"; };
 		68F162822C1AF7490059FA66 /* YEGZAG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YEGZAG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68F162852C1AF7490059FA66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68F162872C1AF7490059FA66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +188,14 @@
 			path = SearchResultVC;
 			sourceTree = "<group>";
 		};
+		686295012C1DE5A500EE296D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				686295022C1DE5C000EE296D /* ShoppingData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		68F162792C1AF7490059FA66 = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +219,7 @@
 				68F162852C1AF7490059FA66 /* AppDelegate.swift */,
 				68F162872C1AF7490059FA66 /* SceneDelegate.swift */,
 				68F1628E2C1AF74B0059FA66 /* Assets.xcassets */,
+				686295012C1DE5A500EE296D /* Model */,
 				683211762C1B0E1A00EE24A6 /* LaunchScreen */,
 				683211812C1B20D400EE24A6 /* Extension */,
 				683211962C1B5C9F00EE24A6 /* Storage */,
@@ -319,6 +330,7 @@
 				686295002C1DDCB800EE296D /* ItemDetailViewController.swift in Sources */,
 				6832117E2C1B16CB00EE24A6 /* NicknameSettingView.swift in Sources */,
 				68F1629C2C1AF7C00059FA66 /* APIKey.swift in Sources */,
+				686295032C1DE5C000EE296D /* ShoppingData.swift in Sources */,
 				683211992C1C4D4700EE24A6 /* MainViewController.swift in Sources */,
 				683211A42C1CA45B00EE24A6 /* SearchResultViewController.swift in Sources */,
 				683211932C1B404400EE24A6 /* ReusableProtocol+.swift in Sources */,

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Alamofire
 
 class MainViewController: UIViewController {
     let searchBar = UISearchBar()
@@ -29,6 +30,7 @@ class MainViewController: UIViewController {
         congfigureSearchBar()
         configureTableView()
         // searchListView.isHidden = true
+        getData(query: "아이폰")
     }
     
     func configureView() {
@@ -125,6 +127,29 @@ class MainViewController: UIViewController {
         removeAllButton.setTitleColor(UIColor.systemPink, for: .normal)
         
         removeAllButton.addTarget(self, action: #selector(removeAllButtonClicked), for: .touchUpInside)
+    }
+    
+    func getData(query: String) {
+        print(#function)
+        let url = APIURL.shoppingURL
+        let header: HTTPHeaders = [
+            "X-Naver-Client-Id": APIKey.naverID,
+            "X-Naver-Client-Secret": APIKey.naverSecret
+        ]
+        
+        let param: Parameters = [
+            "query": query
+        ]
+        
+        AF.request(url, method: .get, parameters: param, headers: header).responseDecodable(of: Shopping.self) { response in
+            switch response.result {
+            case .success(let value):
+                print("SUCCESS")
+                dump(value)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     @objc func removeAllButtonClicked() {
