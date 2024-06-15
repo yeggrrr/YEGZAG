@@ -12,10 +12,10 @@ class SearchResultViewController: UIViewController {
     let topElementView = UIView()
     let entireResultCountLabel = UILabel()
     let filterButtonStackView = UIStackView()
-    let accuracyButton = FilterButton(title: "  정확도  ", bgColor: .darkGray, textColor: .white)
-    let dateButton = FilterButton(title: "  날짜순  ", bgColor: .white, textColor: .label)
-    let highestPriceButton = FilterButton(title: "  가격높은순  ", bgColor: .white, textColor: .label)
-    let lowestPriceButton = FilterButton(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
+    let accuracyButton = UIButton()
+    let dateButton = UIButton()
+    let highestPriceButton = UIButton()
+    let lowestPriceButton = UIButton()
     
     let resultCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
     var searchText: String?
@@ -102,6 +102,11 @@ class SearchResultViewController: UIViewController {
         filterButtonStackView.alignment = .leading
         filterButtonStackView.distribution = .fillProportionally
         
+        accuracyButton.setUI(title: "  정확도  ", bgColor: .darkGray, textColor: .white)
+        dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
+        highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
+        lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
+        
         accuracyButton.addTarget(self, action: #selector(accuracyButtonClicked), for: .touchUpInside)
         dateButton.addTarget(self, action: #selector(dateButtonClicked), for: .touchUpInside)
         highestPriceButton.addTarget(self, action: #selector(highestButtonClicked), for: .touchUpInside)
@@ -123,18 +128,34 @@ class SearchResultViewController: UIViewController {
     
     @objc func accuracyButtonClicked() {
         sortData(type: .sim)
+        accuracyButton.setUI(title: "  정확도  ", bgColor: .darkGray, textColor: .white)
+        dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
+        highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
+        lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
     }
     
     @objc func dateButtonClicked() {
         sortData(type: .date)
+        accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
+        dateButton.setUI(title: "  날짜순  ", bgColor: .darkGray, textColor: .white)
+        highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
+        lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
     }
     
     @objc func highestButtonClicked() {
         sortData(type: .dsc)
+        accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
+        dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
+        highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .darkGray, textColor: .white)
+        lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
     }
     
     @objc func lowestButtonClicked() {
         sortData(type: .asc)
+        accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
+        dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
+        highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
+        lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .darkGray, textColor: .white)
     }
     
     func sortData(type: SortType) {
