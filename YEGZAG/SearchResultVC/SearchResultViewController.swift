@@ -34,6 +34,8 @@ class SearchResultViewController: UIViewController {
         view.backgroundColor = .white
         // navigation
         navigationItem.title = "검색한 아이템 이름"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
     }
     
     func configureCollecionView() {
@@ -121,5 +123,9 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.id, for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        navigationController?.pushViewController(ItemDetailViewController(), animated: true)
     }
 }

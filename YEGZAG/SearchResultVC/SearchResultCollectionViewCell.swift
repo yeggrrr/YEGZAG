@@ -18,7 +18,6 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .systemGray6
         configureHierarchy()
         configureLayout()
         configureUI()
@@ -84,7 +83,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         wishButton.layer.cornerRadius = 10
         
         shopNameLabel.text = "네이버"
-        shopNameLabel.textColor = .systemGray3
+        shopNameLabel.textColor = .systemGray2
         shopNameLabel.font = .systemFont(ofSize: 13, weight: .regular)
         shopNameLabel.textAlignment = .left
         
@@ -96,7 +95,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         
         itemPriceLabel.text = "22,800원"
         itemPriceLabel.textColor = .label
-        itemPriceLabel.font = .systemFont(ofSize: 15, weight: .black)
+        itemPriceLabel.font = .systemFont(ofSize: 15, weight: .bold)
         itemPriceLabel.textAlignment = .left
     }
 }
