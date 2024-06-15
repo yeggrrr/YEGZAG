@@ -36,7 +36,7 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
         // naviation
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        navigationItem.rightBarButtonItem?.tintColor = .black
+        navigationItem.backBarButtonItem?.tintColor = .black
         guard let userName = DataStorage.userName else { return }
         navigationItem.title = "\(userName)'s YEGZAG"
     }
