@@ -19,6 +19,8 @@ class SearchResultViewController: UIViewController {
     
     let resultCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
     
+    var resultList: [Items] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -90,7 +92,8 @@ class SearchResultViewController: UIViewController {
     }
     
     func configureUI() {
-        entireResultCountLabel.text = "345,445개의 검색 결과"
+        let resultCount = DataStorage.shoppingList?.total ?? 0
+        entireResultCountLabel.text = "\(resultCount.formatted())개의 검색 결과"
         entireResultCountLabel.font = .systemFont(ofSize: 16, weight: .bold)
         entireResultCountLabel.textColor = .systemPink
         entireResultCountLabel.textAlignment = .left
@@ -117,11 +120,13 @@ class SearchResultViewController: UIViewController {
 
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        return resultList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.id, for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
+        cell.index = indexPath.item
+        cell.configureCell(itemList: resultList)
         return cell
     }
     

@@ -144,7 +144,6 @@ class MainViewController: UIViewController {
     }
     
     func getData(query: String, sort: String, completion: @escaping([Items]) -> Void) {
-        print(#function)
         let url = APIURL.shoppingURL
         let header: HTTPHeaders = [
             "X-Naver-Client-Id": APIKey.naverID,
@@ -160,6 +159,7 @@ class MainViewController: UIViewController {
         AF.request(url, method: .get, parameters: param, headers: header).responseDecodable(of: Shopping.self) { response in
             switch response.result {
             case .success(let value):
+                DataStorage.shoppingList = value
                 self.searchList = value.items
                 completion(value.items)
             case .failure(let error):
@@ -195,7 +195,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc func deleteButtonClicked(_ sender: UIButton) {
         let index = sender.tag
-        print(DataStorage.searchItemTitleList, DataStorage.searchItemTitleList.count - index)
         DataStorage.searchItemTitleList.remove(at: DataStorage.searchItemTitleList.count - index - 1)
         searchListTableView.reloadData()
     }
@@ -205,7 +204,6 @@ extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
         getData(query: text, sort: SortType.sim.rawValue) { result in
-            print(result)
             if self.searchList.count == 0 && text != "" {
                 self.searchListView.isHidden = true
                 DataStorage.searchItemTitleList.append(text)
@@ -213,7 +211,8 @@ extension MainViewController: UISearchBarDelegate {
                 self.searchListView.isHidden = false
                 DataStorage.searchItemTitleList.append(text)
                 searchBar.text = ""
-                let searchResultVC = SearchResultViewController()
+                let searchResultVC  = SearchResultViewController()
+                searchResultVC.resultList = self.searchList
                 self.navigationController?.pushViewController(searchResultVC, animated: true)
             }
         }

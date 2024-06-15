@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class SearchResultCollectionViewCell: UICollectionViewCell {
     let itemImageView = UIImageView()
@@ -14,6 +15,8 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     let shopNameLabel = UILabel()
     let itemNameLabel = UILabel()
     let itemPriceLabel = UILabel()
+    
+    var index: Int?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,8 +76,9 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     }
     
     func configureUI() {
-        itemImageView.backgroundColor = .systemGray4
         itemImageView.layer.cornerRadius = 10
+        itemImageView.contentMode = .scaleAspectFill
+        itemImageView.clipsToBounds = true
         
         wishButton.backgroundColor = .systemGray2
         wishButton.setImage(UIImage(named: "like_unselected"), for: .normal)
@@ -83,7 +87,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         wishButton.layer.cornerRadius = 10
         
         shopNameLabel.text = "네이버"
-        shopNameLabel.textColor = .systemGray2
+        shopNameLabel.textColor = .systemGray
         shopNameLabel.font = .systemFont(ofSize: 13, weight: .regular)
         shopNameLabel.textAlignment = .left
         
@@ -97,5 +101,20 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         itemPriceLabel.textColor = .label
         itemPriceLabel.font = .systemFont(ofSize: 15, weight: .bold)
         itemPriceLabel.textAlignment = .left
+    }
+    
+    func configureCell(itemList: [Items]) {
+        guard let index = index else { return }
+        let itemImage = itemList[index].image
+        let itemImageURL = URL(string: itemImage)
+    
+        itemImageView.kf.setImage(with: itemImageURL)
+        
+        shopNameLabel.text = itemList[index].mallName
+        itemNameLabel.text = itemList[index].title
+        
+        if let stringToInt = Int(itemList[index].lprice) {
+            itemPriceLabel.text = "\(stringToInt.formatted())원"
+        }
     }
 }
