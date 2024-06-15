@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 import Alamofire
 
-// 정확도: sim, 날짜순: date, 가격높은순: dsc, 가격낮은순: asc
 enum SortType: String {
     case sim
     case date
@@ -174,19 +173,20 @@ extension MainViewController: UISearchBarDelegate {
         APICall.shared.searchShopData(query: text, sort: .sim) { shopping in
             guard let shopping = shopping else { return }
             DataStorage.shoppingList = shopping
-            self.searchListTableView.reloadData()
             
             if shopping.items.count == 0 && text != "" {
                 self.searchListView.isHidden = true
                 DataStorage.searchItemTitleList.append(text)
             } else {
                 self.searchListView.isHidden = false
-                DataStorage.searchItemTitleList.append(text)
                 searchBar.text = ""
                 let searchResultVC  = SearchResultViewController()
                 searchResultVC.searchText = text
                 self.navigationController?.pushViewController(searchResultVC, animated: true)
             }
+            
+            DataStorage.searchItemTitleList.append(text)
+            self.searchListTableView.reloadData()
         }
     }
 }
