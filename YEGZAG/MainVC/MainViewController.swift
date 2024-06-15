@@ -30,7 +30,7 @@ class MainViewController: UIViewController {
         congfigureSearchBar()
         configureTableView()
         // searchListView.isHidden = true
-        getData(query: "아이폰")
+        getData(query: "아이폰", sort: "sim")
     }
     
     func configureView() {
@@ -129,7 +129,7 @@ class MainViewController: UIViewController {
         removeAllButton.addTarget(self, action: #selector(removeAllButtonClicked), for: .touchUpInside)
     }
     
-    func getData(query: String) {
+    func getData(query: String, sort: String) {
         print(#function)
         let url = APIURL.shoppingURL
         let header: HTTPHeaders = [
@@ -138,7 +138,9 @@ class MainViewController: UIViewController {
         ]
         
         let param: Parameters = [
-            "query": query
+            "query": query,
+            "display": 30,
+            "sort": sort // 정확도: sim, 날짜순: date, 가격높은순: dsc, 가격낮은순: asc
         ]
         
         AF.request(url, method: .get, parameters: param, headers: header).responseDecodable(of: Shopping.self) { response in
