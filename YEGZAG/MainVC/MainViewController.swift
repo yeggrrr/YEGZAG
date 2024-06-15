@@ -9,6 +9,14 @@ import UIKit
 import SnapKit
 import Alamofire
 
+// 정확도: sim, 날짜순: date, 가격높은순: dsc, 가격낮은순: asc
+enum SortType: String {
+    case sim = "sim"
+    case date
+    case dsc
+    case asc
+}
+
 class MainViewController: UIViewController {
     let searchBar = UISearchBar()
     let noneRecentSearchImageView = UIImageView()
@@ -20,6 +28,14 @@ class MainViewController: UIViewController {
     let removeAllButton = UIButton()
     let searchListTableView = UITableView()
     
+    var searchList: [Items] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.searchListTableView.reloadData()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,8 +45,6 @@ class MainViewController: UIViewController {
         configureUI()
         congfigureSearchBar()
         configureTableView()
-        // searchListView.isHidden = true
-        getData(query: "아이폰", sort: "sim")
     }
     
     func configureView() {
@@ -129,7 +143,7 @@ class MainViewController: UIViewController {
         removeAllButton.addTarget(self, action: #selector(removeAllButtonClicked), for: .touchUpInside)
     }
     
-    func getData(query: String, sort: String) {
+    func getData(query: String, sort: String, completion: @escaping([Items]) -> Void) {
         print(#function)
         let url = APIURL.shoppingURL
         let header: HTTPHeaders = [
@@ -140,14 +154,14 @@ class MainViewController: UIViewController {
         let param: Parameters = [
             "query": query,
             "display": 30,
-            "sort": sort // 정확도: sim, 날짜순: date, 가격높은순: dsc, 가격낮은순: asc
+            "sort": sort
         ]
         
         AF.request(url, method: .get, parameters: param, headers: header).responseDecodable(of: Shopping.self) { response in
             switch response.result {
             case .success(let value):
-                print("SUCCESS")
-                dump(value)
+                self.searchList = value.items
+                completion(value.items)
             case .failure(let error):
                 print(error)
             }
@@ -155,7 +169,7 @@ class MainViewController: UIViewController {
     }
     
     @objc func removeAllButtonClicked() {
-        DataStorage.searchItemList.removeAll()
+        DataStorage.searchItemTitleList.removeAll()
         searchListTableView.reloadData()
     }
 }
@@ -166,12 +180,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataStorage.searchItemList.count
+        return DataStorage.searchItemTitleList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.id, for: indexPath) as? SearchTableViewCell else { return UITableViewCell() }
-        let itemList = DataStorage.searchItemList
+        let itemList = DataStorage.searchItemTitleList
         cell.deleteButton.tag = indexPath.row
         cell.selectionStyle = .none
         cell.itemLabel.text = itemList.reversed()[indexPath.row]
@@ -181,21 +195,27 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc func deleteButtonClicked(_ sender: UIButton) {
         let index = sender.tag
-        print(DataStorage.searchItemList, DataStorage.searchItemList.count - index)
-        DataStorage.searchItemList.remove(at: DataStorage.searchItemList.count - index - 1)
+        print(DataStorage.searchItemTitleList, DataStorage.searchItemTitleList.count - index)
+        DataStorage.searchItemTitleList.remove(at: DataStorage.searchItemTitleList.count - index - 1)
         searchListTableView.reloadData()
     }
 }
 
 extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print(#function)
         guard let text = searchBar.text else { return }
-        DataStorage.searchItemList.append(text)
-        searchListTableView.reloadData()
-        searchBar.text = ""
-        
-        let searchResultVC = SearchResultViewController()
-        navigationController?.pushViewController(searchResultVC, animated: true)
+        getData(query: text, sort: SortType.sim.rawValue) { result in
+            print(result)
+            if self.searchList.count == 0 && text != "" {
+                self.searchListView.isHidden = true
+                DataStorage.searchItemTitleList.append(text)
+            } else {
+                self.searchListView.isHidden = false
+                DataStorage.searchItemTitleList.append(text)
+                searchBar.text = ""
+                let searchResultVC = SearchResultViewController()
+                self.navigationController?.pushViewController(searchResultVC, animated: true)
+            }
+        }
     }
 }

@@ -23,7 +23,4 @@ struct Items: Codable {
     let mallName: String
     let productId: String
     let brand: String
-    let category1: String
-    let category2: String
-    let category3: String
 }
