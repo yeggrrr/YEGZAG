@@ -85,7 +85,7 @@ class SearchResultViewController: UIViewController {
         resultCollecionView.snp.makeConstraints {
             $0.top.equalTo(topElementView.snp.bottom)
             $0.horizontalEdges.equalTo(safeArea)
-            $0.bottom.equalTo(view)
+            $0.bottom.equalTo(safeArea)
         }
     }
     
