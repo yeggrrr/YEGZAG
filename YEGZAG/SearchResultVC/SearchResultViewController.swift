@@ -17,7 +17,7 @@ class SearchResultViewController: UIViewController {
     let highestPriceButton = FilterButton(title: "  가격높은순  ", bgColor: .white, textColor: .label)
     let lowestPriceButton = FilterButton(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
     
-    // let resultCollecionView = UICollectionView()
+    let resultCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +26,7 @@ class SearchResultViewController: UIViewController {
         configureHierarchy()
         configureLayout()
         configureUI()
+        configureCollecionView()
     }
     
     func configureView() {
@@ -33,6 +34,12 @@ class SearchResultViewController: UIViewController {
         view.backgroundColor = .white
         // navigation
         navigationItem.title = "검색한 아이템 이름"
+    }
+    
+    func configureCollecionView() {
+        resultCollecionView.delegate = self
+        resultCollecionView.dataSource = self
+        resultCollecionView.register(SearchResultCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultCollectionViewCell.id)
     }
     
     func configureHierarchy() {
@@ -44,7 +51,7 @@ class SearchResultViewController: UIViewController {
         filterButtonStackView.addArrangedSubview(highestPriceButton)
         filterButtonStackView.addArrangedSubview(lowestPriceButton)
         
-        // view.addSubview(resultCollecionView)
+        view.addSubview(resultCollecionView)
     }
     
     func configureLayout() {
@@ -52,24 +59,31 @@ class SearchResultViewController: UIViewController {
         topElementView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
             $0.horizontalEdges.equalTo(safeArea)
-            $0.height.equalTo(100)
+            $0.height.equalTo(80)
         }
         
         entireResultCountLabel.snp.makeConstraints {
             $0.top.equalTo(topElementView)
             $0.horizontalEdges.equalTo(topElementView).inset(20)
-            $0.height.equalTo(50)
+            $0.height.equalTo(35)
         }
         
         filterButtonStackView.snp.makeConstraints {
             $0.top.equalTo(entireResultCountLabel.snp.bottom)
             $0.leading.equalTo(topElementView.snp.leading).offset(20)
-            $0.bottom.equalTo(topElementView.snp.bottom).offset(-15)
+            $0.bottom.equalTo(topElementView.snp.bottom).offset(-10)
         }
+        
         [accuracyButton, dateButton, highestPriceButton, lowestPriceButton].forEach {
             $0.snp.makeConstraints {
                 $0.height.equalTo(filterButtonStackView)
             }
+        }
+        
+        resultCollecionView.snp.makeConstraints {
+            $0.top.equalTo(topElementView.snp.bottom)
+            $0.horizontalEdges.equalTo(safeArea)
+            $0.bottom.equalTo(view)
         }
     }
     
@@ -83,5 +97,29 @@ class SearchResultViewController: UIViewController {
         filterButtonStackView.spacing = 10
         filterButtonStackView.alignment = .leading
         filterButtonStackView.distribution = .fillProportionally
+    }
+    
+    static func CollecionViewLayout() -> UICollectionViewLayout {
+        let layout  = UICollectionViewFlowLayout()
+        let sectionSpacing: CGFloat = 20
+        let cellSpacing: CGFloat = 20
+        let width = UIScreen.main.bounds.width - (sectionSpacing * 2) - (cellSpacing * 2) + 20
+        layout.itemSize = CGSize(width: width / 2, height: width / 1.3)
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = cellSpacing
+        layout.minimumInteritemSpacing = cellSpacing
+        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
+        return layout
+    }
+}
+
+extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 50
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.id, for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
+        return cell
     }
 }
