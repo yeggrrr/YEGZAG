@@ -27,6 +27,8 @@ class MainViewController: UIViewController {
     let removeAllButton = UIButton()
     let searchListTableView = UITableView()
     
+    // var start = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +43,7 @@ class MainViewController: UIViewController {
     func configureView() {
         // view
         view.backgroundColor = .white
+        searchListView.isHidden = true
         // naviation
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
@@ -170,21 +173,29 @@ extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
         
-        APICall.shared.searchShopData(query: text, sort: .sim) { shopping in
+        // start = 1
+        // DataStorage.shoppingList?.items.removeAll()
+        
+        APICall.shared.searchShopData(query: text, sort: .sim, start: 1) { shopping in
             guard let shopping = shopping else { return }
-            DataStorage.shoppingList = shopping
-            
-            if shopping.items.count == 0 && text != "" {
-                self.searchListView.isHidden = true
-                DataStorage.searchItemTitleList.append(text)
-            } else {
-                self.searchListView.isHidden = false
-                searchBar.text = ""
-                let searchResultVC  = SearchResultViewController()
-                searchResultVC.searchText = text
-                self.navigationController?.pushViewController(searchResultVC, animated: true)
-            }
-            
+            // if self.start == 1 {
+                DataStorage.shoppingList = shopping
+                DataStorage.searchItemList = shopping.items
+                
+                if shopping.items.count == 0 && text != "" {
+                    self.searchListView.isHidden = true
+                    DataStorage.searchItemTitleList.append(text)
+                } else {
+                    self.searchListView.isHidden = false
+                    searchBar.text = ""
+                    let searchResultVC  = SearchResultViewController()
+                    searchResultVC.searchText = text
+                    self.navigationController?.pushViewController(searchResultVC, animated: true)
+                }
+            // } else {
+            //     DataStorage.searchItemList.append(contentsOf: shopping.items)
+            // }
+
             DataStorage.searchItemTitleList.append(text)
             self.searchListTableView.reloadData()
         }

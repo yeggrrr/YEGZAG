@@ -10,6 +10,7 @@ import SnapKit
 
 class NicknameSettingViewController: UIViewController {
     let nicknameSettingView = NicknameSettingView()
+    let rightWishButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: NicknameSettingViewController.self, action: #selector(saveButtonClicked))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,10 @@ class NicknameSettingViewController: UIViewController {
         navigationItem.title = "프로필 설정"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
+        
+        navigationItem.rightBarButtonItem = rightWishButtonItem
+        navigationItem.rightBarButtonItem?.tintColor = .clear
+        rightWishButtonItem.isEnabled = false
         // textField
         nicknameSettingView.nicknameTextField.delegate = self
 
@@ -89,13 +94,21 @@ class NicknameSettingViewController: UIViewController {
     }
     
     @objc func completeButtonClicked() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let currentDate = formatter.string(from: Date())
+        DataStorage.joinDate = DateFormatter.dashToDot(dateString: currentDate)
         DataStorage.userName = nicknameSettingView.nicknameTextField.text
+        
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
-
         let vc = YEGZAGTabBarController()
         sceneDelegate?.window?.rootViewController = vc
         sceneDelegate?.window?.makeKeyAndVisible()
+    }
+    
+    @objc func saveButtonClicked() {
+        
     }
 }
 

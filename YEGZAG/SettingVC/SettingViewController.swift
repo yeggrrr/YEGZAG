@@ -24,6 +24,8 @@ class SettingViewController: UIViewController {
 
         view.backgroundColor = .white
         navigationItem.title = "SETTING"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
         cofigureTableView()
     
     }
@@ -67,6 +69,12 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             guard let profileCell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.id, for: indexPath) as? ProfileTableViewCell else { return UITableViewCell() }
             profileCell.selectionStyle = .none
+            
+            let selectedImage = DataStorage.userProfileImageName ?? "profile_0"
+            profileCell.profileImageView.image = UIImage(named: selectedImage)
+            profileCell.userNameLabel.text = DataStorage.userName
+            let joinDate = DataStorage.joinDate ?? "-"
+            profileCell.joinDateLagel.text = "\(joinDate) 가입"
             return profileCell
         } else {
             guard let wishCell = tableView.dequeueReusableCell(withIdentifier: ETCTableViewCell.id, for: indexPath) as? ETCTableViewCell else { return UITableViewCell() }
@@ -76,6 +84,32 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 wishCell.wishStackView.isHidden  = true
             }
             return wishCell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let vc = NicknameSettingViewController()
+            vc.rightWishButtonItem.isEnabled = true
+            vc.rightWishButtonItem.tintColor = .black
+            vc.nicknameSettingView.completeButton.isHidden = true
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            if indexPath.row == 4 {
+                let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", preferredStyle: .alert)
+                let okButon = UIAlertAction(title: "확인", style: .default) { _ in
+                    let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                    let sceneDelegate = windowScene?.delegate as? SceneDelegate
+                    let vc = OnBoardingController()
+                    sceneDelegate?.window?.rootViewController = vc
+                    sceneDelegate?.window?.makeKeyAndVisible()
+                    // 이렇게 하면 시작하기 버튼 안눌림..
+                }
+                let cancelButton = UIAlertAction(title: "취소", style: .cancel)
+                alert.addAction(okButon)
+                alert.addAction(cancelButton)
+                present(alert, animated: true)
+            }
         }
     }
 }
