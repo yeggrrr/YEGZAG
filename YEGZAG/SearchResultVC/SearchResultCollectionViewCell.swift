@@ -34,7 +34,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     
     func configureHierarchy() {
         contentView.addSubview(itemImageView)
-        itemImageView.addSubview(wishButton)
+        contentView.addSubview(wishButton)
         contentView.addSubview(shopNameLabel)
         contentView.addSubview(itemNameLabel)
         contentView.addSubview(itemPriceLabel)
@@ -78,40 +78,51 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         itemImageView.contentMode = .scaleAspectFill
         itemImageView.clipsToBounds = true
         
-        wishButton.backgroundColor = .systemGray2
-        wishButton.setImage(UIImage(named: "like_unselected"), for: .normal)
         wishButton.backgroundColor = .lightGray
-        wishButton.layer.opacity = 0.5
+        wishButton.layer.opacity = 0.7
         wishButton.layer.cornerRadius = 10
         
-        shopNameLabel.text = "네이버"
         shopNameLabel.textColor = .systemGray
         shopNameLabel.font = .systemFont(ofSize: 13, weight: .regular)
         shopNameLabel.textAlignment = .left
         
-        itemNameLabel.text = "애플 레트로 키캡 XDA PBT 한무무 기계식 키보드"
         itemNameLabel.textColor = .label
         itemNameLabel.font = .systemFont(ofSize: 13, weight: .regular)
         itemNameLabel.textAlignment = .left
         itemNameLabel.numberOfLines = 2
         
-        itemPriceLabel.text = "22,800원"
         itemPriceLabel.textColor = .label
         itemPriceLabel.font = .systemFont(ofSize: 15, weight: .bold)
         itemPriceLabel.textAlignment = .left
     }
     
-    func configureCell(itemList: [Items], index: Int) {
-        let itemImage = itemList[index].image
+    func configureCell(item: Shopping.Items) {
+        let itemImage = item.image
         let itemImageURL = URL(string: itemImage)
     
         itemImageView.kf.setImage(with: itemImageURL)
         
-        shopNameLabel.text = itemList[index].mallName
-        itemNameLabel.text = itemList[index].title
+        shopNameLabel.text = item.mallName
         
-        if let stringToInt = Int(itemList[index].lprice) {
+        let removeBTag = item.title
+            .components(separatedBy: "<b>")
+            .joined()
+        let removeSlashBTag = removeBTag
+            .components(separatedBy: "</b>")
+            .joined()
+        
+        itemNameLabel.text = removeSlashBTag
+        
+        if let stringToInt = Int(item.lprice) {
             itemPriceLabel.text = "\(stringToInt.formatted())원"
+        }
+        
+        if DataStorage.wishList.contains(where: { $0.productId == item.productId }) {
+                wishButton.setImage(UIImage(named: "like_selected"), for: .normal)
+                wishButton.backgroundColor = .white
+        } else {
+                wishButton.setImage(UIImage(named: "like_unselected"), for: .normal)
+                wishButton.backgroundColor = .lightGray
         }
     }
 }
