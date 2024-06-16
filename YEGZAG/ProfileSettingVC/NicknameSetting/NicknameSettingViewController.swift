@@ -10,7 +10,6 @@ import SnapKit
 
 class NicknameSettingViewController: UIViewController {
     let nicknameSettingView = NicknameSettingView()
-    let rightsaveButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: NicknameSettingViewController.self, action: #selector(saveButtonClicked))
     var saveButtonTintColor: UIColor = .clear
     var isSaveButtonEnabled: Bool = false
     
@@ -34,7 +33,8 @@ class NicknameSettingViewController: UIViewController {
         navigationItem.title = "프로필 설정"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
-        // TODO: 이름 수정하기. save button
+        
+        let rightsaveButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
         navigationItem.rightBarButtonItem = rightsaveButtonItem
         rightsaveButtonItem.tintColor = saveButtonTintColor
         rightsaveButtonItem.isEnabled = isSaveButtonEnabled
