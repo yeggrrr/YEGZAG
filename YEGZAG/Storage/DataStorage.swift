@@ -15,7 +15,7 @@ struct DataStorage {
     static let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
     static var searchItemTitleList: [String] = []
     static var shoppingList: Shopping?
-    static var searchItemList: [Shopping.Items] = []
+    static var wishList: [Shopping.Items] = []
     static var wishButtonState: Bool?
 }
 

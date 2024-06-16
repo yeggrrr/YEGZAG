@@ -56,7 +56,6 @@ class ETCTableViewCell: UITableViewCell {
     }
     
     func configureUI() {
-        wishListLabel.text = "나의 장바구니 목록"
         wishListLabel.textColor = .label
         wishListLabel.textAlignment = .left
         wishListLabel.font = .systemFont(ofSize: 16, weight: .regular)
@@ -65,14 +64,16 @@ class ETCTableViewCell: UITableViewCell {
         wishStackView.spacing = 5
         wishStackView.alignment = .fill
         wishStackView.distribution = .fill
-        // wishStackView.isHidden = true
         
         bagImageView.image = UIImage(named: "like_selected")
         bagImageView.tintColor = .black
         
-        wishCountLabel.text = "18개의 상품"
         wishCountLabel.textColor = .label
         wishCountLabel.textAlignment = .left
         wishCountLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+    }
+    
+    func configureWishListCount(count: Int) {
+        wishCountLabel.text = "\(count)개의 상품"
     }
 }

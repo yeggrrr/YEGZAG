@@ -18,7 +18,6 @@ class NicknameSettingView: UIView {
     let nicknameTextField = UITextField()
     let dividerView = UIView()
     let noticeLabel = UILabel()
-    // let noticeLabel = NoticeLabel(txt: "닉네임에 @는 입력할 수 없어요", txtColor: .systemPink)
     
     let completeButton = PointButton(title: "완료")
     
