@@ -12,15 +12,15 @@ struct Shopping: Codable {
     let total: Int
     let start: Int
     let display: Int
-    let items: [Items]
-}
-
-struct Items: Codable {
-    let title: String
-    let link: String
-    let image: String
-    let lprice: String
-    let mallName: String
-    let productId: String
-    let brand: String
+    var items: [Items]
+    
+    struct Items: Codable, Hashable {
+        let title: String
+        let link: String
+        let image: String
+        let lprice: String
+        let mallName: String
+        let productId: String
+        let brand: String
+    }
 }

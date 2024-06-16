@@ -57,7 +57,6 @@ class SearchTableViewCell: UITableViewCell {
         clockImageView.tintColor = .black
         clockImageView.contentMode = .scaleAspectFit
         
-        itemLabel.text = "맥북앎너ㅣ런미ㅏ러ㅣㄴ어린일까"
         itemLabel.textColor = .label
         itemLabel.textAlignment = .left
         itemLabel.font = .systemFont(ofSize: 15, weight: .regular)

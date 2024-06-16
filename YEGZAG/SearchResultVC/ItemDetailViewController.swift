@@ -12,6 +12,7 @@ import WebKit
 class ItemDetailViewController: UIViewController {
     let webView = WKWebView()
     var index: Int?
+    var searchText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,7 @@ class ItemDetailViewController: UIViewController {
         // view
         view.backgroundColor = .white
         // navigation
-        navigationItem.title = "상품 이름"
+        navigationItem.title = searchText
         let rightWishButtonItem = UIBarButtonItem(image: UIImage(named: "like_unselected"), style: .plain, target: self, action: #selector(rightWishButtonClicked))
         navigationItem.rightBarButtonItem = rightWishButtonItem
         navigationItem.rightBarButtonItem?.tintColor = .black
@@ -37,7 +38,8 @@ class ItemDetailViewController: UIViewController {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
         guard let index = index else { return }
-        let detailLink = DataStorage.searchItemList[index].link
+        guard let items = DataStorage.shoppingList?.items else { return }
+        let detailLink = items[index].link
         guard let detailURL = URL(string: detailLink) else { return }
         let request = URLRequest(url: detailURL)
         webView.load(request)

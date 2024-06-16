@@ -10,7 +10,9 @@ import SnapKit
 
 class NicknameSettingViewController: UIViewController {
     let nicknameSettingView = NicknameSettingView()
-    let rightWishButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: NicknameSettingViewController.self, action: #selector(saveButtonClicked))
+    let rightsaveButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: NicknameSettingViewController.self, action: #selector(saveButtonClicked))
+    var saveButtonTintColor: UIColor = .clear
+    var isSaveButtonEnabled: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +34,10 @@ class NicknameSettingViewController: UIViewController {
         navigationItem.title = "프로필 설정"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
-        
-        navigationItem.rightBarButtonItem = rightWishButtonItem
-        navigationItem.rightBarButtonItem?.tintColor = .clear
-        rightWishButtonItem.isEnabled = false
+        // TODO: 이름 수정하기. save button
+        navigationItem.rightBarButtonItem = rightsaveButtonItem
+        rightsaveButtonItem.tintColor = saveButtonTintColor
+        rightsaveButtonItem.isEnabled = isSaveButtonEnabled
         // textField
         nicknameSettingView.nicknameTextField.delegate = self
 
@@ -108,7 +110,7 @@ class NicknameSettingViewController: UIViewController {
     }
     
     @objc func saveButtonClicked() {
-        
+        print(#function)
     }
 }
 
