@@ -27,8 +27,6 @@ class MainViewController: UIViewController {
     let removeAllButton = UIButton()
     let searchListTableView = UITableView()
     
-    // var start = 1
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -140,6 +138,7 @@ class MainViewController: UIViewController {
     @objc func removeAllButtonClicked() {
         DataStorage.searchItemTitleList.removeAll()
         searchListTableView.reloadData()
+        searchListView.isHidden = true
     }
 }
 
@@ -162,10 +161,31 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let clickedValue = DataStorage.searchItemTitleList.reversed()[indexPath.row]
+        APICall.shared.searchShopData(query: clickedValue, sort: .sim, start: 1) { shopping in
+            guard let shopping = shopping else { return }
+                DataStorage.shoppingList = shopping
+                DataStorage.searchItemList = shopping.items
+                if shopping.items.count == 0 {
+                    self.searchListView.isHidden = false
+                } else {
+                    self.searchListView.isHidden = false
+                    let searchResultVC  = SearchResultViewController()
+                    searchResultVC.searchText = clickedValue
+                    self.navigationController?.pushViewController(searchResultVC, animated: true)
+                }
+            self.searchListTableView.reloadData()
+        }
+    }
+    
     @objc func deleteButtonClicked(_ sender: UIButton) {
         let index = sender.tag
         DataStorage.searchItemTitleList.remove(at: DataStorage.searchItemTitleList.count - index - 1)
         searchListTableView.reloadData()
+        if DataStorage.searchItemTitleList.count == 0 {
+            searchListView.isHidden = true
+        }
     }
 }
 
@@ -173,12 +193,8 @@ extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
         
-        // start = 1
-        // DataStorage.shoppingList?.items.removeAll()
-        
         APICall.shared.searchShopData(query: text, sort: .sim, start: 1) { shopping in
             guard let shopping = shopping else { return }
-            // if self.start == 1 {
                 DataStorage.shoppingList = shopping
                 DataStorage.searchItemList = shopping.items
                 
@@ -192,10 +208,7 @@ extension MainViewController: UISearchBarDelegate {
                     searchResultVC.searchText = text
                     self.navigationController?.pushViewController(searchResultVC, animated: true)
                 }
-            // } else {
-            //     DataStorage.searchItemList.append(contentsOf: shopping.items)
-            // }
-
+            
             DataStorage.searchItemTitleList.append(text)
             self.searchListTableView.reloadData()
         }
