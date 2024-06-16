@@ -27,7 +27,12 @@ class SettingViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
         cofigureTableView()
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        settingTableView.reloadData()
     }
     
     func cofigureTableView() {
@@ -78,11 +83,11 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             return profileCell
         } else {
             guard let wishCell = tableView.dequeueReusableCell(withIdentifier: ETCTableViewCell.id, for: indexPath) as? ETCTableViewCell else { return UITableViewCell() }
-            wishCell.wishListLabel.text = SettingOptions.allCases[indexPath.row].rawValue
+            wishCell.configureWishListCount(count: DataStorage.wishList.count)
+            let option = SettingOptions.allCases[indexPath.row]
+            wishCell.wishStackView.isHidden = option != .wishList
+            wishCell.wishListLabel.text = option.rawValue
             wishCell.selectionStyle = .none
-            if indexPath.row > 0 {
-                wishCell.wishStackView.isHidden  = true
-            }
             return wishCell
         }
     }
@@ -90,8 +95,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let vc = NicknameSettingViewController()
-            vc.rightWishButtonItem.isEnabled = true
-            vc.rightWishButtonItem.tintColor = .black
+            vc.saveButtonTintColor = .black
+            vc.isSaveButtonEnabled = true
             vc.nicknameSettingView.completeButton.isHidden = true
             navigationController?.pushViewController(vc, animated: true)
         } else {
