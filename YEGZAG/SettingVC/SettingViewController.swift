@@ -98,12 +98,13 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 4 {
                 let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", preferredStyle: .alert)
                 let okButon = UIAlertAction(title: "확인", style: .default) { _ in
+                    
                     let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
                     let sceneDelegate = windowScene?.delegate as? SceneDelegate
                     let vc = OnBoardingController()
-                    sceneDelegate?.window?.rootViewController = vc
+                    let nav = UINavigationController(rootViewController: vc)
+                    sceneDelegate?.window?.rootViewController = nav
                     sceneDelegate?.window?.makeKeyAndVisible()
-                    // 이렇게 하면 시작하기 버튼 안눌림..
                 }
                 let cancelButton = UIAlertAction(title: "취소", style: .cancel)
                 alert.addAction(okButon)
