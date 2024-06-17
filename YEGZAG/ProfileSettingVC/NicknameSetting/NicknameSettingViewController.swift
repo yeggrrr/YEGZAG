@@ -16,7 +16,6 @@ class NicknameSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        makeRandomProfileImageName()
         configureUI()
         profileTabGesture()
     }
@@ -60,10 +59,6 @@ class NicknameSettingViewController: UIViewController {
         // completButton
         nicknameSettingView.completeButton.isEnabled = false
         nicknameSettingView.completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
-    }
-    
-    func makeRandomProfileImageName() {
-        DataStorage.userProfileImageName = DataStorage.profileImageNameList.randomElement()
     }
     
     func nicknameCondition() {

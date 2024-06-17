@@ -10,7 +10,7 @@ import SnapKit
 
 class NicknameSettingView: UIView {
     let profileView = UIView()
-    let profileImageView = UIImageView()
+    var profileImageView = UIImageView()
     let profileBorderView = UIView()
     let camerView = UIView()
     let cameraImageView = UIImageView()

@@ -67,6 +67,7 @@ class OnBoardingController: UIViewController {
     }
     
     @objc func startButtonClicked() {
+        DataStorage.userProfileImageName = DataStorage.profileImageNameList.randomElement()
         navigationController?.pushViewController(NicknameSettingViewController(), animated: true)
     }
 }
