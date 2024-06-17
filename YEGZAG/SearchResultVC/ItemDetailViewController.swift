@@ -13,6 +13,7 @@ class ItemDetailViewController: UIViewController {
     let webView = WKWebView()
     var index: Int?
     var searchText: String?
+    var item: Shopping.Items?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +37,8 @@ class ItemDetailViewController: UIViewController {
             
             navigationItem.title = removeSlashBTag
         }
-        let rightWishButtonItem = UIBarButtonItem(image: UIImage(named: "like_unselected"), style: .plain, target: self, action: #selector(rightWishButtonClicked))
-        navigationItem.rightBarButtonItem = rightWishButtonItem
         navigationItem.rightBarButtonItem?.tintColor = .black
+        updateWishButtonState()
     }
     
     func configureWebView() {
@@ -55,7 +55,27 @@ class ItemDetailViewController: UIViewController {
         webView.load(request)
     }
     
-    @objc func rightWishButtonClicked() {
+    func updateWishButtonState() {
+        guard let item = item else { return }
         
+        if DataStorage.wishList.contains(where: { $0.productId == item.productId }) {
+            let rightWishButtonItem = UIBarButtonItem(image: UIImage(named: "like_selected"), style: .plain, target: self, action: #selector(rightWishButtonClicked))
+            navigationItem.rightBarButtonItem = rightWishButtonItem
+        } else {
+            let rightWishButtonItem = UIBarButtonItem(image: UIImage(named: "like_unselected"), style: .plain, target: self, action: #selector(rightWishButtonClicked))
+            navigationItem.rightBarButtonItem = rightWishButtonItem
+        }
+    }
+    
+    @objc func rightWishButtonClicked() {
+        guard let item = item else { return }
+        
+        if DataStorage.wishList.contains(item) {
+            DataStorage.wishList = DataStorage.wishList.filter{ $0.productId != item.productId }
+        } else {
+            DataStorage.wishList.append(item)
+        }
+        
+        updateWishButtonState()
     }
 }
