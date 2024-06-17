@@ -33,8 +33,10 @@ class ImageSettingViewController: UIViewController {
         imageSettingView.backgroundColor = .white
         
         if let userTempProfileImageName = DataStorage.userTempProfileImageName {
+            // 이미지 선택 화면에 들어간적 있는 경우
             imageSettingView.profileImageView.image = UIImage(named: userTempProfileImageName)
         } else {
+            // 처음 들어가는 경우
             imageSettingView.profileImageView.image = UIImage(named: DataStorage.fetchProfileImage())
         }
     }

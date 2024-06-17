@@ -16,8 +16,16 @@ class NicknameSettingViewController: UIViewController {
     var viewType: ViewType = .new
     
     enum ViewType {
-        case new
-        case update
+        case new // 처음
+        case update // 수정
+    }
+    
+    enum NicknameErrorMessage: String {
+        case empty = ""
+        case wrongLength = "2글자 이상 10글자 미만으로 설정해주세요"
+        case containsSpecialCharacter = "닉네임에 @, #, $, %는 포함할 수 없어요"
+        case containsNumber = "닉네임에 숫자는 포함할 수 없어요"
+        case noError = "사용할 수 있는 닉네임이에요"
     }
     
     override func viewDidLoad() {
@@ -36,10 +44,12 @@ class NicknameSettingViewController: UIViewController {
     
     func setInitialData() {
         if viewType == .new {
+            // 최초 진입 or 설정 안하고 pop or 탈퇴후 진입 -> 랜덤으로 가져오기 -> userTempProfileImageName에 임시 저장
             if let randomImageName = DataStorage.profileImageNameList.randomElement() {
                 DataStorage.userTempProfileImageName = randomImageName
             }
         } else {
+            // 프로필 수정 화면 -> 저장되어있는 닉네임 가져오기
             nicknameSettingView.nicknameTextField.text = DataStorage.fetchName()
         }
     }
@@ -67,10 +77,12 @@ class NicknameSettingViewController: UIViewController {
         }
         
         nicknameSettingView.backgroundColor = .white
-        
+        // 수정화면
         if let userTempProfileImageName = DataStorage.userTempProfileImageName {
+            // 이미지 선택 화면을 진입한 적이 있는 경우
             nicknameSettingView.profileImageView.image = UIImage(named: userTempProfileImageName)
         } else {
+            // 프로필 설정화면에 갓 진입한 경우
             nicknameSettingView.profileImageView.image = UIImage(named: DataStorage.fetchProfileImage())
         }
         
@@ -96,14 +108,6 @@ class NicknameSettingViewController: UIViewController {
         nicknameSettingView.noticeLabel.text = nicknameErrorMessage.rawValue
     }
     
-    enum NicknameErrorMessage: String {
-        case empty = ""
-        case wrongLength = "2글자 이상 10글자 미만으로 설정해주세요"
-        case containsSpecialCharacter = "닉네임에 @, #, $, %는 포함할 수 없어요"
-        case containsNumber = "닉네임에 숫자는 포함할 수 없어요"
-        case noError = "사용할 수 있는 닉네임이에요"
-    }
-    
     func profileTabGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
         nicknameSettingView.profileTabGestureView.addGestureRecognizer(tapGesture)
@@ -117,16 +121,19 @@ class NicknameSettingViewController: UIViewController {
     
     @objc func completeButtonClicked() {
         guard nicknameErrorMessage == .noError else { return }
-        
+        // 현재 날짜 가져오기 -> 가입일
         let joinDate = DateFormatter.dotDateFormatter.string(from: Date())
         DataStorage.save(value: joinDate, key: .joinDate)
         if let userName = nicknameSettingView.nicknameTextField.text {
             DataStorage.save(value: userName, key: .name)
         }
+        
         DataStorage.save(value: true, key: .isExistUser)
         
         if let userTempProfileImageName = DataStorage.userTempProfileImageName {
+            // 설정한 프로필 이미지 UserDefaults에 저장
             DataStorage.save(value: userTempProfileImageName, key: .profileImage)
+            // 임시저장소 비우기
             DataStorage.userTempProfileImageName = nil
         }
         

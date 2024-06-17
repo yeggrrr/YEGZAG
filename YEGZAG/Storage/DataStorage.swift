@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 struct DataStorage {
-    static var userTempProfileImageName: String?
+    static var userTempProfileImageName: String? // 프로필 수정 화면에서 사용
     static let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
     static var shoppingList: Shopping?
     
