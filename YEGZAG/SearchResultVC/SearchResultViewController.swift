@@ -20,6 +20,8 @@ class SearchResultViewController: UIViewController {
     let resultCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
     var searchText: String?
     
+    var start = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,11 +32,17 @@ class SearchResultViewController: UIViewController {
         configureCollecionView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        resultCollecionView.reloadData()
+    }
+    
     func configureView() {
         // view
         view.backgroundColor = .white
         // navigation
-        navigationItem.title = "검색한 아이템 이름"
+        navigationItem.title = searchText
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
     }
@@ -102,7 +110,7 @@ class SearchResultViewController: UIViewController {
         filterButtonStackView.alignment = .leading
         filterButtonStackView.distribution = .fillProportionally
         
-        accuracyButton.setUI(title: "  정확도  ", bgColor: .darkGray, textColor: .white)
+        accuracyButton.setUI(title: "  정확도  ",  bgColor: .darkGray, textColor: .white)
         dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
         highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
         lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
@@ -160,11 +168,36 @@ class SearchResultViewController: UIViewController {
     
     func sortData(type: SortType) {
         guard let searchText = searchText else { return }
-        APICall.shared.searchShopData(query: searchText, sort: type) { shopping in
+        APICall.shared.searchShopData(query: searchText, sort: type, start: start) { shopping in
             guard let shopping = shopping else { return }
             DataStorage.shoppingList = shopping
             self.resultCollecionView.reloadData()
+            self.resultCollecionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+        }    }
+    
+    @objc func wishButtonClicked(_ sender: UIButton) {
+        guard let items = DataStorage.shoppingList?.items else { return }
+        let index = sender.tag
+        let item = items[index]
+        
+        let wishList = DataStorage.fetchWishList()
+        var newWishList = wishList
+        if wishList.contains(item) {
+            newWishList = wishList.filter{ $0.productId != item.productId }
+        } else {
+            newWishList.append(item)
         }
+        
+        let encoder = JSONEncoder()
+        
+        do {
+            let result = try encoder.encode(newWishList)
+            DataStorage.save(value: result, key: .wishList)
+        } catch {
+            print("encoding error: \(error)")
+        }
+        
+        resultCollecionView.reloadData()
     }
 }
 
@@ -177,13 +210,20 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.id, for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
         if let items = DataStorage.shoppingList?.items {
-            cell.configureCell(itemList: items, index: indexPath.item)
+            cell.configureCell(item: items[indexPath.item])
+            cell.wishButton.tag = indexPath.item
+            cell.wishButton.addTarget(self, action: #selector(wishButtonClicked(_:)), for: .touchUpInside)
         }
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(ItemDetailViewController(), animated: true)
+        let vc = ItemDetailViewController()
+        if let items = DataStorage.shoppingList?.items {
+            vc.item = items[indexPath.item]
+        }
+        vc.index = indexPath.item
+        vc.searchText = searchText
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
