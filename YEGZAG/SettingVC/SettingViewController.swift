@@ -98,6 +98,9 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             vc.saveButtonTintColor = .black
             vc.isSaveButtonEnabled = true
             vc.nicknameSettingView.completeButton.isHidden = true
+            vc.nicknameSettingView.nicknameTextField.text = DataStorage.userName
+            guard let currentProfileImage = DataStorage.userProfileImageName else { return }
+            vc.nicknameSettingView.profileImageView.image = UIImage(named: currentProfileImage)
             navigationController?.pushViewController(vc, animated: true)
         } else {
             if indexPath.row == 4 {

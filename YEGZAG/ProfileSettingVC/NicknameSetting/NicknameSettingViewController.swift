@@ -105,7 +105,8 @@ class NicknameSettingViewController: UIViewController {
     }
     
     @objc func saveButtonClicked() {
-        print(#function)
+        DataStorage.userName = nicknameSettingView.nicknameTextField.text
+        navigationController?.popViewController(animated: true)
     }
 }
 
