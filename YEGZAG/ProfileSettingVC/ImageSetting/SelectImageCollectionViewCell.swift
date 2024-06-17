@@ -54,8 +54,15 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
     }
     
     func configureImage(imageName: String?) {
-        if let userProfileImageName = DataStorage.userProfileImageName,
-           imageName == userProfileImageName {
+        var selectedImageName = ""
+        
+        if let userTempProfileImageName = DataStorage.userTempProfileImageName {
+            selectedImageName = userTempProfileImageName
+        } else {
+            selectedImageName = DataStorage.fetchProfileImage()
+        }
+        
+        if imageName == selectedImageName {
             contentView.layer.opacity = 1
             profileBorderView.layer.borderColor = UIColor.systemPink.cgColor
             profileBorderView.layer.borderWidth = 3

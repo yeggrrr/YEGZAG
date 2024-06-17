@@ -21,7 +21,7 @@ class ImageSettingViewController: UIViewController {
         // view
         view.backgroundColor = .white
         // navigation
-        navigationItem.title = "프로필 설정"
+        navigationItem.title = "이미지 선택"
         // imageSettingView
         view.addSubview(imageSettingView)
         
@@ -32,10 +32,10 @@ class ImageSettingViewController: UIViewController {
         
         imageSettingView.backgroundColor = .white
         
-        if let currentProfileImageName = DataStorage.userProfileImageName {
-            imageSettingView.profileImageView.image = UIImage(named: currentProfileImageName)
+        if let userTempProfileImageName = DataStorage.userTempProfileImageName {
+            imageSettingView.profileImageView.image = UIImage(named: userTempProfileImageName)
         } else {
-            imageSettingView.profileImageView.image = UIImage(resource: .profile0)
+            imageSettingView.profileImageView.image = UIImage(named: DataStorage.fetchProfileImage())
         }
     }
     
@@ -62,7 +62,7 @@ extension ImageSettingViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedImageName = DataStorage.profileImageNameList[indexPath.item]
         imageSettingView.profileImageView.image = UIImage(named: selectedImageName)
-        DataStorage.userProfileImageName = selectedImageName
+        DataStorage.userTempProfileImageName = selectedImageName
         imageSettingView.selectImageCollectionView.reloadData()
     }
 }

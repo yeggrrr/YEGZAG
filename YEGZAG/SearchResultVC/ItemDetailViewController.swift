@@ -58,7 +58,8 @@ class ItemDetailViewController: UIViewController {
     func updateWishButtonState() {
         guard let item = item else { return }
         
-        if DataStorage.wishList.contains(where: { $0.productId == item.productId }) {
+        let wishList = DataStorage.fetchWishList()
+        if wishList.contains(where: { $0.productId == item.productId }) {
             let rightWishButtonItem = UIBarButtonItem(image: UIImage(named: "like_selected"), style: .plain, target: self, action: #selector(rightWishButtonClicked))
             navigationItem.rightBarButtonItem = rightWishButtonItem
         } else {
@@ -70,10 +71,21 @@ class ItemDetailViewController: UIViewController {
     @objc func rightWishButtonClicked() {
         guard let item = item else { return }
         
-        if DataStorage.wishList.contains(item) {
-            DataStorage.wishList = DataStorage.wishList.filter{ $0.productId != item.productId }
+        let wishList = DataStorage.fetchWishList()
+        var newWishList = wishList
+        if wishList.contains(item) {
+            newWishList = wishList.filter{ $0.productId != item.productId }
         } else {
-            DataStorage.wishList.append(item)
+            newWishList.append(item)
+        }
+    
+        let encoder = JSONEncoder()
+        
+        do {
+            let result = try encoder.encode(newWishList)
+            DataStorage.save(value: result, key: .wishList)
+        } catch {
+            print("encoding error: \(error)")
         }
         
         updateWishButtonState()

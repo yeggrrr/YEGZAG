@@ -40,15 +40,24 @@ class MainViewController: UIViewController {
         configureTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let recentSearchList = DataStorage.fetchRecentSearchList()
+        
+        let isSearchListEmpty = recentSearchList.isEmpty
+        searchListView.isHidden = isSearchListEmpty
+        
+        setNickname()
+    }
+    
     func configureView() {
         // view
         view.backgroundColor = .white
-        searchListView.isHidden = true
         // naviation
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
-        guard let userName = DataStorage.userName else { return }
-        navigationItem.title = "\(userName)'s YEGZAG"
+        setNickname()
     }
     
     func configureTableView() {
@@ -137,8 +146,13 @@ class MainViewController: UIViewController {
         removeAllButton.addTarget(self, action: #selector(removeAllButtonClicked), for: .touchUpInside)
     }
     
+    func setNickname() {
+        let userName = DataStorage.fetchName()
+        navigationItem.title = "\(userName)'s YEGZAG"
+    }
+    
     @objc func removeAllButtonClicked() {
-        DataStorage.searchItemTitleList.removeAll()
+        DataStorage.save(value: [], key: .recentSearchList)
         searchListTableView.reloadData()
         searchListView.isHidden = true
     }
@@ -150,12 +164,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataStorage.searchItemTitleList.count
+        return DataStorage.fetchRecentSearchList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.id, for: indexPath) as? SearchTableViewCell else { return UITableViewCell() }
-        let itemList = DataStorage.searchItemTitleList
+        let itemList = DataStorage.fetchRecentSearchList()
         cell.deleteButton.tag = indexPath.row
         cell.selectionStyle = .none
         cell.itemLabel.text = itemList.reversed()[indexPath.row]
@@ -164,7 +178,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let clickedValue = DataStorage.searchItemTitleList.reversed()[indexPath.row]
+        let clickedValue = DataStorage.fetchRecentSearchList().reversed()[indexPath.row]
         APICall.shared.searchShopData(query: clickedValue, sort: .sim, start: start) { shopping in
             guard let shopping = shopping else { return }
             DataStorage.shoppingList = shopping
@@ -182,9 +196,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc func deleteButtonClicked(_ sender: UIButton) {
         let index = sender.tag
-        DataStorage.searchItemTitleList.remove(at: DataStorage.searchItemTitleList.count - index - 1)
+        let recentSearchList = DataStorage.fetchRecentSearchList()
+        var newRecentSearchList = recentSearchList
+        newRecentSearchList.remove(at: recentSearchList.count - index - 1)
+        DataStorage.save(value: newRecentSearchList, key: .recentSearchList)
         searchListTableView.reloadData()
-        if DataStorage.searchItemTitleList.count == 0 {
+        
+        if recentSearchList.isEmpty {
             searchListView.isHidden = true
         }
     }
@@ -193,21 +211,25 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
+        let recentSearchList = DataStorage.fetchRecentSearchList()
+        var newRecentSearchList = recentSearchList
+        newRecentSearchList.append(text)
+        DataStorage.save(value: newRecentSearchList, key: .recentSearchList)
+        
         APICall.shared.searchShopData(query: text, sort: .sim, start: start) { shopping in
             guard let shopping = shopping else { return }
-                DataStorage.shoppingList = shopping
+            DataStorage.shoppingList = shopping
             
-                if shopping.items.count == 0 && text != "" {
-                    self.searchListView.isHidden = true
-                    DataStorage.searchItemTitleList.append(text)
-                } else {
-                    self.searchListView.isHidden = false
-                    searchBar.text = ""
-                    let searchResultVC  = SearchResultViewController()
-                    searchResultVC.searchText = text
-                    self.navigationController?.pushViewController(searchResultVC, animated: true)
-                }
-            DataStorage.searchItemTitleList.append(text)
+            let isSearchListEmpty = newRecentSearchList.isEmpty
+            self.searchListView.isHidden = isSearchListEmpty
+            
+            if !shopping.items.isEmpty || text.isEmpty {
+                searchBar.text = ""
+                let searchResultVC  = SearchResultViewController()
+                searchResultVC.searchText = text
+                self.navigationController?.pushViewController(searchResultVC, animated: true)
+            }
+            
             self.searchListTableView.reloadData()
         }
     }
