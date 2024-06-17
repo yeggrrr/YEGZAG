@@ -86,7 +86,7 @@ class ProfileTableViewCell: UITableViewCell {
         userNameLabel.text = "귀여운 푸바오"
         userNameLabel.textColor = .label
         userNameLabel.textAlignment = .left
-        userNameLabel.font = .systemFont(ofSize: 22, weight: .bold)
+        userNameLabel.font = .systemFont(ofSize: 20, weight: .bold)
         
         joinDateLagel.text = "2024.05.25 가입"
         joinDateLagel.textColor = .lightGray

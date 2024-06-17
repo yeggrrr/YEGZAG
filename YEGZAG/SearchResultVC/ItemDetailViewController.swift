@@ -25,7 +25,17 @@ class ItemDetailViewController: UIViewController {
         // view
         view.backgroundColor = .white
         // navigation
-        navigationItem.title = searchText
+        guard let index = index else { return }
+        if let item = DataStorage.shoppingList?.items[index] {
+            let removeBTag = item.title
+                .components(separatedBy: "<b>")
+                .joined()
+            let removeSlashBTag = removeBTag
+                .components(separatedBy: "</b>")
+                .joined()
+            
+            navigationItem.title = removeSlashBTag
+        }
         let rightWishButtonItem = UIBarButtonItem(image: UIImage(named: "like_unselected"), style: .plain, target: self, action: #selector(rightWishButtonClicked))
         navigationItem.rightBarButtonItem = rightWishButtonItem
         navigationItem.rightBarButtonItem?.tintColor = .black
