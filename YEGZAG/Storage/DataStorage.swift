@@ -9,14 +9,50 @@ import Foundation
 import Alamofire
 
 struct DataStorage {
-    static var userProfileImageName: String?
-    static var userName: String?
-    static var joinDate: String?
+    static var userTempProfileImageName: String?
     static let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
-    static var searchItemTitleList: [String] = []
     static var shoppingList: Shopping?
-    static var wishList: [Shopping.Items] = []
-    static var wishButtonState: Bool?
+    
+    static func save(value: Any, key: UserDefaultsUserInfo) {
+        UserDefaults.standard.setValue(value, forKey: key.rawValue)
+    }
+    static func fetchisExistUser() -> Bool {
+        return UserDefaults.standard.bool(forKey: UserDefaultsUserInfo.isExistUser.rawValue)
+    }
+    
+    static func fetchName() -> String {
+        return UserDefaults.standard.string(forKey: UserDefaultsUserInfo.name.rawValue) ?? "-"
+    }
+    
+    static func fetchJoinDate() -> String {
+        return UserDefaults.standard.string(forKey: UserDefaultsUserInfo.joinDate.rawValue) ?? "-"
+    }
+    
+    static func fetchProfileImage() -> String {
+        return UserDefaults.standard.string(forKey: UserDefaultsUserInfo.profileImage.rawValue) ?? "-"
+    }
+    
+    static func fetchRecentSearchList() -> [String] {
+        if let result = UserDefaults.standard.array(forKey: UserDefaultsUserInfo.recentSearchList.rawValue) as? [String] {
+            return result
+        }
+        
+        return []
+    }
+    
+    static func fetchWishList() -> [Shopping.Items] {
+        if let savedWishList = UserDefaults.standard.object(forKey: UserDefaultsUserInfo.wishList.rawValue) as? Data {
+            let decoder = JSONDecoder()
+            do {
+                let result = try decoder.decode([Shopping.Items].self, from: savedWishList)
+                return result
+            } catch {
+                print("decode error: \(error)")
+            }
+        }
+        
+        return []
+    }
 }
 
 class APICall {
