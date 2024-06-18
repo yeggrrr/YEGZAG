@@ -133,16 +133,11 @@ class MainViewController: UIViewController {
         // emptyUI
         searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
         noneRecentSearchImageView.image = UIImage(named: "empty")
-        noneRecentSearchLabel.text = "최근 검색어가 없어요"
-        noneRecentSearchLabel.textColor = .label
-        noneRecentSearchLabel.font = .systemFont(ofSize: 20, weight: .black)
-        noneRecentSearchLabel.textAlignment = .center
-        // searchListUI
-        recentSearchLabel.text = "최근 검색"
-        recentSearchLabel.font = .systemFont(ofSize: 17, weight: .bold)
+        
+        noneRecentSearchLabel.setUI(labelText: "최근 검색어가 없어요", txtColor: .label, fontStyle: .systemFont(ofSize: 20, weight: .black), txtAlignment: .center)
+        recentSearchLabel.setUI(labelText: "최근 검색", txtColor: .label, fontStyle: .systemFont(ofSize: 17, weight: .black), txtAlignment: .left)
         removeAllButton.setTitle("전체 삭제", for: .normal)
         removeAllButton.setTitleColor(UIColor.systemPink, for: .normal)
-        
         removeAllButton.addTarget(self, action: #selector(removeAllButtonClicked), for: .touchUpInside)
     }
     

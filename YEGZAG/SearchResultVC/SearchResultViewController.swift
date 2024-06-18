@@ -20,7 +20,14 @@ class SearchResultViewController: UIViewController {
     let resultCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
     var searchText: String?
     
+    var isLoading: Bool = false
     var start = 1
+    let maxStartValue = 1000
+    var sortType: SortType = .sim {
+        didSet {
+            sortData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +57,7 @@ class SearchResultViewController: UIViewController {
     func configureCollecionView() {
         resultCollecionView.delegate = self
         resultCollecionView.dataSource = self
+        resultCollecionView.prefetchDataSource = self
         resultCollecionView.register(SearchResultCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultCollectionViewCell.id)
     }
     
@@ -100,10 +108,7 @@ class SearchResultViewController: UIViewController {
     
     func configureUI() {
         let resultCount = DataStorage.shoppingList?.total ?? 0
-        entireResultCountLabel.text = "\(resultCount.formatted())개의 검색 결과"
-        entireResultCountLabel.font = .systemFont(ofSize: 16, weight: .bold)
-        entireResultCountLabel.textColor = .systemPink
-        entireResultCountLabel.textAlignment = .left
+        entireResultCountLabel.setUI(labelText: "\(resultCount.formatted())개의 검색 결과", txtColor: .systemPink, fontStyle: .systemFont(ofSize: 16, weight: .bold), txtAlignment: .left)
         
         filterButtonStackView.axis = .horizontal
         filterButtonStackView.spacing = 10
@@ -135,7 +140,7 @@ class SearchResultViewController: UIViewController {
     }
     
     @objc func accuracyButtonClicked() {
-        sortData(type: .sim)
+        sortType = .sim
         accuracyButton.setUI(title: "  정확도  ", bgColor: .darkGray, textColor: .white)
         dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
         highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
@@ -143,7 +148,7 @@ class SearchResultViewController: UIViewController {
     }
     
     @objc func dateButtonClicked() {
-        sortData(type: .date)
+        sortType = .date
         accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
         dateButton.setUI(title: "  날짜순  ", bgColor: .darkGray, textColor: .white)
         highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
@@ -151,7 +156,7 @@ class SearchResultViewController: UIViewController {
     }
     
     @objc func highestButtonClicked() {
-        sortData(type: .dsc)
+        sortType = .dsc
         accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
         dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
         highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .darkGray, textColor: .white)
@@ -159,32 +164,50 @@ class SearchResultViewController: UIViewController {
     }
     
     @objc func lowestButtonClicked() {
-        sortData(type: .asc)
+        sortType = .asc
         accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
         dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
         highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
         lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .darkGray, textColor: .white)
     }
     
-    func sortData(type: SortType) {
+    func sortData() {
+        // start 초기화
+        start = 1
+        DataStorage.shoppingList?.items = []
+        guard let searchText = searchText else { return }
+        APICall.shared.searchShopData(query: searchText, sort: sortType, start: start) { shopping in
+            guard let shopping = shopping else { return }
+            DataStorage.shoppingList = shopping
+            self.resultCollecionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            self.resultCollecionView.reloadData()
+        }
+    }
+    
+    func fetch(type: SortType) {
+        isLoading = true
         guard let searchText = searchText else { return }
         APICall.shared.searchShopData(query: searchText, sort: type, start: start) { shopping in
             guard let shopping = shopping else { return }
-            DataStorage.shoppingList = shopping
+            DataStorage.shoppingList?.items.append(contentsOf: shopping.items)
+            self.start += shopping.display
+            self.isLoading = false
             self.resultCollecionView.reloadData()
-            self.resultCollecionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-        }    }
+        }
+    }
     
     @objc func wishButtonClicked(_ sender: UIButton) {
         guard let items = DataStorage.shoppingList?.items else { return }
         let index = sender.tag
         let item = items[index]
         
+        // wishList에 존재하는 경우 -> 추가 안함(삭제)
         let wishList = DataStorage.fetchWishList()
         var newWishList = wishList
         if wishList.contains(item) {
             newWishList = wishList.filter{ $0.productId != item.productId }
         } else {
+            // wishList에 없으면 추가
             newWishList.append(item)
         }
         
@@ -209,10 +232,12 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.id, for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
-        if let items = DataStorage.shoppingList?.items {
-            cell.configureCell(item: items[indexPath.item])
-            cell.wishButton.tag = indexPath.item
-            cell.wishButton.addTarget(self, action: #selector(wishButtonClicked(_:)), for: .touchUpInside)
+        if let inputText = searchText  {
+            if let items = DataStorage.shoppingList?.items {
+                cell.configureCell(item: items[indexPath.item], inputText: inputText)
+                cell.wishButton.tag = indexPath.item
+                cell.wishButton.addTarget(self, action: #selector(wishButtonClicked(_:)), for: .touchUpInside)
+            }
         }
         return cell
     }
@@ -225,5 +250,18 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         vc.index = indexPath.item
         vc.searchText = searchText
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        guard let shoppingList = DataStorage.shoppingList else { return }
+        for indexPath in indexPaths {
+            if shoppingList.items.count - 15 < indexPath.item {
+                if !isLoading && shoppingList.items.count <= maxStartValue {
+                    fetch(type: sortType)
+                }
+            }
+        }
     }
 }

@@ -70,18 +70,17 @@ class ItemDetailViewController: UIViewController {
     
     @objc func rightWishButtonClicked() {
         guard let item = item else { return }
-        
         let wishList = DataStorage.fetchWishList()
         var newWishList = wishList
+        
         if wishList.contains(item) {
             newWishList = wishList.filter{ $0.productId != item.productId }
         } else {
             newWishList.append(item)
         }
-    
-        let encoder = JSONEncoder()
         
         do {
+            let encoder = JSONEncoder()
             let result = try encoder.encode(newWishList)
             DataStorage.save(value: result, key: .wishList)
         } catch {

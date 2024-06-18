@@ -55,10 +55,7 @@ class OnBoardingController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
         
-        logoLabel.text = "YEGZAG"
-        logoLabel.textColor = .systemPink
-        logoLabel.font = .systemFont(ofSize: 50, weight: .black)
-        logoLabel.textAlignment = .center
+        logoLabel.setUI(labelText: "YEGZAG", txtColor: .systemPink, fontStyle: .systemFont(ofSize: 50, weight: .black), txtAlignment: .center)
         
         startScreenImageView.image = UIImage(named: "launch")
         startScreenImageView.contentMode = .scaleAspectFill
