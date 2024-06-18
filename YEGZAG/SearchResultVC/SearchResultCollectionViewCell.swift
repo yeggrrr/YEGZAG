@@ -100,7 +100,8 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         let itemImage = item.image
         let itemImageURL = URL(string: itemImage)
     
-        itemImageView.kf.setImage(with: itemImageURL)
+        itemImageView.kf.indicatorType = .activity
+        itemImageView.kf.setImage(with: itemImageURL, options: [.transition(.fade(1)), .forceTransition])
         
         shopNameLabel.text = item.mallName
         
