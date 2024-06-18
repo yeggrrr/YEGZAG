@@ -179,6 +179,7 @@ class SearchResultViewController: UIViewController {
         APICall.shared.searchShopData(query: searchText, sort: sortType, start: start) { shopping in
             guard let shopping = shopping else { return }
             DataStorage.shoppingList = shopping
+            print(shopping.items.count)
             self.resultCollecionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             self.resultCollecionView.reloadData()
         }
@@ -191,6 +192,7 @@ class SearchResultViewController: UIViewController {
             guard let shopping = shopping else { return }
             DataStorage.shoppingList?.items.append(contentsOf: shopping.items)
             self.start += shopping.display
+            
             self.isLoading = false
             self.resultCollecionView.reloadData()
         }
@@ -239,6 +241,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
                 cell.wishButton.addTarget(self, action: #selector(wishButtonClicked(_:)), for: .touchUpInside)
             }
         }
+        
         return cell
     }
     
@@ -255,10 +258,12 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
 
 extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        
         guard let shoppingList = DataStorage.shoppingList else { return }
-        for indexPath in indexPaths {
-            if shoppingList.items.count - 15 < indexPath.item {
-                if !isLoading && shoppingList.items.count <= maxStartValue {
+        print(shoppingList.items.count)
+        if !isLoading && start <= maxStartValue {
+            for indexPath in indexPaths {
+                if shoppingList.items.count - 15 == indexPath.item {
                     fetch(type: sortType)
                 }
             }
