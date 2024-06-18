@@ -96,7 +96,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         itemPriceLabel.textAlignment = .left
     }
     
-    func configureCell(item: Shopping.Items) {
+    func configureCell(item: Shopping.Items, inputText: String) {
         let itemImage = item.image
         let itemImageURL = URL(string: itemImage)
     
@@ -112,6 +112,10 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
             .joined()
         
         itemNameLabel.text = removeSlashBTag
+        
+        let attributedStr = NSMutableAttributedString(string: itemNameLabel.text!)
+        attributedStr.addAttribute(.foregroundColor, value: UIColor.blue, range: (itemNameLabel.text! as NSString).range(of: inputText))
+        itemNameLabel.attributedText = attributedStr
         
         if let stringToInt = Int(item.lprice) {
             itemPriceLabel.text = "\(stringToInt.formatted())원"
