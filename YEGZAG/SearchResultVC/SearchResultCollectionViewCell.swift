@@ -112,8 +112,9 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
             .joined()
         
         itemNameLabel.text = removeSlashBTag
-        
+        // Label에 있는 text 이용
         let attributedStr = NSMutableAttributedString(string: itemNameLabel.text!)
+        // 원하는 스타일 적용
         attributedStr.addAttribute(.foregroundColor, value: UIColor.blue, range: (itemNameLabel.text! as NSString).range(of: inputText))
         itemNameLabel.attributedText = attributedStr
         
