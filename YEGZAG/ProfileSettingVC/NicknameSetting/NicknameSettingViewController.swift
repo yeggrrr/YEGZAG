@@ -68,6 +68,7 @@ class NicknameSettingViewController: UIViewController {
         rightsaveButtonItem.isEnabled = isSaveButtonEnabled
         // textField
         nicknameSettingView.nicknameTextField.delegate = self
+        nicknameSettingView.nicknameTextField.becomeFirstResponder()
         // profileSettingView
         view.addSubview(nicknameSettingView)
         
