@@ -129,11 +129,11 @@
 		683211812C1B20D400EE24A6 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				686051C12C211E9D00D60EA0 /* UILabel+.swift */,
 				6862950D2C1EF02500EE296D /* DateFormatter+.swift */,
 				683211822C1B20E600EE24A6 /* UITextField+.swift */,
 				686295042C1E13DA00EE296D /* UIButton+.swift */,
 				683211922C1B404400EE24A6 /* ReusableProtocol+.swift */,
-				686051C12C211E9D00D60EA0 /* UILabel+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
