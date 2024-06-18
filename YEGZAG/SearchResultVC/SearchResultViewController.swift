@@ -179,7 +179,6 @@ class SearchResultViewController: UIViewController {
         APICall.shared.searchShopData(query: searchText, sort: sortType, start: start) { shopping in
             guard let shopping = shopping else { return }
             DataStorage.shoppingList = shopping
-            print(shopping.items.count)
             self.resultCollecionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             self.resultCollecionView.reloadData()
         }
@@ -260,7 +259,6 @@ extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         
         guard let shoppingList = DataStorage.shoppingList else { return }
-        print(shoppingList.items.count)
         if !isLoading && start <= maxStartValue {
             for indexPath in indexPaths {
                 if shoppingList.items.count - 15 == indexPath.item {

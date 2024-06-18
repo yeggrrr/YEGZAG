@@ -37,6 +37,7 @@ class ItemDetailViewController: UIViewController {
             
             navigationItem.title = removeSlashBTag
         }
+        
         navigationItem.rightBarButtonItem?.tintColor = .black
         updateWishButtonState()
     }
@@ -47,6 +48,7 @@ class ItemDetailViewController: UIViewController {
         webView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
+        
         guard let index = index else { return }
         guard let items = DataStorage.shoppingList?.items else { return }
         let detailLink = items[index].link

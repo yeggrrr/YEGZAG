@@ -61,7 +61,6 @@ class NicknameSettingViewController: UIViewController {
         navigationItem.title = "프로필 설정"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
-        
         let rightsaveButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
         navigationItem.rightBarButtonItem = rightsaveButtonItem
         rightsaveButtonItem.tintColor = saveButtonTintColor
@@ -71,7 +70,6 @@ class NicknameSettingViewController: UIViewController {
         nicknameSettingView.nicknameTextField.becomeFirstResponder()
         // profileSettingView
         view.addSubview(nicknameSettingView)
-        
         let safeArea = view.safeAreaLayoutGuide
         nicknameSettingView.snp.makeConstraints {
             $0.edges.equalTo(safeArea)
