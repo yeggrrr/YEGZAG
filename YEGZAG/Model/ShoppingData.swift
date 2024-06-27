@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Shopping: Codable {
+struct Shopping: Decodable {
     let lastBuildDate: String
     let total: Int
     let start: Int

@@ -115,15 +115,12 @@ class SearchResultViewController: UIViewController {
         filterButtonStackView.alignment = .leading
         filterButtonStackView.distribution = .fillProportionally
         
-        accuracyButton.setUI(title: "  정확도  ",  bgColor: .darkGray, textColor: .white)
-        dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
-        highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
-        lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
-        
         accuracyButton.addTarget(self, action: #selector(accuracyButtonClicked), for: .touchUpInside)
         dateButton.addTarget(self, action: #selector(dateButtonClicked), for: .touchUpInside)
         highestPriceButton.addTarget(self, action: #selector(highestButtonClicked), for: .touchUpInside)
         lowestPriceButton.addTarget(self, action: #selector(lowestButtonClicked), for: .touchUpInside)
+        
+        configureFilterButtonUI()
     }
     
     static func CollecionViewLayout() -> UICollectionViewLayout {
@@ -139,36 +136,29 @@ class SearchResultViewController: UIViewController {
         return layout
     }
     
-    @objc func accuracyButtonClicked() {
-        sortType = .sim
-        accuracyButton.setUI(title: "  정확도  ", bgColor: .darkGray, textColor: .white)
-        dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
-        highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
-        lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
-    }
-    
-    @objc func dateButtonClicked() {
-        sortType = .date
-        accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
-        dateButton.setUI(title: "  날짜순  ", bgColor: .darkGray, textColor: .white)
-        highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
-        lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
-    }
-    
-    @objc func highestButtonClicked() {
-        sortType = .dsc
-        accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
-        dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
-        highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .darkGray, textColor: .white)
-        lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
-    }
-    
-    @objc func lowestButtonClicked() {
-        sortType = .asc
-        accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
-        dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
-        highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
-        lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .darkGray, textColor: .white)
+    func configureFilterButtonUI() {
+        switch sortType {
+        case .sim:
+            accuracyButton.setUI(title: "  정확도  ", bgColor: .darkGray, textColor: .white)
+            dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
+            highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
+            lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
+        case .date:
+            accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
+            dateButton.setUI(title: "  날짜순  ", bgColor: .darkGray, textColor: .white)
+            highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
+            lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
+        case .asc:
+            accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
+            dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
+            highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .white, textColor: .label)
+            lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .darkGray, textColor: .white)
+        case .dsc:
+            accuracyButton.setUI(title: "  정확도  ", bgColor: .white, textColor: .label)
+            dateButton.setUI(title: "  날짜순  ", bgColor: .white, textColor: .label)
+            highestPriceButton.setUI(title: "  가격높은순  ", bgColor: .darkGray, textColor: .white)
+            lowestPriceButton.setUI(title: "  가격낮은순  ", bgColor: .white, textColor: .label)
+        }
     }
     
     func sortData() {
@@ -191,10 +181,29 @@ class SearchResultViewController: UIViewController {
             guard let shopping = shopping else { return }
             DataStorage.shoppingList?.items.append(contentsOf: shopping.items)
             self.start += shopping.display
-            
             self.isLoading = false
             self.resultCollecionView.reloadData()
         }
+    }
+    
+    @objc func accuracyButtonClicked() {
+        sortType = .sim
+        configureFilterButtonUI()
+    }
+    
+    @objc func dateButtonClicked() {
+        sortType = .date
+        configureFilterButtonUI()
+    }
+    
+    @objc func highestButtonClicked() {
+        sortType = .dsc
+        configureFilterButtonUI()
+    }
+    
+    @objc func lowestButtonClicked() {
+        sortType = .asc
+        configureFilterButtonUI()
     }
     
     @objc func wishButtonClicked(_ sender: UIButton) {
@@ -257,11 +266,11 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
 
 extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        
         guard let shoppingList = DataStorage.shoppingList else { return }
+        print(shoppingList.items.count)
         if !isLoading && start <= maxStartValue {
             for indexPath in indexPaths {
-                if shoppingList.items.count - 15 == indexPath.item {
+                if shoppingList.items.count - 5 == indexPath.item {
                     fetch(type: sortType)
                 }
             }

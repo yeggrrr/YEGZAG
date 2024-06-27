@@ -7,13 +7,12 @@
 
 import UIKit
 import SnapKit
-import Alamofire
 
 enum SortType: String {
     case sim
     case date
-    case dsc
     case asc
+    case dsc
 }
 
 class MainViewController: UIViewController {
