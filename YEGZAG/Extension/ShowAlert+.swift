@@ -1,13 +1,13 @@
 //
-//  SettingViewController+.swift
+//  ShowAlert+.swift
 //  YEGZAG
 //
-//  Created by YJ on 6/24/24.
+//  Created by YJ on 6/27/24.
 //
 
 import UIKit
 
-extension SettingViewController {
+extension UIViewController {
     func showAlert(title: String, message: String, completionHandler: @escaping (UIAlertAction) -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okButton = UIAlertAction(title: "확인", style: .default, handler: completionHandler)
