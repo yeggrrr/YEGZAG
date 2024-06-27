@@ -86,7 +86,9 @@ class ItemDetailViewController: UIViewController {
             let result = try encoder.encode(newWishList)
             DataStorage.save(value: result, key: .wishList)
         } catch {
-            print("encoding error: \(error)")
+            showAlert(title: "Error!!", message: "정보를 업데이트 하는데 실패했습니다. 다시 시도해주세요.") { _ in
+                print("encoding error: \(error)")
+            }
         }
         
         updateWishButtonState()
