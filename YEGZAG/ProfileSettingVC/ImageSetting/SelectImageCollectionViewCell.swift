@@ -23,7 +23,6 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
     }
     
     func configureUI() {
-        print(#function)
         contentView.addSubview(profileBorderView)
         profileBorderView.addSubview(profileImageView)
         

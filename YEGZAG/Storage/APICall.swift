@@ -19,7 +19,7 @@ class APICall {
     
     private init() { }
     
-    func callRequest(query: String, sort: SortType, start: Int, completion: @escaping(Shopping?, YegrError?) -> Void) {
+    func callRequest<T: Decodable>(query: String, sort: SortType, start: Int, model: T.Type,completion: @escaping(T?, YegrError?) -> Void) {
         var component = URLComponents()
         component.scheme = Component.scheme
         component.host = Component.host
@@ -71,7 +71,7 @@ class APICall {
                 let decoder = JSONDecoder()
                 
                 do {
-                    let result = try decoder.decode(Shopping.self, from: data)
+                    let result = try decoder.decode(T.self, from: data)
                     print("SUCCESS")
                     completion(result, nil)
                 } catch {
