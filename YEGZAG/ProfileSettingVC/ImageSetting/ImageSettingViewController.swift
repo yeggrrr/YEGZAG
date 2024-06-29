@@ -18,11 +18,9 @@ class ImageSettingViewController: UIViewController {
     }
     
     func configureUI() {
-        // view
         view.backgroundColor = .white
-        // navigation
         navigationItem.title = "이미지 선택"
-        // imageSettingView
+        
         view.addSubview(imageSettingView)
         
         let safeArea = view.safeAreaLayoutGuide

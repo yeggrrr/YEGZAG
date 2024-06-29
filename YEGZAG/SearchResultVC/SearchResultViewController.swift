@@ -269,7 +269,6 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
 extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         guard let shoppingList = DataStorage.shoppingList else { return }
-        print(shoppingList.items.count)
         if !isLoading && start <= maxStartValue {
             for indexPath in indexPaths {
                 if shoppingList.items.count - 5 == indexPath.item {

@@ -19,20 +19,11 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        configureUI()
-    }
-    
-    override func layoutSubviews() {
-      super.layoutSubviews()
-        
-        profileBorderView.layoutIfNeeded()
-        profileBorderView.layer.cornerRadius = profileBorderView.frame.width / 2
-        profileBorderView.clipsToBounds = true
+        fatalError("init(coder:) has not been implemented")
     }
     
     func configureUI() {
+        print(#function)
         contentView.addSubview(profileBorderView)
         profileBorderView.addSubview(profileImageView)
         
@@ -48,6 +39,10 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
     
         profileBorderView.layer.borderWidth = 1
         profileBorderView.layer.borderColor = UIColor.darkGray.cgColor
+        
+        profileBorderView.layoutIfNeeded()
+        profileBorderView.layer.cornerRadius = profileBorderView.frame.width / 2
+        profileBorderView.clipsToBounds = true
         
         profileImageView.image = UIImage(named: "profile_0")
         profileImageView.contentMode = .scaleAspectFill

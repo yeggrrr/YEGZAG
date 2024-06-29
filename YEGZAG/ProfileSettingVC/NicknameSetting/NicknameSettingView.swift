@@ -32,18 +32,7 @@ class NicknameSettingView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        configureHierarchy()
-        configureLayout()
-        configureUI()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        profileBorderView.layoutIfNeeded()
-        profileBorderView.layer.cornerRadius = profileBorderView.frame.width / 2
-        profileBorderView.clipsToBounds = true
+        fatalError("init(coder:) has not been implemented")
     }
     
     func configureHierarchy() {
@@ -125,6 +114,10 @@ class NicknameSettingView: UIView {
         
         profileBorderView.layer.borderWidth = 3
         profileBorderView.layer.borderColor = UIColor.systemPink.cgColor
+        
+        profileBorderView.layoutIfNeeded()
+        profileBorderView.layer.cornerRadius = profileBorderView.frame.width / 2
+        profileBorderView.clipsToBounds = true
         
         profileImageView.contentMode = .scaleAspectFill
         
