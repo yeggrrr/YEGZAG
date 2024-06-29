@@ -136,11 +136,7 @@ class NicknameSettingViewController: UIViewController {
             DataStorage.userTempProfileImageName = nil
         }
         
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        let vc = YEGZAGTabBarController()
-        sceneDelegate?.window?.rootViewController = vc
-        sceneDelegate?.window?.makeKeyAndVisible()
+        screenTransition(YEGZAGTabBarController())
     }
     
     @objc func saveButtonClicked() {

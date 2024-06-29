@@ -113,12 +113,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                         UserDefaults.standard.removeObject(forKey: key.description)
                     }
                     
-                    let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                    let sceneDelegate = windowScene?.delegate as? SceneDelegate
-                    let vc = OnBoardingController()
-                    let nav = UINavigationController(rootViewController: vc)
-                    sceneDelegate?.window?.rootViewController = nav
-                    sceneDelegate?.window?.makeKeyAndVisible()
+                    self.screenTransition(OnBoardingController())
                 }
             }
         }
