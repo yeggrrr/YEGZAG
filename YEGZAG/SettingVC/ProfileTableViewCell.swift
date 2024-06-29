@@ -74,7 +74,7 @@ class ProfileTableViewCell: UITableViewCell {
     
     func configureUI() {
         profileImageView.layer.borderWidth = 3
-        profileImageView.layer.borderColor = UIColor.systemPink.cgColor
+        profileImageView.layer.borderColor = UIColor.primaryColor.cgColor
         
         nameDateStackView.axis = .vertical
         nameDateStackView.spacing = 10

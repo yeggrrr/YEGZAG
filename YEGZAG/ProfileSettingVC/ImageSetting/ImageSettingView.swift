@@ -79,7 +79,7 @@ class ImageSettingView: UIView {
         profileView.backgroundColor = .white
         
         profileBorderView.layer.borderWidth = 3
-        profileBorderView.layer.borderColor = UIColor.systemPink.cgColor
+        profileBorderView.layer.borderColor = UIColor.primaryColor.cgColor
         profileBorderView.layer.opacity = 1
         
         profileBorderView.layoutIfNeeded()
@@ -89,7 +89,7 @@ class ImageSettingView: UIView {
         profileImageView.contentMode = .scaleAspectFill
         
         camerView.layer.cornerRadius = 20
-        camerView.backgroundColor = .systemPink
+        camerView.backgroundColor = .primaryColor
         
         cameraImageView.image = UIImage(systemName: "camera.fill")
         cameraImageView.tintColor = .white

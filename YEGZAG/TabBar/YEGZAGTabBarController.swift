@@ -15,7 +15,7 @@ class YEGZAGTabBarController: UITabBarController {
     }
     
     func configureTabBar() {
-        tabBar.tintColor = .systemPink
+        tabBar.tintColor = .primaryColor
         tabBar.unselectedItemTintColor = .darkGray
         
         let searchVC = MainViewController()

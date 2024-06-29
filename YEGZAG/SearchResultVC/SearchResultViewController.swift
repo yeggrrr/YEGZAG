@@ -108,7 +108,7 @@ class SearchResultViewController: UIViewController {
     
     func configureUI() {
         let resultCount = DataStorage.shoppingList?.total ?? 0
-        entireResultCountLabel.setUI(labelText: "\(resultCount.formatted())개의 검색 결과", txtColor: .systemPink, fontStyle: .systemFont(ofSize: 16, weight: .bold), txtAlignment: .left)
+        entireResultCountLabel.setUI(labelText: "\(resultCount.formatted())개의 검색 결과", txtColor: .primaryColor, fontStyle: .systemFont(ofSize: 16, weight: .bold), txtAlignment: .left)
         
         filterButtonStackView.axis = .horizontal
         filterButtonStackView.spacing = 10

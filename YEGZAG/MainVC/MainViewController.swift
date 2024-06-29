@@ -136,7 +136,7 @@ class MainViewController: UIViewController {
         noneRecentSearchLabel.setUI(labelText: "최근 검색어가 없어요", txtColor: .label, fontStyle: .systemFont(ofSize: 20, weight: .black), txtAlignment: .center)
         recentSearchLabel.setUI(labelText: "최근 검색", txtColor: .label, fontStyle: .systemFont(ofSize: 17, weight: .black), txtAlignment: .left)
         removeAllButton.setTitle("전체 삭제", for: .normal)
-        removeAllButton.setTitleColor(UIColor.systemPink, for: .normal)
+        removeAllButton.setTitleColor(UIColor.primaryColor, for: .normal)
         removeAllButton.addTarget(self, action: #selector(removeAllButtonClicked), for: .touchUpInside)
     }
     

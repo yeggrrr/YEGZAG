@@ -113,7 +113,7 @@ class NicknameSettingView: UIView {
         profileView.backgroundColor = .white
         
         profileBorderView.layer.borderWidth = 3
-        profileBorderView.layer.borderColor = UIColor.systemPink.cgColor
+        profileBorderView.layer.borderColor = UIColor.primaryColor.cgColor
         
         profileBorderView.layoutIfNeeded()
         profileBorderView.layer.cornerRadius = profileBorderView.frame.width / 2
@@ -122,7 +122,7 @@ class NicknameSettingView: UIView {
         profileImageView.contentMode = .scaleAspectFill
         
         camerView.layer.cornerRadius = 20
-        camerView.backgroundColor = .systemPink
+        camerView.backgroundColor = .primaryColor
         
         cameraImageView.image = UIImage(systemName: "camera.fill")
         cameraImageView.tintColor = .white
@@ -131,7 +131,7 @@ class NicknameSettingView: UIView {
         nicknameTextField.setTextField(placeholderText: "닉네임을 입력해주세요 :)")
         
         noticeLabel.text = ""
-        noticeLabel.textColor = .systemPink
+        noticeLabel.textColor = .primaryColor
         noticeLabel.font = .systemFont(ofSize: 13)
         noticeLabel.textAlignment = .left
         
