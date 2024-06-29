@@ -173,7 +173,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let clickedValue = DataStorage.fetchRecentSearchList().reversed()[indexPath.row]
-        APICall.shared.searchShopData(query: clickedValue, sort: .sim, start: start) { shopping in
+        
+        APICall.shared.callRequest(query: clickedValue, sort: .sim, start: start) { shopping, error in
             guard let shopping = shopping else { return }
             DataStorage.shoppingList = shopping
             self.searchListView.isHidden = false
@@ -211,7 +212,7 @@ extension MainViewController: UISearchBarDelegate {
         newRecentSearchList.append(text)
         DataStorage.save(value: newRecentSearchList, key: .recentSearchList)
         
-        APICall.shared.searchShopData(query: text, sort: .sim, start: start) { shopping in
+        APICall.shared.callRequest(query: text, sort: .sim, start: start) { shopping, error in
             guard let shopping = shopping else { return }
             DataStorage.shoppingList = shopping
             

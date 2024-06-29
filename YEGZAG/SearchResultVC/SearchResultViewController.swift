@@ -165,8 +165,9 @@ class SearchResultViewController: UIViewController {
         // start 초기화
         start = 1
         DataStorage.shoppingList?.items = []
+        
         guard let searchText = searchText else { return }
-        APICall.shared.searchShopData(query: searchText, sort: sortType, start: start) { shopping in
+        APICall.shared.callRequest(query: searchText, sort: sortType, start: start) { shopping, error in
             guard let shopping = shopping else { return }
             DataStorage.shoppingList = shopping
             self.resultCollecionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
@@ -176,8 +177,9 @@ class SearchResultViewController: UIViewController {
     
     func fetch(type: SortType) {
         isLoading = true
+        
         guard let searchText = searchText else { return }
-        APICall.shared.searchShopData(query: searchText, sort: type, start: start) { shopping in
+        APICall.shared.callRequest(query: searchText, sort: type, start: start) { shopping, error in
             guard let shopping = shopping else { return }
             DataStorage.shoppingList?.items.append(contentsOf: shopping.items)
             self.start += shopping.display
