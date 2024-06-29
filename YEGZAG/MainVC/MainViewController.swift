@@ -194,11 +194,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         var newRecentSearchList = recentSearchList
         newRecentSearchList.remove(at: recentSearchList.count - index - 1)
         DataStorage.save(value: newRecentSearchList, key: .recentSearchList)
-        searchListTableView.reloadData()
         
-        if recentSearchList.isEmpty {
+        if newRecentSearchList.isEmpty {
             searchListView.isHidden = true
         }
+        
+        searchListTableView.reloadData()
     }
 }
 
