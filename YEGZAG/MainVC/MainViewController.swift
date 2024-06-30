@@ -211,6 +211,9 @@ extension MainViewController: UISearchBarDelegate {
         guard let text = searchBar.text else { return }
         let recentSearchList = DataStorage.fetchRecentSearchList()
         var newRecentSearchList = recentSearchList
+        if newRecentSearchList.contains(text) {
+            newRecentSearchList.removeAll { $0 == text }
+        }
         newRecentSearchList.append(text)
         DataStorage.save(value: newRecentSearchList, key: .recentSearchList)
         
