@@ -179,11 +179,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         APICall.shared.callRequest(query: clickedValue, sort: .sim, start: start, model: Shopping.self) { shopping, error in
             guard let shopping = shopping else { return }
             self.shoppingList = shopping
+            
             self.searchListView.isHidden = false
             
-            if shopping.items.count != 0 {
+            if self.shoppingList?.items.count != 0 {
                 let searchResultVC  = SearchResultViewController()
                 searchResultVC.searchText = clickedValue
+                searchResultVC.shoppingList = shopping
                 self.navigationController?.pushViewController(searchResultVC, animated: true)
             }
             
