@@ -26,6 +26,8 @@ class MainViewController: UIViewController {
     let removeAllButton = UIButton()
     let searchListTableView = UITableView()
     
+    var shoppingList: Shopping?
+    
     var start = 1
     
     override func viewDidLoad() {
@@ -176,7 +178,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         APICall.shared.callRequest(query: clickedValue, sort: .sim, start: start, model: Shopping.self) { shopping, error in
             guard let shopping = shopping else { return }
-            DataStorage.shoppingList = shopping
+            self.shoppingList = shopping
             self.searchListView.isHidden = false
             
             if shopping.items.count != 0 {
@@ -214,7 +216,7 @@ extension MainViewController: UISearchBarDelegate {
         
         APICall.shared.callRequest(query: text, sort: .sim, start: start, model: Shopping.self) { shopping, error in
             guard let shopping = shopping else { return }
-            DataStorage.shoppingList = shopping
+            self.shoppingList = shopping
             
             let isSearchListEmpty = newRecentSearchList.isEmpty
             self.searchListView.isHidden = isSearchListEmpty
@@ -223,6 +225,7 @@ extension MainViewController: UISearchBarDelegate {
                 searchBar.text = ""
                 let searchResultVC  = SearchResultViewController()
                 searchResultVC.searchText = text
+                searchResultVC.shoppingList = self.shoppingList
                 self.navigationController?.pushViewController(searchResultVC, animated: true)
             }
             

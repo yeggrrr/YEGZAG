@@ -14,6 +14,7 @@ class ItemDetailViewController: UIViewController {
     var index: Int?
     var searchText: String?
     var item: Shopping.Items?
+    var shoppingList: Shopping?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,7 @@ class ItemDetailViewController: UIViewController {
         view.backgroundColor = .white
         // navigation
         guard let index = index else { return }
-        if let item = DataStorage.shoppingList?.items[index] {
+        if let item = shoppingList?.items[index] {
             let removeBTag = item.title
                 .components(separatedBy: "<b>")
                 .joined()
@@ -50,7 +51,7 @@ class ItemDetailViewController: UIViewController {
         }
         
         guard let index = index else { return }
-        guard let items = DataStorage.shoppingList?.items else { return }
+        guard let items = shoppingList?.items else { return }
         let detailLink = items[index].link
         guard let detailURL = URL(string: detailLink) else { return }
         let request = URLRequest(url: detailURL)

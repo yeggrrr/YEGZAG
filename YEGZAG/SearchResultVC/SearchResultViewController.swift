@@ -29,6 +29,8 @@ class SearchResultViewController: UIViewController {
         }
     }
     
+    var shoppingList: Shopping?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -107,7 +109,7 @@ class SearchResultViewController: UIViewController {
     }
     
     func configureUI() {
-        let resultCount = DataStorage.shoppingList?.total ?? 0
+        let resultCount = shoppingList?.total ?? 0
         entireResultCountLabel.setUI(labelText: "\(resultCount.formatted())개의 검색 결과", txtColor: .primaryColor, fontStyle: .systemFont(ofSize: 16, weight: .bold), txtAlignment: .left)
         
         filterButtonStackView.axis = .horizontal
@@ -164,12 +166,12 @@ class SearchResultViewController: UIViewController {
     func sortData() {
         // start 초기화
         start = 1
-        DataStorage.shoppingList?.items = []
+        shoppingList?.items = []
         guard let searchText = searchText else { return }
         
         APICall.shared.callRequest(query: searchText, sort: sortType, start: start, model: Shopping.self) { shopping, error in
             guard let shopping = shopping else { return }
-            DataStorage.shoppingList = shopping
+            self.shoppingList = shopping
             self.resultCollecionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             self.resultCollecionView.reloadData()
         }
@@ -181,7 +183,7 @@ class SearchResultViewController: UIViewController {
         
         APICall.shared.callRequest(query: searchText, sort: type, start: start, model: Shopping.self) { shopping, error in
             guard let shopping = shopping else { return }
-            DataStorage.shoppingList?.items.append(contentsOf: shopping.items)
+            self.shoppingList?.items.append(contentsOf: shopping.items)
             self.start += shopping.display
             self.isLoading = false
             self.resultCollecionView.reloadData()
@@ -209,7 +211,7 @@ class SearchResultViewController: UIViewController {
     }
     
     @objc func wishButtonClicked(_ sender: UIButton) {
-        guard let items = DataStorage.shoppingList?.items else { return }
+        guard let items = shoppingList?.items else { return }
         let index = sender.tag
         let item = items[index]
         
@@ -240,14 +242,14 @@ class SearchResultViewController: UIViewController {
 
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let items = DataStorage.shoppingList?.items else { return 0 }
+        guard let items = shoppingList?.items else { return 0 }
         return items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.id, for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
         if let inputText = searchText  {
-            if let items = DataStorage.shoppingList?.items {
+            if let items = shoppingList?.items {
                 cell.configureCell(item: items[indexPath.item], inputText: inputText)
                 cell.wishButton.tag = indexPath.item
                 cell.wishButton.addTarget(self, action: #selector(wishButtonClicked(_:)), for: .touchUpInside)
@@ -259,18 +261,19 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = ItemDetailViewController()
-        if let items = DataStorage.shoppingList?.items {
+        if let items = shoppingList?.items {
             vc.item = items[indexPath.item]
         }
         vc.index = indexPath.item
         vc.searchText = searchText
+        vc.shoppingList = shoppingList
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        guard let shoppingList = DataStorage.shoppingList else { return }
+        guard let shoppingList = shoppingList else { return }
         if !isLoading && start <= maxStartValue {
             for indexPath in indexPaths {
                 if shoppingList.items.count - 5 == indexPath.item {
