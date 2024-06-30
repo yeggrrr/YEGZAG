@@ -9,13 +9,13 @@ import UIKit
 import SnapKit
 
 class NicknameSettingViewController: UIViewController {
+    let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
     let nicknameSettingView = NicknameSettingView()
     var saveButtonTintColor: UIColor = .clear
     var isSaveButtonEnabled: Bool = false
     var nicknameErrorMessage: NicknameErrorMessage = .empty
     var viewType: ViewType = .new
-    let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
-    
+
     enum ViewType {
         case new // 처음
         case update // 수정

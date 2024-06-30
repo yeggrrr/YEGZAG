@@ -8,8 +8,8 @@
 import UIKit
 
 class ImageSettingViewController: UIViewController {
-    let imageSettingView = ImageSettingView()
     let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
+    let imageSettingView = ImageSettingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

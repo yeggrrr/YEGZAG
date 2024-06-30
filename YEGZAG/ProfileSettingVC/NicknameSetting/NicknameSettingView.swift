@@ -10,18 +10,16 @@ import SnapKit
 
 class NicknameSettingView: UIView {
     let profileView = UIView()
-    var profileImageView = UIImageView()
     let profileBorderView = UIView()
     let camerView = UIView()
     let cameraImageView = UIImageView()
-    
     let nicknameTextField = UITextField()
     let dividerView = UIView()
     let noticeLabel = UILabel()
-    
     let completeButton = PointButton(title: "완료")
-    
     let profileTabGestureView = UIView()
+    
+    var profileImageView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
