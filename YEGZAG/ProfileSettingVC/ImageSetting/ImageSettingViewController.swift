@@ -9,6 +9,7 @@ import UIKit
 
 class ImageSettingViewController: UIViewController {
     let imageSettingView = ImageSettingView()
+    let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,19 +49,19 @@ class ImageSettingViewController: UIViewController {
 
 extension ImageSettingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DataStorage.profileImageNameList.count
+        return profileImageNameList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectImageCollectionViewCell.id, for: indexPath) as? SelectImageCollectionViewCell else { return UICollectionViewCell() }
-        let imageName = DataStorage.profileImageNameList[indexPath.item]
+        let imageName = profileImageNameList[indexPath.item]
         cell.profileImageView.image = UIImage(named: imageName)
         cell.configureImage(imageName: imageName)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedImageName = DataStorage.profileImageNameList[indexPath.item]
+        let selectedImageName = profileImageNameList[indexPath.item]
         imageSettingView.profileImageView.image = UIImage(named: selectedImageName)
         DataStorage.userTempProfileImageName = selectedImageName
         imageSettingView.selectImageCollectionView.reloadData()

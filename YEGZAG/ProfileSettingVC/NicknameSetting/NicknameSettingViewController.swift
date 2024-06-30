@@ -14,6 +14,7 @@ class NicknameSettingViewController: UIViewController {
     var isSaveButtonEnabled: Bool = false
     var nicknameErrorMessage: NicknameErrorMessage = .empty
     var viewType: ViewType = .new
+    let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
     
     enum ViewType {
         case new // 처음
@@ -45,7 +46,7 @@ class NicknameSettingViewController: UIViewController {
     func setInitialData() {
         if viewType == .new {
             // 최초 진입 or 설정 안하고 pop or 탈퇴후 진입 -> 랜덤으로 가져오기 -> userTempProfileImageName에 임시 저장
-            if let randomImageName = DataStorage.profileImageNameList.randomElement() {
+            if let randomImageName = profileImageNameList.randomElement() {
                 DataStorage.userTempProfileImageName = randomImageName
             }
         } else {

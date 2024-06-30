@@ -9,7 +9,6 @@ import Foundation
 
 struct DataStorage {
     static var userTempProfileImageName: String?
-    static let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
     
     static func save(value: Any, key: UserDefaultsUserInfo) {
         UserDefaults.standard.setValue(value, forKey: key.rawValue)
