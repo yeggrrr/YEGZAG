@@ -8,10 +8,10 @@
 import UIKit
 import SnapKit
 
-class OnBoardingController: UIViewController {
-    let logoLabel = UILabel()
-    let startScreenImageView = UIImageView()
-    let startButton = PointButton(title: "시작하기")
+final class OnBoardingController: UIViewController {
+    private let logoLabel = UILabel()
+    private let startScreenImageView = UIImageView()
+    private let startButton = PointButton(title: "시작하기")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,13 +21,13 @@ class OnBoardingController: UIViewController {
         configureUI()
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         view.addSubview(logoLabel)
         view.addSubview(startScreenImageView)
         view.addSubview(startButton)
     }
 
-    func configureLayout() {
+    private func configureLayout() {
         let safeArea = view.safeAreaLayoutGuide
         logoLabel.snp.makeConstraints {
             $0.horizontalEdges.equalTo(safeArea).inset(20)
@@ -47,7 +47,7 @@ class OnBoardingController: UIViewController {
         }
     }
     
-    func configureUI() {
+    private func configureUI() {
         // view
         view.backgroundColor = .white
         

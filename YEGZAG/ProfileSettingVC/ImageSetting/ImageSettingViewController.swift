@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ImageSettingViewController: UIViewController {
-    let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
-    let imageSettingView = ImageSettingView()
+final class ImageSettingViewController: UIViewController {
+    private let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
+    private let imageSettingView = ImageSettingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +18,7 @@ class ImageSettingViewController: UIViewController {
         configureCollecionView()
     }
     
-    func configureUI() {
+    private func configureUI() {
         view.backgroundColor = .white
         navigationItem.title = "이미지 선택"
         
@@ -40,7 +40,7 @@ class ImageSettingViewController: UIViewController {
         }
     }
     
-    func configureCollecionView() {
+    private func configureCollecionView() {
         imageSettingView.selectImageCollectionView.dataSource = self
         imageSettingView.selectImageCollectionView.delegate = self
         imageSettingView.selectImageCollectionView.register(SelectImageCollectionViewCell.self, forCellWithReuseIdentifier: SelectImageCollectionViewCell.id)

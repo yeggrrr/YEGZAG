@@ -8,8 +8,8 @@
 import UIKit
 import SnapKit
 
-class SearchTableViewCell: UITableViewCell {
-    let clockImageView = UIImageView()
+final class SearchTableViewCell: UITableViewCell {
+    private let clockImageView = UIImageView()
     let itemLabel = UILabel()
     let deleteButton = UIButton()
     
@@ -25,13 +25,13 @@ class SearchTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         contentView.addSubview(clockImageView)
         contentView.addSubview(itemLabel)
         contentView.addSubview(deleteButton)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         let safeArea = contentView.safeAreaLayoutGuide
         clockImageView.snp.makeConstraints {
             $0.top.bottom.equalTo(safeArea).inset(10)
@@ -52,7 +52,7 @@ class SearchTableViewCell: UITableViewCell {
         }
     }
     
-    func configureUI() {
+    private func configureUI() {
         clockImageView.image = UIImage(systemName: "clock")
         clockImageView.tintColor = .black
         clockImageView.contentMode = .scaleAspectFit

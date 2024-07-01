@@ -8,12 +8,12 @@
 import UIKit
 import SnapKit
 
-class ImageSettingView: UIView {
-    let profileView = UIView()
+final class ImageSettingView: UIView {
+    private let profileView = UIView()
     let profileImageView = UIImageView()
-    let profileBorderView = UIView()
-    let camerView = UIView()
-    let cameraImageView = UIImageView()
+    private let profileBorderView = UIView()
+    private let camerView = UIView()
+    private let cameraImageView = UIImageView()
     
     let selectImageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collecionViewLayout())
     
@@ -29,7 +29,7 @@ class ImageSettingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         addSubview(profileView)
         profileView.addSubview(profileBorderView)
         profileBorderView.addSubview(profileImageView)
@@ -39,7 +39,7 @@ class ImageSettingView: UIView {
         addSubview(selectImageCollectionView)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         let safeArea = safeAreaLayoutGuide
         profileView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
@@ -75,7 +75,7 @@ class ImageSettingView: UIView {
         }
     }
     
-    func configureUI() {
+    private func configureUI() {
         profileView.backgroundColor = .white
         
         profileBorderView.layer.borderWidth = 3
@@ -99,7 +99,7 @@ class ImageSettingView: UIView {
         selectImageCollectionView.isScrollEnabled = false
     }
     
-    static func collecionViewLayout() -> UICollectionViewLayout {
+    private static func collecionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let sectionSpacing: CGFloat = 1
         let cellSpacing: CGFloat = 1

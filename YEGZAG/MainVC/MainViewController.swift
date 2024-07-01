@@ -15,20 +15,20 @@ enum SortType: String {
     case dsc
 }
 
-class MainViewController: UIViewController {
-    let searchBar = UISearchBar()
-    let noneRecentSearchImageView = UIImageView()
-    let noneRecentSearchLabel = UILabel()
+final class MainViewController: UIViewController {
+    private let searchBar = UISearchBar()
+    private let noneRecentSearchImageView = UIImageView()
+    private let noneRecentSearchLabel = UILabel()
     
-    let searchListView = UIView()
-    let topLabelView = UIView()
-    let recentSearchLabel = UILabel()
-    let removeAllButton = UIButton()
-    let searchListTableView = UITableView()
+    private let searchListView = UIView()
+    private let topLabelView = UIView()
+    private let recentSearchLabel = UILabel()
+    private let removeAllButton = UIButton()
+    private let searchListTableView = UITableView()
     
-    var shoppingList: Shopping?
+    private var shoppingList: Shopping?
     
-    var start = 1
+    private var start = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,9 +50,10 @@ class MainViewController: UIViewController {
         searchListView.isHidden = isSearchListEmpty
         
         setNickname()
+        searchListTableView.reloadData()
     }
     
-    func configureView() {
+    private func configureView() {
         // view
         view.backgroundColor = .white
         // naviation
@@ -61,18 +62,18 @@ class MainViewController: UIViewController {
         setNickname()
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         searchListTableView.delegate = self
         searchListTableView.dataSource = self
         searchListTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.id)
         searchListTableView.separatorStyle = .none
     }
     
-    func congfigureSearchBar() {
+    private func congfigureSearchBar() {
         searchBar.delegate = self
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         // emptyHierarchy
         view.addSubview(searchBar)
         view.addSubview(noneRecentSearchImageView)
@@ -86,7 +87,7 @@ class MainViewController: UIViewController {
         searchListView.addSubview(searchListTableView)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         let safeArea = view.safeAreaLayoutGuide
         // emptyLayout
         searchBar.snp.makeConstraints {
@@ -130,7 +131,7 @@ class MainViewController: UIViewController {
         }
     }
     
-    func configureUI() {
+    private func configureUI() {
         // emptyUI
         searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
         noneRecentSearchImageView.image = UIImage(named: "empty")
@@ -142,7 +143,7 @@ class MainViewController: UIViewController {
         removeAllButton.addTarget(self, action: #selector(removeAllButtonClicked), for: .touchUpInside)
     }
     
-    func setNickname() {
+    private func setNickname() {
         let userName = DataStorage.fetchName()
         navigationItem.title = "\(userName)'s YEGZAG"
     }
@@ -175,6 +176,17 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let clickedValue = DataStorage.fetchRecentSearchList().reversed()[indexPath.row]
+        let recentSearchList = DataStorage.fetchRecentSearchList()
+        var newRecentSearchList = recentSearchList
+        
+        for (index, keyword) in newRecentSearchList.enumerated() {
+            if keyword == clickedValue {
+                newRecentSearchList.remove(at: index)
+            }
+        }
+        
+        newRecentSearchList.append(clickedValue)
+        DataStorage.save(value: newRecentSearchList, key: .recentSearchList)
         
         APICall.shared.callRequest(query: clickedValue, sort: .sim, start: start, model: Shopping.self) { shopping, error in
             guard let shopping = shopping else { return }
@@ -213,9 +225,13 @@ extension MainViewController: UISearchBarDelegate {
         guard let text = searchBar.text else { return }
         let recentSearchList = DataStorage.fetchRecentSearchList()
         var newRecentSearchList = recentSearchList
-        if newRecentSearchList.contains(text) {
-            newRecentSearchList.removeAll { $0 == text }
+        
+        for (index, keyword) in newRecentSearchList.enumerated() {
+            if keyword == text {
+                newRecentSearchList.remove(at: index)
+            }
         }
+        
         newRecentSearchList.append(text)
         DataStorage.save(value: newRecentSearchList, key: .recentSearchList)
         

@@ -8,12 +8,12 @@
 import UIKit
 import SnapKit
 
-class NicknameSettingViewController: UIViewController {
-    let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
+final class NicknameSettingViewController: UIViewController {
+    private let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
     let nicknameSettingView = NicknameSettingView()
     var saveButtonTintColor: UIColor = .clear
     var isSaveButtonEnabled: Bool = false
-    var nicknameErrorMessage: NicknameErrorMessage = .empty
+    private var nicknameErrorMessage: NicknameErrorMessage = .empty
     var viewType: ViewType = .new
 
     enum ViewType {
@@ -43,7 +43,7 @@ class NicknameSettingViewController: UIViewController {
         configureUI()
     }
     
-    func setInitialData() {
+    private func setInitialData() {
         if viewType == .new {
             // 최초 진입 or 설정 안하고 pop or 탈퇴후 진입 -> 랜덤으로 가져오기 -> userTempProfileImageName에 임시 저장
             if let randomImageName = profileImageNameList.randomElement() {
@@ -55,7 +55,7 @@ class NicknameSettingViewController: UIViewController {
         }
     }
     
-    func configureUI() {
+    private func configureUI() {
         // view
         view.backgroundColor = .white
         // navigation
@@ -89,7 +89,7 @@ class NicknameSettingViewController: UIViewController {
         nicknameSettingView.completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
     }
     
-    func nicknameCondition() {
+    private func nicknameCondition() {
         guard let text  = nicknameSettingView.nicknameTextField.text else { return }
         for char in text {
             if text.isEmpty {
@@ -108,7 +108,7 @@ class NicknameSettingViewController: UIViewController {
         nicknameSettingView.noticeLabel.text = nicknameErrorMessage.rawValue
     }
     
-    func profileTabGesture() {
+    private func profileTabGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
         nicknameSettingView.profileTabGestureView.addGestureRecognizer(tapGesture)
         nicknameSettingView.profileTabGestureView.isUserInteractionEnabled = true

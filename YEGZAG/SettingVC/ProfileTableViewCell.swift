@@ -8,12 +8,12 @@
 import UIKit
 import SnapKit
 
-class ProfileTableViewCell: UITableViewCell {
+final class ProfileTableViewCell: UITableViewCell {
     let profileImageView = UIImageView()
-    let nameDateStackView = UIStackView()
+    private let nameDateStackView = UIStackView()
     let userNameLabel = UILabel()
     let joinDateLagel = UILabel()
-    let rightButtonImageView = UIImageView()
+    private let rightButtonImageView = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,7 +35,7 @@ class ProfileTableViewCell: UITableViewCell {
         profileImageView.clipsToBounds = true
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         contentView.addSubview(profileImageView)
         contentView.addSubview(nameDateStackView)
         nameDateStackView.addArrangedSubview(userNameLabel)
@@ -43,7 +43,7 @@ class ProfileTableViewCell: UITableViewCell {
         contentView.addSubview(rightButtonImageView)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         let safeArea = contentView.safeAreaLayoutGuide
         profileImageView.snp.makeConstraints {
             $0.leading.equalTo(safeArea).offset(15)
@@ -72,7 +72,7 @@ class ProfileTableViewCell: UITableViewCell {
         }
     }
     
-    func configureUI() {
+    private func configureUI() {
         profileImageView.layer.borderWidth = 3
         profileImageView.layer.borderColor = UIColor.primaryColor.cgColor
         

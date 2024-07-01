@@ -7,14 +7,14 @@
 
 import UIKit
 
-class YEGZAGTabBarController: UITabBarController {
+final class YEGZAGTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureTabBar()
     }
     
-    func configureTabBar() {
+    private func configureTabBar() {
         tabBar.tintColor = .primaryColor
         tabBar.unselectedItemTintColor = .darkGray
         

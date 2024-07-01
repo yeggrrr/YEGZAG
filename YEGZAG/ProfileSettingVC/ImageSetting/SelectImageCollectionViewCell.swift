@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-class SelectImageCollectionViewCell: UICollectionViewCell {
+final class SelectImageCollectionViewCell: UICollectionViewCell {
     let profileImageView  = UIImageView()
-    let profileBorderView = UIView()
+    private let profileBorderView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,7 +22,7 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureUI() {
+    private func configureUI() {
         contentView.addSubview(profileBorderView)
         profileBorderView.addSubview(profileImageView)
         

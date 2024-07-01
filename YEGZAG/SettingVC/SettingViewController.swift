@@ -16,8 +16,8 @@ enum SettingOptions: String, CaseIterable {
     case unsubscribe = "탈퇴하기"
 }
 
-class SettingViewController: UIViewController {
-    let settingTableView = UITableView()
+final class SettingViewController: UIViewController {
+    private let settingTableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class SettingViewController: UIViewController {
         settingTableView.reloadData()
     }
     
-    func cofigureTableView() {
+    private func cofigureTableView() {
         settingTableView.delegate = self
         settingTableView.dataSource = self
         settingTableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.id)

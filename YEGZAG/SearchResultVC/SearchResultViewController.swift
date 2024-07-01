@@ -8,22 +8,22 @@
 import UIKit
 import SnapKit
 
-class SearchResultViewController: UIViewController {
-    let topElementView = UIView()
-    let entireResultCountLabel = UILabel()
-    let filterButtonStackView = UIStackView()
-    let accuracyButton = UIButton()
-    let dateButton = UIButton()
-    let highestPriceButton = UIButton()
-    let lowestPriceButton = UIButton()
+final class SearchResultViewController: UIViewController {
+    private let topElementView = UIView()
+    private let entireResultCountLabel = UILabel()
+    private let filterButtonStackView = UIStackView()
+    private let accuracyButton = UIButton()
+    private let dateButton = UIButton()
+    private let highestPriceButton = UIButton()
+    private let lowestPriceButton = UIButton()
     
-    let resultCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
+    private let resultCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
     var searchText: String?
     
-    var isLoading: Bool = false
-    var start = 1
-    let maxStartValue = 1000
-    var sortType: SortType = .sim {
+    private var isLoading: Bool = false
+    private var start = 1
+    private let maxStartValue = 1000
+    private var sortType: SortType = .sim {
         didSet {
             sortData()
         }
@@ -47,7 +47,7 @@ class SearchResultViewController: UIViewController {
         resultCollecionView.reloadData()
     }
     
-    func configureView() {
+    private func configureView() {
         // view
         view.backgroundColor = .white
         // navigation
@@ -56,14 +56,14 @@ class SearchResultViewController: UIViewController {
         navigationItem.backBarButtonItem?.tintColor = .black
     }
     
-    func configureCollecionView() {
+    private func configureCollecionView() {
         resultCollecionView.delegate = self
         resultCollecionView.dataSource = self
         resultCollecionView.prefetchDataSource = self
         resultCollecionView.register(SearchResultCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultCollectionViewCell.id)
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         view.addSubview(topElementView)
         topElementView.addSubview(entireResultCountLabel)
         topElementView.addSubview(filterButtonStackView)
@@ -75,7 +75,7 @@ class SearchResultViewController: UIViewController {
         view.addSubview(resultCollecionView)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         let safeArea = view.safeAreaLayoutGuide
         topElementView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
@@ -108,7 +108,7 @@ class SearchResultViewController: UIViewController {
         }
     }
     
-    func configureUI() {
+    private func configureUI() {
         let resultCount = shoppingList?.total ?? 0
         entireResultCountLabel.setUI(labelText: "\(resultCount.formatted())개의 검색 결과", txtColor: .primaryColor, fontStyle: .systemFont(ofSize: 16, weight: .bold), txtAlignment: .left)
         
@@ -125,7 +125,7 @@ class SearchResultViewController: UIViewController {
         configureFilterButtonUI()
     }
     
-    static func CollecionViewLayout() -> UICollectionViewLayout {
+    private static func CollecionViewLayout() -> UICollectionViewLayout {
         let layout  = UICollectionViewFlowLayout()
         let sectionSpacing: CGFloat = 20
         let cellSpacing: CGFloat = 20
@@ -138,7 +138,7 @@ class SearchResultViewController: UIViewController {
         return layout
     }
     
-    func configureFilterButtonUI() {
+    private func configureFilterButtonUI() {
         switch sortType {
         case .sim:
             accuracyButton.setUI(title: "  정확도  ", bgColor: .darkGray, textColor: .white)
@@ -163,7 +163,7 @@ class SearchResultViewController: UIViewController {
         }
     }
     
-    func sortData() {
+    private func sortData() {
         // start 초기화
         start = 1
         shoppingList?.items = []
@@ -177,7 +177,7 @@ class SearchResultViewController: UIViewController {
         }
     }
     
-    func fetch(type: SortType) {
+    private func fetch(type: SortType) {
         isLoading = true
         guard let searchText = searchText else { return }
         

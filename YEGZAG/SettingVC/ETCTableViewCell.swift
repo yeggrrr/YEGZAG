@@ -8,11 +8,11 @@
 import UIKit
 import SnapKit
 
-class ETCTableViewCell: UITableViewCell {
+final class ETCTableViewCell: UITableViewCell {
     let wishListLabel = UILabel()
     let wishStackView = UIStackView()
-    let bagImageView = UIImageView()
-    let wishCountLabel = UILabel()
+    private let bagImageView = UIImageView()
+    private let wishCountLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,14 +26,14 @@ class ETCTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureHierarchy() {
+    private func configureHierarchy() {
         contentView.addSubview(wishListLabel)
         contentView.addSubview(wishStackView)
         wishStackView.addArrangedSubview(bagImageView)
         wishStackView.addArrangedSubview(wishCountLabel)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         let safeArea = contentView.safeAreaLayoutGuide
         wishListLabel.snp.makeConstraints {
             $0.leading.equalTo(safeArea).offset(15)
@@ -55,7 +55,7 @@ class ETCTableViewCell: UITableViewCell {
         }
     }
     
-    func configureUI() {
+    private func configureUI() {
         wishListLabel.textColor = .label
         wishListLabel.textAlignment = .left
         wishListLabel.font = .systemFont(ofSize: 16, weight: .regular)

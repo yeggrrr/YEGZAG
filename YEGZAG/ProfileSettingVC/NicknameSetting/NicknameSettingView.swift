@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-class NicknameSettingView: UIView {
-    let profileView = UIView()
-    let profileBorderView = UIView()
-    let camerView = UIView()
-    let cameraImageView = UIImageView()
+final class NicknameSettingView: UIView {
+    private let profileView = UIView()
+    private let profileBorderView = UIView()
+    private let camerView = UIView()
+    private let cameraImageView = UIImageView()
     let nicknameTextField = UITextField()
-    let dividerView = UIView()
+    private let dividerView = UIView()
     let noticeLabel = UILabel()
     let completeButton = PointButton(title: "완료")
     let profileTabGestureView = UIView()
@@ -33,7 +33,7 @@ class NicknameSettingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         addSubview(profileView)
         profileView.addSubview(profileBorderView)
         profileBorderView.addSubview(profileImageView)
@@ -49,7 +49,7 @@ class NicknameSettingView: UIView {
         addSubview(completeButton)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         let safeArea = safeAreaLayoutGuide
         profileView.snp.makeConstraints {
             $0.top.equalTo(safeArea)
@@ -107,7 +107,7 @@ class NicknameSettingView: UIView {
         }
     }
     
-    func configureUI() {
+    private func configureUI() {
         profileView.backgroundColor = .white
         
         profileBorderView.layer.borderWidth = 3

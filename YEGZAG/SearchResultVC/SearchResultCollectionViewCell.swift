@@ -9,12 +9,12 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class SearchResultCollectionViewCell: UICollectionViewCell {
-    let itemImageView = UIImageView()
+final class SearchResultCollectionViewCell: UICollectionViewCell {
+    private let itemImageView = UIImageView()
     let wishButton = UIButton()
-    let shopNameLabel = UILabel()
-    let itemNameLabel = UILabel()
-    let itemPriceLabel = UILabel()
+    private let shopNameLabel = UILabel()
+    private let itemNameLabel = UILabel()
+    private let itemPriceLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +28,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         contentView.addSubview(itemImageView)
         contentView.addSubview(wishButton)
         contentView.addSubview(shopNameLabel)
@@ -36,7 +36,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(itemPriceLabel)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         let safeArea = contentView.safeAreaLayoutGuide
         let cellHeigth = contentView.frame.height
         itemImageView.snp.makeConstraints {
@@ -69,7 +69,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configureUI() {
+    private func configureUI() {
         itemImageView.layer.cornerRadius = 10
         itemImageView.contentMode = .scaleAspectFill
         itemImageView.clipsToBounds = true
@@ -127,12 +127,12 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func selectedWishButtonStyle() {
+    private func selectedWishButtonStyle() {
         wishButton.setImage(UIImage(named: "like_selected"), for: .normal)
         wishButton.backgroundColor = .white
     }
     
-    func unselectedWishButtonStyle() {
+    private func unselectedWishButtonStyle() {
         wishButton.setImage(UIImage(named: "like_unselected"), for: .normal)
         wishButton.backgroundColor = .lightGray
     }

@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 import WebKit
 
-class ItemDetailViewController: UIViewController {
-    let webView = WKWebView()
+final class ItemDetailViewController: UIViewController {
+    private let webView = WKWebView()
     var index: Int?
     var searchText: String?
     var item: Shopping.Items?
@@ -23,7 +23,7 @@ class ItemDetailViewController: UIViewController {
         configureWebView()
     }
     
-    func configureUI() {
+    private func configureUI() {
         // view
         view.backgroundColor = .white
         // navigation
@@ -43,7 +43,7 @@ class ItemDetailViewController: UIViewController {
         updateWishButtonState()
     }
     
-    func configureWebView() {
+    private func configureWebView() {
         view.addSubview(webView)
         
         webView.snp.makeConstraints {
@@ -58,7 +58,7 @@ class ItemDetailViewController: UIViewController {
         webView.load(request)
     }
     
-    func updateWishButtonState() {
+    private func updateWishButtonState() {
         guard let item = item else { return }
         
         let wishList = DataStorage.fetchWishList()
