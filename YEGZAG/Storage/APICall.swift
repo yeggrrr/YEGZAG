@@ -72,7 +72,6 @@ class APICall {
                 
                 do {
                     let result = try decoder.decode(T.self, from: data)
-                    print("SUCCESS")
                     completion(result, nil)
                 } catch {
                     print(error)

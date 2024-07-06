@@ -22,10 +22,15 @@ final class YEGZAGTabBarController: UITabBarController {
         let searchNav = UINavigationController(rootViewController: searchVC)
         searchNav.tabBarItem = UITabBarItem(title: "검색", image: UIImage(systemName: "magnifyingglass"), tag: 0)
         
+        let wishVC = WishViewController()
+        let wishNav = UINavigationController(rootViewController: wishVC)
+        wishNav.tabBarItem = UITabBarItem(title: "찜", image: UIImage(systemName: "heart"), tag: 1)
+        
+        
         let settingVC = SettingViewController()
         let settingNav = UINavigationController(rootViewController: settingVC)
-        settingNav.tabBarItem = UITabBarItem(title: "설정", image: UIImage(systemName: "gearshape"), tag: 1)
+        settingNav.tabBarItem = UITabBarItem(title: "설정", image: UIImage(systemName: "gearshape"), tag: 2)
         
-        setViewControllers([searchNav, settingNav], animated: true)
+        setViewControllers([searchNav, wishNav, settingNav], animated: true)
     }
 }

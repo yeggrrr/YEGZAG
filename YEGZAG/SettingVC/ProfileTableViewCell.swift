@@ -27,10 +27,8 @@ final class ProfileTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-      super.layoutSubviews()
-        
-        profileImageView.layoutIfNeeded()
+    override func draw(_ rect: CGRect) {
+        profileImageView.layoutIfNeeded() // animation
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.clipsToBounds = true
     }
