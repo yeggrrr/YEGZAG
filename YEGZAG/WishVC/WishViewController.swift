@@ -10,6 +10,7 @@ import SnapKit
 
 class WishViewController: UIViewController {
     let wishCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
+    var wishList: [Shopping.Items] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,7 @@ class WishViewController: UIViewController {
         view.backgroundColor = .white
         title = "찜 목록"
         
-        wishCollecionView.backgroundColor = .systemGray5
+        wishList = DataStorage.fetchWishList()
     }
     
     func configureCollectionView() {
@@ -60,11 +61,13 @@ class WishViewController: UIViewController {
 
 extension WishViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return wishList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishCollectionViewCell.id, for: indexPath) as? WishCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.configureCell(item: wishList[indexPath.item])
         return cell
     }
 }

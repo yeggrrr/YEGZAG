@@ -227,8 +227,8 @@
 		6872EA982C39375500267995 /* WishVC */ = {
 			isa = PBXGroup;
 			children = (
-				6872EA992C39378300267995 /* WishViewController.swift */,
 				6872EA9B2C393B1A00267995 /* WishCollectionViewCell.swift */,
+				6872EA992C39378300267995 /* WishViewController.swift */,
 			);
 			path = WishVC;
 			sourceTree = "<group>";
