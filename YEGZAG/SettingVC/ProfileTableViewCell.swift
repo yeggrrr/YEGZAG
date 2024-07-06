@@ -28,7 +28,7 @@ final class ProfileTableViewCell: UITableViewCell {
     }
     
     override func draw(_ rect: CGRect) {
-        profileImageView.layoutIfNeeded() // animation
+        profileImageView.layoutIfNeeded()
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.clipsToBounds = true
     }
