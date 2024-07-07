@@ -119,21 +119,17 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
             itemPriceLabel.text = "\(stringToInt.formatted())원"
         }
         
-        let wishList = DataStorage.fetchWishList()
-        if wishList.contains(where: { $0.productId == item.productId }) {
-            selectedWishButtonStyle()
-        } else {
-            unselectedWishButtonStyle()
-        }
+        wishButton.setImage(UIImage(named: "like_selected"), for: .selected)
+        wishButton.setImage(UIImage(named: "like_unselected"), for: .normal)
     }
     
-    private func selectedWishButtonStyle() {
-        wishButton.setImage(UIImage(named: "like_selected"), for: .normal)
+    func selectedStyle() {
+        wishButton.isSelected = true
         wishButton.backgroundColor = .white
     }
     
-    private func unselectedWishButtonStyle() {
-        wishButton.setImage(UIImage(named: "like_unselected"), for: .normal)
+    func unselectedStyle() {
+        wishButton.isSelected = false
         wishButton.backgroundColor = .lightGray
     }
 }

@@ -225,15 +225,20 @@ final class SearchResultViewController: UIViewController {
             newWishList.append(item)
         }
         
-        let encoder = JSONEncoder()
+        let itemRealm = ItemRealm(
+            productId: item.productId,
+            title: item.title,
+            link: item.link,
+            image: item.image,
+            lprice: item.lprice,
+            mallName: item.mallName,
+            brand: item.brand)
         
-        do {
-            let result = try encoder.encode(newWishList)
-            DataStorage.save(value: result, key: .wishList)
-        } catch {
-            showAlert(title: "Error!!", message: "정보를 업데이트 하는데 실패했습니다. 다시 시도해주세요.") { _ in
-                print("encoding error: \(error)")
-            }
+        if sender.isSelected  {
+            itemRealm.isLike = false
+            RealmManager.shared.update(item: itemRealm)
+        } else {
+            RealmManager.shared.update(item: itemRealm)
         }
         
         resultCollecionView.reloadData()
@@ -248,11 +253,22 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.id, for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
-        if let inputText = searchText  {
-            if let items = shoppingList?.items {
-                cell.configureCell(item: items[indexPath.item], inputText: inputText)
-                cell.wishButton.tag = indexPath.item
-                cell.wishButton.addTarget(self, action: #selector(wishButtonClicked(_:)), for: .touchUpInside)
+        if let inputText = searchText, let items = shoppingList?.items  {
+            let item = items[indexPath.item]
+            cell.wishButton.tag = indexPath.item
+            cell.configureCell(item: item, inputText: inputText)
+            
+            cell.wishButton.addTarget(self, action: #selector(wishButtonClicked(_:)), for: .touchUpInside)
+            let wishList = RealmManager.shared.fetch()
+            
+            if let selectedItem = wishList.filter({ $0.productId == item.productId }).first {
+                if selectedItem.isLike {
+                    cell.selectedStyle()
+                } else {
+                    cell.unselectedStyle()
+                }
+            } else {
+                cell.unselectedStyle()
             }
         }
         
@@ -261,12 +277,6 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = ItemDetailViewController()
-        if let items = shoppingList?.items {
-            vc.item = items[indexPath.item]
-        }
-        vc.index = indexPath.item
-        vc.searchText = searchText
-        vc.shoppingList = shoppingList
         navigationController?.pushViewController(vc, animated: true)
     }
 }
