@@ -9,8 +9,10 @@ import UIKit
 import SnapKit
 
 class WishViewController: UIViewController {
+    let searchBar = UISearchBar()
     let wishCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
     var wishList: [ItemRealm] = []
+    var searchList: [ItemRealm] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,26 +29,29 @@ class WishViewController: UIViewController {
         fetchData()
     }
     
-    func fetchData() {
-        let objects = RealmManager.shared.fetch()
-        wishList = objects.filter { $0.isLike }
-        wishCollecionView.reloadData()
-    }
-    
     func configureHierarchy() {
         view.addSubview(wishCollecionView)
+        view.addSubview(searchBar)
     }
     
     func configureLayout() {
         let safeArea = view.safeAreaLayoutGuide
+        searchBar.snp.makeConstraints {
+            $0.top.horizontalEdges.equalTo(safeArea)
+        }
+        
         wishCollecionView.snp.makeConstraints {
-            $0.edges.equalTo(safeArea)
+            $0.top.equalTo(searchBar.snp.bottom)
+            $0.horizontalEdges.bottom.equalTo(safeArea)
         }
     }
     
     func configureUI() {
         view.backgroundColor = .white
         title = "찜 목록"
+        
+        searchBar.placeholder = "찾으시는 상품명을 입력해주세요"
+        searchBar.delegate = self
     }
     
     func configureCollectionView() {
@@ -66,6 +71,12 @@ class WishViewController: UIViewController {
         layout.minimumInteritemSpacing = cellSpacing
         layout.sectionInset = UIEdgeInsets(top: 0, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
         return layout
+    }
+    
+    func fetchData() {
+        let objects = RealmManager.shared.fetch()
+        wishList = objects.filter { $0.isLike }
+        wishCollecionView.reloadData()
     }
     
     @objc func wishButtonClicked(_ sender: UIButton) {
@@ -90,16 +101,41 @@ class WishViewController: UIViewController {
     }
 }
 
+extension WishViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            searchList = wishList
+        } else {
+            searchList = wishList.filter {
+                $0.title.contains(searchText)
+            }
+        }
+        
+        wishCollecionView.reloadData()
+    }
+}
+
 extension WishViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return wishList.count
+        if searchList.isEmpty {
+            return wishList.count
+        } else {
+            return searchList.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.id, for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
         cell.wishButton.tag = indexPath.item
         cell.wishButton.addTarget(self, action: #selector(wishButtonClicked), for: .touchUpInside)
-        let item = wishList[indexPath.item]
+        
+        let item = 
+        if searchList.isEmpty {
+            wishList[indexPath.item]
+        } else {
+            searchList[indexPath.item]
+        }
+        
         cell.configureWishCell(item: item)
         
         if let selectedItem = wishList.filter({ $0.productId == item.productId }).first {

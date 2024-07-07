@@ -88,7 +88,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             return profileCell
         } else {
             guard let wishCell = tableView.dequeueReusableCell(withIdentifier: ETCTableViewCell.id, for: indexPath) as? ETCTableViewCell else { return UITableViewCell() }
-            wishCell.configureWishListCount(count: DataStorage.fetchWishList().count)
+            wishCell.configureWishListCount(count: RealmManager.shared.fetch().count)
             let option = SettingOptions.allCases[indexPath.row]
             wishCell.wishStackView.isHidden = option != .wishList
             wishCell.wishListLabel.text = option.rawValue
