@@ -215,16 +215,6 @@ final class SearchResultViewController: UIViewController {
         let index = sender.tag
         let item = items[index]
         
-        // wishList에 존재하는 경우 -> 추가 안함(삭제)
-        let wishList = DataStorage.fetchWishList()
-        var newWishList = wishList
-        if wishList.contains(item) {
-            newWishList = wishList.filter{ $0.productId != item.productId }
-        } else {
-            // wishList에 없으면 추가
-            newWishList.append(item)
-        }
-        
         let itemRealm = ItemRealm(
             productId: item.productId,
             title: item.title,
