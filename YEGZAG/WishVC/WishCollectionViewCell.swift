@@ -94,7 +94,7 @@ class WishCollectionViewCell: UICollectionViewCell {
         itemPriceLabel.textAlignment = .left
     }
     
-    func configureCell(item: Shopping.Items) {
+    func configureCell(item: ItemRealm) {
         let itemImage = item.image
         let itemImageURL = URL(string: itemImage)
     

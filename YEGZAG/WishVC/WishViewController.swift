@@ -10,7 +10,7 @@ import SnapKit
 
 class WishViewController: UIViewController {
     let wishCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
-    var wishList: [Shopping.Items] = []
+    var wishList: [ItemRealm] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +19,18 @@ class WishViewController: UIViewController {
         configureLayout()
         configureUI()
         configureCollectionView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchData()
+    }
+    
+    func fetchData() {
+        let objects = RealmManager.shared.fetch()
+        wishList = objects.filter { $0.isLike }
+        wishCollecionView.reloadData()
     }
     
     func configureHierarchy() {
@@ -35,14 +47,12 @@ class WishViewController: UIViewController {
     func configureUI() {
         view.backgroundColor = .white
         title = "찜 목록"
-        
-        wishList = DataStorage.fetchWishList()
     }
     
     func configureCollectionView() {
         wishCollecionView.delegate = self
         wishCollecionView.dataSource = self
-        wishCollecionView.register(WishCollectionViewCell.self, forCellWithReuseIdentifier: WishCollectionViewCell.id)
+        wishCollecionView.register(SearchResultCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultCollectionViewCell.id)
     }
     
     static func CollecionViewLayout() -> UICollectionViewLayout {
@@ -57,6 +67,27 @@ class WishViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
         return layout
     }
+    
+    @objc func wishButtonClicked(_ sender: UIButton) {
+        let item = wishList[sender.tag]
+        let itemRealm = ItemRealm(
+            productId: item.productId,
+            title: item.title,
+            link: item.link,
+            image: item.image,
+            lprice: item.lprice,
+            mallName: item.mallName,
+            brand: item.brand)
+        
+        if sender.isSelected  {
+            itemRealm.isLike = false
+            RealmManager.shared.update(item: itemRealm)
+        } else {
+            RealmManager.shared.update(item: itemRealm)
+        }
+        
+        wishCollecionView.reloadData()
+    }
 }
 
 extension WishViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -65,9 +96,27 @@ extension WishViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishCollectionViewCell.id, for: indexPath) as? WishCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.id, for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
+        cell.wishButton.tag = indexPath.item
+        cell.wishButton.addTarget(self, action: #selector(wishButtonClicked), for: .touchUpInside)
+        let item = wishList[indexPath.item]
+        cell.configureWishCell(item: item)
         
-        cell.configureCell(item: wishList[indexPath.item])
+        if let selectedItem = wishList.filter({ $0.productId == item.productId }).first {
+            if selectedItem.isLike {
+                cell.selectedStyle()
+            } else {
+                cell.unselectedStyle()
+            }
+        } else {
+            cell.unselectedStyle()
+        }
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = ItemDetailViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

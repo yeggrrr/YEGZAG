@@ -92,7 +92,7 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
         itemPriceLabel.textAlignment = .left
     }
     
-    func configureCell(item: Shopping.Items, inputText: String) {
+    func configureSearchCell(item: Shopping.Items, inputText: String) {
         let itemImage = item.image
         let itemImageURL = URL(string: itemImage)
     
@@ -114,6 +114,32 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
         // 원하는 스타일 적용
         attributedStr.addAttribute(.foregroundColor, value: UIColor.blue, range: (itemNameLabel.text! as NSString).range(of: inputText))
         itemNameLabel.attributedText = attributedStr
+        
+        if let stringToInt = Int(item.lprice) {
+            itemPriceLabel.text = "\(stringToInt.formatted())원"
+        }
+        
+        wishButton.setImage(UIImage(named: "like_selected"), for: .selected)
+        wishButton.setImage(UIImage(named: "like_unselected"), for: .normal)
+    }
+    
+    func configureWishCell(item: ItemRealm) {
+        let itemImage = item.image
+        let itemImageURL = URL(string: itemImage)
+    
+        itemImageView.kf.indicatorType = .activity
+        itemImageView.kf.setImage(with: itemImageURL, options: [.transition(.fade(1))])
+        
+        shopNameLabel.text = item.mallName
+        
+        let removeBTag = item.title
+            .components(separatedBy: "<b>")
+            .joined()
+        let removeSlashBTag = removeBTag
+            .components(separatedBy: "</b>")
+            .joined()
+        
+        itemNameLabel.text = removeSlashBTag
         
         if let stringToInt = Int(item.lprice) {
             itemPriceLabel.text = "\(stringToInt.formatted())원"

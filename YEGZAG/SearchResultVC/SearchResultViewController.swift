@@ -256,7 +256,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         if let inputText = searchText, let items = shoppingList?.items  {
             let item = items[indexPath.item]
             cell.wishButton.tag = indexPath.item
-            cell.configureCell(item: item, inputText: inputText)
+            cell.configureSearchCell(item: item, inputText: inputText)
             
             cell.wishButton.addTarget(self, action: #selector(wishButtonClicked(_:)), for: .touchUpInside)
             let wishList = RealmManager.shared.fetch()
