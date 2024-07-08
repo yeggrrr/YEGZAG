@@ -26,7 +26,6 @@ struct Shopping: Decodable {
     }
 }
 
-// 찜, 의류, 인테리어, 메이크업
 class Folder: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var name: String
@@ -48,9 +47,10 @@ class ItemRealm: Object {
     @Persisted var lprice: String
     @Persisted var mallName: String
     @Persisted var brand: String
-    @Persisted var isLike: Bool
     
-    convenience init(productId: String, title: String, link: String, image: String, lprice: String, mallName: String, brand: String, isLike: Bool = true) {
+    @Persisted(originProperty: "detail") var parentFolder: LinkingObjects<Folder>
+    
+    convenience init(productId: String, title: String, link: String, image: String, lprice: String, mallName: String, brand: String) {
         self.init()
         self.productId = productId
         self.title = title
@@ -59,6 +59,5 @@ class ItemRealm: Object {
         self.lprice = lprice
         self.mallName = mallName
         self.brand = brand
-        self.isLike = isLike
     }
 }

@@ -38,8 +38,10 @@ class RealmManager {
     }
     
     func delete(item: ItemRealm) {
-        try! realm.write {
-            realm.delete(item)
+        if let itemToDelete = realm.objects(ItemRealm.self).filter("productId == %@", item.productId).first {
+            try! realm.write {
+                realm.delete(itemToDelete)
+            }
         }
     }
 }
