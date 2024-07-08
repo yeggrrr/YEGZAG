@@ -39,6 +39,8 @@
 		6872EAB12C3BE93200267995 /* SelectedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6872EAB02C3BE93200267995 /* SelectedListViewController.swift */; };
 		6872EAB32C3BE9DE00267995 /* SelectedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6872EAB22C3BE9DE00267995 /* SelectedListTableViewCell.swift */; };
 		6872EAB52C3C263900267995 /* FolderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6872EAB42C3C263900267995 /* FolderType.swift */; };
+		6872EAB72C3C4AA400267995 /* EntireWishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6872EAB62C3C4AA400267995 /* EntireWishListViewController.swift */; };
+		6872EABB2C3C4BF000267995 /* EntireWishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6872EABA2C3C4BF000267995 /* EntireWishListTableViewCell.swift */; };
 		68F162862C1AF7490059FA66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162852C1AF7490059FA66 /* AppDelegate.swift */; };
 		68F162882C1AF7490059FA66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162872C1AF7490059FA66 /* SceneDelegate.swift */; };
 		68F1628A2C1AF7490059FA66 /* OnBoardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F162892C1AF7490059FA66 /* OnBoardingController.swift */; };
@@ -84,6 +86,8 @@
 		6872EAB02C3BE93200267995 /* SelectedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedListViewController.swift; sourceTree = "<group>"; };
 		6872EAB22C3BE9DE00267995 /* SelectedListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedListTableViewCell.swift; sourceTree = "<group>"; };
 		6872EAB42C3C263900267995 /* FolderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderType.swift; sourceTree = "<group>"; };
+		6872EAB62C3C4AA400267995 /* EntireWishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntireWishListViewController.swift; sourceTree = "<group>"; };
+		6872EABA2C3C4BF000267995 /* EntireWishListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntireWishListTableViewCell.swift; sourceTree = "<group>"; };
 		68F162822C1AF7490059FA66 /* YEGZAG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YEGZAG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68F162852C1AF7490059FA66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68F162872C1AF7490059FA66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -238,10 +242,28 @@
 			isa = PBXGroup;
 			children = (
 				6872EA992C39378300267995 /* WishViewController.swift */,
+				6872EAB92C3C4B1400267995 /* SelectedListVC */,
+				6872EAB82C3C4AF700267995 /* EntireWishListVC */,
+			);
+			path = WishVC;
+			sourceTree = "<group>";
+		};
+		6872EAB82C3C4AF700267995 /* EntireWishListVC */ = {
+			isa = PBXGroup;
+			children = (
+				6872EAB62C3C4AA400267995 /* EntireWishListViewController.swift */,
+				6872EABA2C3C4BF000267995 /* EntireWishListTableViewCell.swift */,
+			);
+			path = EntireWishListVC;
+			sourceTree = "<group>";
+		};
+		6872EAB92C3C4B1400267995 /* SelectedListVC */ = {
+			isa = PBXGroup;
+			children = (
 				6872EAB02C3BE93200267995 /* SelectedListViewController.swift */,
 				6872EAB22C3BE9DE00267995 /* SelectedListTableViewCell.swift */,
 			);
-			path = WishVC;
+			path = SelectedListVC;
 			sourceTree = "<group>";
 		};
 		68F162792C1AF7490059FA66 = {
@@ -371,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				686051C22C211E9D00D60EA0 /* UILabel+.swift in Sources */,
+				6872EABB2C3C4BF000267995 /* EntireWishListTableViewCell.swift in Sources */,
 				683211872C1B2AF700EE24A6 /* ImageSettingViewController.swift in Sources */,
 				6872EAB12C3BE93200267995 /* SelectedListViewController.swift in Sources */,
 				6872EAA82C3A46C500267995 /* RealmManager.swift in Sources */,
@@ -392,6 +415,7 @@
 				683211992C1C4D4700EE24A6 /* MainViewController.swift in Sources */,
 				6860529D2C2D26AB00D60EA0 /* UIViewController+.swift in Sources */,
 				683211A42C1CA45B00EE24A6 /* SearchResultViewController.swift in Sources */,
+				6872EAB72C3C4AA400267995 /* EntireWishListViewController.swift in Sources */,
 				6872EAB52C3C263900267995 /* FolderType.swift in Sources */,
 				683211932C1B404400EE24A6 /* ReusableProtocol+.swift in Sources */,
 				683211A12C1C893900EE24A6 /* SearchTableViewCell.swift in Sources */,
