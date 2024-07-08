@@ -23,6 +23,12 @@ class SelectedListViewController: UIViewController {
         configureTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        listTableView.reloadData()
+    }
+    
     func configureHierarchy() {
         view.addSubview(listTableView)
     }
@@ -63,8 +69,9 @@ extension SelectedListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = WishViewController()
         let item = folderList[indexPath.row]
+        let vc = WishViewController()
+        vc.folderName = item.name
         vc.folder = item
         navigationController?.pushViewController(vc, animated: true)
     }

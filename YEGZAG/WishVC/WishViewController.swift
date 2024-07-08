@@ -15,6 +15,7 @@ class WishViewController: UIViewController {
     var searchList: [ItemRealm] = []
     var folder: Folder?
     var searchText: String = ""
+    var folderName: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +51,7 @@ class WishViewController: UIViewController {
     
     func configureUI() {
         view.backgroundColor = .white
-        title = "찜 목록"
+        title = "\(folderName) 목록"
         
         searchBar.placeholder = "찾으시는 상품명을 입력해주세요"
         searchBar.delegate = self
@@ -151,7 +152,7 @@ extension WishViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         cell.configureWishCell(item: item)
         
-        if let selectedItem = wishList.filter({ $0.productId == item.productId }).first {
+        if wishList.filter({ $0.productId == item.productId }).first != nil {
             cell.selectedStyle()
         } else {
             cell.unselectedStyle()
