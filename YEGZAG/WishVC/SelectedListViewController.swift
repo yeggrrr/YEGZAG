@@ -11,18 +11,12 @@ import SnapKit
 class SelectedListViewController: UIViewController {
     let listTableView = UITableView()
     
-    let tableList: [listType] = [.jim, .clothes, .interier, .cosmetics]
-    
-    enum listType: String, CaseIterable {
-        case jim = "찜"
-        case clothes = "의류"
-        case interier = "인테리어"
-        case cosmetics = "메이크업"
-    }
+    var folderList: [Folder] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        folderList = RealmManager.shared.fetchFolder()
         configureHierarchy()
         configureLayout()
         configureUI()
@@ -57,17 +51,20 @@ extension SelectedListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableList.count
+        return folderList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectedListTableViewCell.id, for: indexPath) as? SelectedListTableViewCell else { return UITableViewCell() }
-        cell.titleLabel.text = listType.allCases[indexPath.row].rawValue
+        let item = folderList[indexPath.row]
+        cell.titleLabel.text = item.name
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = WishViewController()
+        let item = folderList[indexPath.row]
+        vc.folder = item
         navigationController?.pushViewController(vc, animated: true)
     }
 }

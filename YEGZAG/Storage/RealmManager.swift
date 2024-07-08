@@ -20,6 +20,10 @@ class RealmManager {
         return Array(realm.objects(ItemRealm.self))
     }
     
+    func fetch(folder: Folder) -> [ItemRealm] {
+        return Array(realm.objects(ItemRealm.self).filter { $0.parentFolder.first?.name == folder.name })
+    }
+    
     func addItem(_ object: ItemRealm, folder: Folder) {
         do {
             try realm.write {

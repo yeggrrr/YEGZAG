@@ -13,6 +13,8 @@ class WishViewController: UIViewController {
     let wishCollecionView = UICollectionView(frame: .zero, collectionViewLayout: CollecionViewLayout())
     var wishList: [ItemRealm] = []
     var searchList: [ItemRealm] = []
+    var folder: Folder?
+    var searchText: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,8 +76,8 @@ class WishViewController: UIViewController {
     }
     
     func fetchData() {
-        let objects = RealmManager.shared.fetch()
-        wishList = objects.filter { $0.isLike }
+        guard let folder = folder else { return }
+        wishList = Array(folder.detail)
         wishCollecionView.reloadData()
     }
     
@@ -91,21 +93,16 @@ class WishViewController: UIViewController {
             brand: item.brand)
         
         if sender.isSelected  {
-            itemRealm.isLike = false
-            RealmManager.shared.update(item: itemRealm)
+            RealmManager.shared.delete(item: itemRealm)
         } else {
             RealmManager.shared.update(item: itemRealm)
         }
         
-        wishCollecionView.reloadData()
-    }
-}
-
-extension WishViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            searchList = wishList
-        } else {
+        if let folder = folder {
+            wishList = RealmManager.shared.fetch(folder: folder)
+        }
+        
+        if !searchList.isEmpty || searchText.isEmpty {
             searchList = wishList.filter {
                 $0.title.contains(searchText)
             }
@@ -115,9 +112,24 @@ extension WishViewController: UISearchBarDelegate {
     }
 }
 
+extension WishViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchText = searchText
+        
+        if searchText.isEmpty {
+            searchList = wishList
+        } else {
+            searchList = wishList.filter {
+                $0.title.contains(searchText)
+            }
+        }
+        wishCollecionView.reloadData()
+    }
+}
+
 extension WishViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if searchList.isEmpty {
+        if searchList.isEmpty && searchText.isEmpty {
             return wishList.count
         } else {
             return searchList.count
@@ -139,11 +151,7 @@ extension WishViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.configureWishCell(item: item)
         
         if let selectedItem = wishList.filter({ $0.productId == item.productId }).first {
-            if selectedItem.isLike {
-                cell.selectedStyle()
-            } else {
-                cell.unselectedStyle()
-            }
+            cell.selectedStyle()
         } else {
             cell.unselectedStyle()
         }

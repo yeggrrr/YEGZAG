@@ -224,14 +224,31 @@ final class SearchResultViewController: UIViewController {
             mallName: item.mallName,
             brand: item.brand)
         
-        if sender.isSelected  {
-            itemRealm.isLike = false
-            RealmManager.shared.update(item: itemRealm)
+        if sender.isSelected {
+            RealmManager.shared.delete(item: itemRealm)
+            resultCollecionView.reloadData()
         } else {
-            RealmManager.shared.update(item: itemRealm)
+            showJimAlert(itemRealm: itemRealm)
         }
+    }
+    
+    func showJimAlert(itemRealm: ItemRealm) {
+        let alert = UIAlertController(title: "보관할 목록을 선택해주세요", message: nil, preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
         
-        resultCollecionView.reloadData()
+        let folderList = RealmManager.shared.fetchFolder()
+        
+        for folder in folderList {
+            let alertAction = UIAlertAction(title: folder.name, style: .default) { _ in
+                RealmManager.shared.addItem(itemRealm, folder: folder)
+                self.resultCollecionView.reloadData()
+            }
+            
+            alert.addAction(alertAction)
+        }
+    
+        alert.addAction(cancel)
+        present(alert, animated: true)
     }
 }
 
@@ -251,12 +268,8 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
             cell.wishButton.addTarget(self, action: #selector(wishButtonClicked(_:)), for: .touchUpInside)
             let wishList = RealmManager.shared.fetch()
             
-            if let selectedItem = wishList.filter({ $0.productId == item.productId }).first {
-                if selectedItem.isLike {
-                    cell.selectedStyle()
-                } else {
-                    cell.unselectedStyle()
-                }
+            if wishList.filter({ $0.productId == item.productId }).first != nil {
+                cell.selectedStyle()
             } else {
                 cell.unselectedStyle()
             }
