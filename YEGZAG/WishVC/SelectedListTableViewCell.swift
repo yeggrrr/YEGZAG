@@ -48,7 +48,7 @@ class SelectedListTableViewCell: UITableViewCell {
         titleLabel.textAlignment = .left
         
         countLabel.font = .systemFont(ofSize: 17, weight: .semibold)
-        countLabel.textColor = .darkGray
+        countLabel.textColor = .systemPink
         titleLabel.textAlignment = .left
     }
 }
