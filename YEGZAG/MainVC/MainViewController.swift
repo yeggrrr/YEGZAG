@@ -33,12 +33,14 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setFolder()
         configureView()
         configureHierarchy()
         configureLayout()
         configureUI()
         congfigureSearchBar()
         configureTableView()
+        RealmManager.shared.findFilePath()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,6 +143,17 @@ final class MainViewController: UIViewController {
         removeAllButton.setTitle("전체 삭제", for: .normal)
         removeAllButton.setTitleColor(UIColor.primaryColor, for: .normal)
         removeAllButton.addTarget(self, action: #selector(removeAllButtonClicked), for: .touchUpInside)
+    }
+    
+    private func setFolder() {
+        let folderList: [FolderType] = [.jim, .clothes, .interier, .cosmetics]
+        let categories: [Folder] = folderList.map { Folder(name: $0.rawValue) }
+
+        if RealmManager.shared.fetchFolder().isEmpty {
+            categories.forEach { folder in
+                RealmManager.shared.addFolder(item: folder)
+            }
+        }
     }
     
     private func setNickname() {

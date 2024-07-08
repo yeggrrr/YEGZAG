@@ -30,8 +30,13 @@ struct Shopping: Decodable {
 class Folder: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var name: String
-    
     @Persisted var detail: List<ItemRealm>
+    
+    convenience init(name: String, detail: List<ItemRealm> = List<ItemRealm>()) {
+        self.init()
+        self.name = name
+        self.detail = detail
+    }
 }
 
 

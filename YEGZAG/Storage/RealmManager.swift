@@ -20,9 +20,14 @@ class RealmManager {
         return Array(realm.objects(ItemRealm.self))
     }
     
-    func add(item: ItemRealm) {
-        try! realm.write {
-            realm.add(item)
+    func addItem(_ object: ItemRealm, folder: Folder) {
+        do {
+            try realm.write {
+                folder.detail.append(object)
+                realm.add(object)
+            }
+        } catch {
+            print(error, "Realm Create Succeed")
         }
     }
     
@@ -35,6 +40,30 @@ class RealmManager {
     func delete(item: ItemRealm) {
         try! realm.write {
             realm.delete(item)
+        }
+    }
+}
+
+extension RealmManager {
+    func fetchFolder() -> [Folder] {
+        let objects = realm.objects(Folder.self)
+        return Array(objects)
+    }
+    
+    func addFolder(item: Folder) {
+        try! realm.write {
+            realm.add(item)
+        }
+    }
+    
+    func removeFolder(_ folder: Folder) {
+        do {
+            try realm.write {
+                realm.delete(folder.detail)
+                realm.delete(folder)
+            }
+        } catch {
+            print(error, "Folder Remove Failed")
         }
     }
 }
