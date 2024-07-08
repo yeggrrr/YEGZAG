@@ -26,6 +26,14 @@ struct Shopping: Decodable {
     }
 }
 
+// 찜, 의류, 인테리어, 메이크업
+class Folder: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var name: String
+    
+    @Persisted var detail: List<ItemRealm>
+}
+
 
 class ItemRealm: Object {
     @Persisted(primaryKey: true) var productId: String
