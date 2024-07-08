@@ -58,6 +58,7 @@ extension SelectedListViewController: UITableViewDelegate, UITableViewDataSource
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectedListTableViewCell.id, for: indexPath) as? SelectedListTableViewCell else { return UITableViewCell() }
         let item = folderList[indexPath.row]
         cell.titleLabel.text = item.name
+        cell.countLabel.text = "(\(item.detail.count))"
         return cell
     }
     

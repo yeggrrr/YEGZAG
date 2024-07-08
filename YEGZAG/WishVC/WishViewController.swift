@@ -123,6 +123,7 @@ extension WishViewController: UISearchBarDelegate {
                 $0.title.contains(searchText)
             }
         }
+        
         wishCollecionView.reloadData()
     }
 }

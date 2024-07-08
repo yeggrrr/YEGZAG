@@ -10,6 +10,7 @@ import SnapKit
 
 class SelectedListTableViewCell: UITableViewCell {
     let titleLabel = UILabel()
+    let countLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,12 +26,18 @@ class SelectedListTableViewCell: UITableViewCell {
     
     func configureHierarchy() {
         contentView.addSubview(titleLabel)
+        contentView.addSubview(countLabel)
     }
     
     func configureLayout() {
         let safeArea = contentView.safeAreaLayoutGuide
         titleLabel.snp.makeConstraints {
-            $0.horizontalEdges.equalTo(safeArea).inset(20)
+            $0.leading.equalTo(safeArea).offset(20)
+            $0.verticalEdges.equalTo(safeArea).inset(10)
+        }
+        
+        countLabel.snp.makeConstraints {
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(5)
             $0.verticalEdges.equalTo(safeArea).inset(10)
         }
     }
@@ -38,6 +45,10 @@ class SelectedListTableViewCell: UITableViewCell {
     func configureUI() {
         titleLabel.font = .systemFont(ofSize: 17, weight: .semibold)
         titleLabel.textColor = .label
+        titleLabel.textAlignment = .left
+        
+        countLabel.font = .systemFont(ofSize: 17, weight: .semibold)
+        countLabel.textColor = .darkGray
         titleLabel.textAlignment = .left
     }
 }
