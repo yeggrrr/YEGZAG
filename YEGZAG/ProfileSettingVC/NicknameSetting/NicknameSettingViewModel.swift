@@ -18,6 +18,7 @@ enum NicknameErrorMessage: String {
 class NicknameSettingViewModel {
     var inputText: Observable<String?> = Observable("")
     var outputValidationText = Observable("")
+    var outputValidColor = Observable(false)
     var nicknameErrorMessage: NicknameErrorMessage = .empty
     
     init() {
@@ -28,20 +29,31 @@ class NicknameSettingViewModel {
     
     private func validation() {
         guard let inputText = inputText.value else { return }
+        
+        var errors: [NicknameErrorMessage] = []
+        
+        if inputText.isEmpty {
+            outputValidationText.value = NicknameErrorMessage.empty.rawValue
+            return
+        }
+        
         for char in inputText {
-            if inputText.isEmpty {
-                nicknameErrorMessage = .empty
-            } else if inputText.count < 2 || inputText.count > 10 {
-                nicknameErrorMessage = .wrongLength
+            if inputText.count < 2 || inputText.count > 10 {
+                errors.append(.wrongLength)
             } else if inputText.contains("@") || inputText.contains("#") || inputText.contains("$") || inputText.contains("%") {
-                nicknameErrorMessage = .containsSpecialCharacter
+                errors.append(.containsSpecialCharacter)
             } else if Int(String(char)) != nil {
-                nicknameErrorMessage = .containsNumber
-            } else {
-                nicknameErrorMessage = .noError
+                errors.append(.containsNumber)
             }
         }
         
-        outputValidationText.value = nicknameErrorMessage.rawValue
+        if let lastError = errors.last {
+            outputValidColor.value = false
+            outputValidationText.value = lastError.rawValue
+        } else {
+            outputValidColor.value = true
+            outputValidationText.value = NicknameErrorMessage.noError.rawValue
+        }
+        
     }
 }

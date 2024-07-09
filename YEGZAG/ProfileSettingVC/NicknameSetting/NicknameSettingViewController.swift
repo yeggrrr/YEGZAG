@@ -40,6 +40,10 @@ final class NicknameSettingViewController: UIViewController {
         nickNameSettingViewModel.outputValidationText.bind { value in
             self.nicknameSettingView.noticeLabel.text = value
         }
+        
+        nickNameSettingViewModel.outputValidColor.bind { value in
+            self.nicknameSettingView.noticeLabel.textColor = value ? .systemBlue : .systemPink
+        }
     }
     
     private func setInitialData() {
