@@ -280,6 +280,9 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = ItemDetailViewController()
+        vc.index = indexPath.item
+        vc.shoppingList = shoppingList
+        vc.item = shoppingList?.items[indexPath.item]
         navigationController?.pushViewController(vc, animated: true)
     }
 }

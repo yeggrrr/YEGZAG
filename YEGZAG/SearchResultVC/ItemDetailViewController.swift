@@ -26,6 +26,8 @@ final class ItemDetailViewController: UIViewController {
     private func configureUI() {
         // view
         view.backgroundColor = .white
+        
+        webView.allowsLinkPreview = true
         // navigation
         guard let index = index else { return }
         if let item = shoppingList?.items[index] {
