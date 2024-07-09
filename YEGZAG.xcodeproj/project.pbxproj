@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		680082632C3D2AE100ADD884 /* NicknameSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680082622C3D2AE100ADD884 /* NicknameSettingViewModel.swift */; };
+		680082662C3D2E1900ADD884 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680082652C3D2E1900ADD884 /* Observable.swift */; };
 		6823572D2C205F27000415C9 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6823572C2C205F27000415C9 /* UserDefaultsKey.swift */; };
 		683211792C1B0E7F00EE24A6 /* PointButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683211782C1B0E7F00EE24A6 /* PointButton.swift */; };
 		6832117C2C1B11EA00EE24A6 /* NicknameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832117B2C1B11EA00EE24A6 /* NicknameSettingViewController.swift */; };
@@ -55,6 +57,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		680082622C3D2AE100ADD884 /* NicknameSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingViewModel.swift; sourceTree = "<group>"; };
+		680082652C3D2E1900ADD884 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		6823572C2C205F27000415C9 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		683211782C1B0E7F00EE24A6 /* PointButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointButton.swift; sourceTree = "<group>"; };
 		6832117B2C1B11EA00EE24A6 /* NicknameSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +119,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		680082642C3D2E0800ADD884 /* Observable */ = {
+			isa = PBXGroup;
+			children = (
+				680082652C3D2E1900ADD884 /* Observable.swift */,
+			);
+			path = Observable;
+			sourceTree = "<group>";
+		};
 		683211752C1B0DBB00EE24A6 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +177,7 @@
 		683211882C1B2B1E00EE24A6 /* NicknameSetting */ = {
 			isa = PBXGroup;
 			children = (
+				680082622C3D2AE100ADD884 /* NicknameSettingViewModel.swift */,
 				6832117D2C1B16CB00EE24A6 /* NicknameSettingView.swift */,
 				6832117B2C1B11EA00EE24A6 /* NicknameSettingViewController.swift */,
 			);
@@ -286,6 +299,7 @@
 		68F162842C1AF7490059FA66 /* YEGZAG */ = {
 			isa = PBXGroup;
 			children = (
+				680082642C3D2E0800ADD884 /* Observable */,
 				68F162852C1AF7490059FA66 /* AppDelegate.swift */,
 				68F162872C1AF7490059FA66 /* SceneDelegate.swift */,
 				68F1628E2C1AF74B0059FA66 /* Assets.xcassets */,
@@ -405,12 +419,14 @@
 				6832119F2C1C77D900EE24A6 /* SettingViewController.swift in Sources */,
 				6832119C2C1C76E100EE24A6 /* YEGZAGTabBarController.swift in Sources */,
 				68F1628A2C1AF7490059FA66 /* OnBoardingController.swift in Sources */,
+				680082662C3D2E1900ADD884 /* Observable.swift in Sources */,
 				68F162862C1AF7490059FA66 /* AppDelegate.swift in Sources */,
 				686295092C1EDCDC00EE296D /* ETCTableViewCell.swift in Sources */,
 				686295002C1DDCB800EE296D /* ItemDetailViewController.swift in Sources */,
 				6832117E2C1B16CB00EE24A6 /* NicknameSettingView.swift in Sources */,
 				68F1629C2C1AF7C00059FA66 /* APIKey.swift in Sources */,
 				686295032C1DE5C000EE296D /* ShoppingData.swift in Sources */,
+				680082632C3D2AE100ADD884 /* NicknameSettingViewModel.swift in Sources */,
 				686295052C1E13DA00EE296D /* UIButton+.swift in Sources */,
 				683211992C1C4D4700EE24A6 /* MainViewController.swift in Sources */,
 				6860529D2C2D26AB00D60EA0 /* UIViewController+.swift in Sources */,
