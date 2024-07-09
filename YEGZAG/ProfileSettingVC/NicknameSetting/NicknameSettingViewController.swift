@@ -17,6 +17,8 @@ final class NicknameSettingViewController: UIViewController {
     var isSaveButtonEnabled: Bool = false
     var viewType: ViewType = .new
     
+    var nicknameErrorMessage: NicknameErrorMessage = .empty
+    
 
     enum ViewType {
         case new // 처음
