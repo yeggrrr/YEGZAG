@@ -8,6 +8,8 @@
 import UIKit
 
 final class ImageSettingViewController: UIViewController {
+    let imageSettingViewModel = ImageSettingViewModel()
+    
     private let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
     private let imageSettingView = ImageSettingView()
     
@@ -16,6 +18,14 @@ final class ImageSettingViewController: UIViewController {
         
         configureUI()
         configureCollecionView()
+    }
+    
+    func bindData() {
+        imageSettingViewModel.inputImageName.bind { value in
+            self.imageSettingView.profileImageView.image = UIImage(named: value)
+            DataStorage.userTempProfileImageName = value
+            self.imageSettingView.selectImageCollectionView.reloadData()
+        }
     }
     
     private func configureUI() {
@@ -61,9 +71,7 @@ extension ImageSettingViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedImageName = profileImageNameList[indexPath.item]
-        imageSettingView.profileImageView.image = UIImage(named: selectedImageName)
-        DataStorage.userTempProfileImageName = selectedImageName
-        imageSettingView.selectImageCollectionView.reloadData()
+        imageSettingViewModel.inputImageName.value = profileImageNameList[indexPath.item]
+        bindData()
     }
 }

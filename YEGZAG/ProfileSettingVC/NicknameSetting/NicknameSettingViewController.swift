@@ -105,7 +105,6 @@ final class NicknameSettingViewController: UIViewController {
     
     @objc func completeButtonClicked() {
         if nickNameSettingViewModel.nicknameErrorMessage == .noError {
-            // 현재 날짜 가져오기 -> 가입일
             let joinDate = DateFormatter.dotDateFormatter.string(from: Date())
             DataStorage.save(value: joinDate, key: .joinDate)
             if let userName = nicknameSettingView.nicknameTextField.text {
@@ -115,9 +114,7 @@ final class NicknameSettingViewController: UIViewController {
             DataStorage.save(value: true, key: .isExistUser)
             
             if let userTempProfileImageName = DataStorage.userTempProfileImageName {
-                // 설정한 프로필 이미지 UserDefaults에 저장
                 DataStorage.save(value: userTempProfileImageName, key: .profileImage)
-                // 임시저장소 비우기
                 DataStorage.userTempProfileImageName = nil
             }
             

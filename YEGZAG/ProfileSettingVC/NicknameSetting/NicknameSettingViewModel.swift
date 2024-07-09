@@ -16,7 +16,7 @@ enum NicknameErrorMessage: String {
 }
 
 class NicknameSettingViewModel {
-    var inputText: Observable<String?> = Observable("")
+    var inputText = Observable("")
     var outputValidationText = Observable("")
     var outputValidColor = Observable(false)
     var nicknameErrorMessage: NicknameErrorMessage = .empty
@@ -28,7 +28,7 @@ class NicknameSettingViewModel {
     }
     
     private func validation() {
-        guard let inputText = inputText.value else { return }
+        let inputText = inputText.value
         
         var errors: [NicknameErrorMessage] = []
         
@@ -53,7 +53,7 @@ class NicknameSettingViewModel {
         } else {
             outputValidColor.value = true
             outputValidationText.value = NicknameErrorMessage.noError.rawValue
+            nicknameErrorMessage = .noError
         }
-        
     }
 }
