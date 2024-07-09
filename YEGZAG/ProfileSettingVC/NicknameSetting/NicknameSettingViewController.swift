@@ -16,9 +16,6 @@ final class NicknameSettingViewController: UIViewController {
     var saveButtonTintColor: UIColor = .clear
     var isSaveButtonEnabled: Bool = false
     var viewType: ViewType = .new
-    
-    var nicknameErrorMessage: NicknameErrorMessage = .empty
-    
 
     enum ViewType {
         case new // 처음
@@ -103,39 +100,40 @@ final class NicknameSettingViewController: UIViewController {
     }
     
     @objc func completeButtonClicked() {
-        guard nicknameErrorMessage == .noError else { return }
-        // 현재 날짜 가져오기 -> 가입일
-        let joinDate = DateFormatter.dotDateFormatter.string(from: Date())
-        DataStorage.save(value: joinDate, key: .joinDate)
-        if let userName = nicknameSettingView.nicknameTextField.text {
-            DataStorage.save(value: userName, key: .name)
+        if nickNameSettingViewModel.nicknameErrorMessage == .noError {
+            // 현재 날짜 가져오기 -> 가입일
+            let joinDate = DateFormatter.dotDateFormatter.string(from: Date())
+            DataStorage.save(value: joinDate, key: .joinDate)
+            if let userName = nicknameSettingView.nicknameTextField.text {
+                DataStorage.save(value: userName, key: .name)
+            }
+            
+            DataStorage.save(value: true, key: .isExistUser)
+            
+            if let userTempProfileImageName = DataStorage.userTempProfileImageName {
+                // 설정한 프로필 이미지 UserDefaults에 저장
+                DataStorage.save(value: userTempProfileImageName, key: .profileImage)
+                // 임시저장소 비우기
+                DataStorage.userTempProfileImageName = nil
+            }
+            
+            screenTransition(YEGZAGTabBarController())
         }
-        
-        DataStorage.save(value: true, key: .isExistUser)
-        
-        if let userTempProfileImageName = DataStorage.userTempProfileImageName {
-            // 설정한 프로필 이미지 UserDefaults에 저장
-            DataStorage.save(value: userTempProfileImageName, key: .profileImage)
-            // 임시저장소 비우기
-            DataStorage.userTempProfileImageName = nil
-        }
-        
-        screenTransition(YEGZAGTabBarController())
     }
     
     @objc func saveButtonClicked() {
-        guard nicknameErrorMessage == .noError else { return }
-        
-        if let userTempProfileImageName = DataStorage.userTempProfileImageName {
-            DataStorage.save(value: userTempProfileImageName, key: .profileImage)
-            DataStorage.userTempProfileImageName = nil
+        if nickNameSettingViewModel.nicknameErrorMessage == .noError {
+            if let userTempProfileImageName = DataStorage.userTempProfileImageName {
+                DataStorage.save(value: userTempProfileImageName, key: .profileImage)
+                DataStorage.userTempProfileImageName = nil
+            }
+            
+            if let userName = nicknameSettingView.nicknameTextField.text {
+                DataStorage.save(value: userName, key: .name)
+            }
+            
+            navigationController?.popViewController(animated: true)
         }
-        
-        if let userName = nicknameSettingView.nicknameTextField.text {
-            DataStorage.save(value: userName, key: .name)
-        }
-        
-        navigationController?.popViewController(animated: true)
     }
 }
 

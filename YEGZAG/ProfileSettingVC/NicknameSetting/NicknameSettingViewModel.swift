@@ -18,8 +18,7 @@ enum NicknameErrorMessage: String {
 class NicknameSettingViewModel {
     var inputText: Observable<String?> = Observable("")
     var outputValidationText = Observable("")
-    
-    private var nicknameErrorMessage: NicknameErrorMessage = .empty
+    var nicknameErrorMessage: NicknameErrorMessage = .empty
     
     init() {
         inputText.bind { _ in
