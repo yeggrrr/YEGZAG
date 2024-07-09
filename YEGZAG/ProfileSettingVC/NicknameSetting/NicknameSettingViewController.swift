@@ -9,24 +9,18 @@ import UIKit
 import SnapKit
 
 final class NicknameSettingViewController: UIViewController {
+    let nickNameSettingViewModel = NicknameSettingViewModel()
+    
     private let profileImageNameList = Array(0...11).map{ "profile_\($0)" }
     let nicknameSettingView = NicknameSettingView()
     var saveButtonTintColor: UIColor = .clear
     var isSaveButtonEnabled: Bool = false
-    private var nicknameErrorMessage: NicknameErrorMessage = .empty
     var viewType: ViewType = .new
+    
 
     enum ViewType {
         case new // 처음
         case update // 수정
-    }
-    
-    enum NicknameErrorMessage: String {
-        case empty = ""
-        case wrongLength = "2글자 이상 10글자 미만으로 설정해주세요"
-        case containsSpecialCharacter = "닉네임에 @, #, $, %는 포함할 수 없어요"
-        case containsNumber = "닉네임에 숫자는 포함할 수 없어요"
-        case noError = "사용할 수 있는 닉네임이에요"
     }
     
     override func viewDidLoad() {
@@ -41,6 +35,12 @@ final class NicknameSettingViewController: UIViewController {
         super.viewWillAppear(animated)
         
         configureUI()
+    }
+    
+    func bindData() {
+        nickNameSettingViewModel.outputValidationText.bind { value in
+            self.nicknameSettingView.noticeLabel.text = value
+        }
     }
     
     private func setInitialData() {
@@ -158,6 +158,8 @@ final class NicknameSettingViewController: UIViewController {
 
 extension NicknameSettingViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        nicknameCondition()
+        guard let text = textField.text else { return }
+        nickNameSettingViewModel.inputText.value = text
+        bindData()
     }
 }
