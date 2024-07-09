@@ -89,25 +89,6 @@ final class NicknameSettingViewController: UIViewController {
         nicknameSettingView.completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
     }
     
-    private func nicknameCondition() {
-        guard let text  = nicknameSettingView.nicknameTextField.text else { return }
-        for char in text {
-            if text.isEmpty {
-                nicknameErrorMessage = .empty
-            } else if text.count < 2 || text.count > 10 {
-                nicknameErrorMessage = .wrongLength
-            } else if text.contains("@") || text.contains("#") || text.contains("$") || text.contains("%") {
-                nicknameErrorMessage = .containsSpecialCharacter
-            } else if Int(String(char)) != nil {
-                nicknameErrorMessage = .containsNumber
-            } else {
-                nicknameErrorMessage = .noError
-            }
-        }
-        
-        nicknameSettingView.noticeLabel.text = nicknameErrorMessage.rawValue
-    }
-    
     private func profileTabGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
         nicknameSettingView.profileTabGestureView.addGestureRecognizer(tapGesture)
